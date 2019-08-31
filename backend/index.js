@@ -3,9 +3,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const app = require('./app')
+const route = require('./route');
+const path = require("path");
 
-const server = express();
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 var db = 'mongodb+srv://khayrul1234:khayrul1234@cluster0-q6u9x.mongodb.net/test?retryWrites=true';
 var db0 = 'mongodb+srv://khayrul123:khayrul123@cluster0-6kqzz.mongodb.net/test?retryWrites=true';
@@ -17,12 +20,24 @@ mongoose.set('useCreateIndex', true);
 
 mongoose.connect(db, { useNewUrlParser: true });
 
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
     extended: true,
 }));
 
-server.use('', app);
+app.use('', route);
+
+app.use(express.static(path.join(__dirname, '../')));
+
+var user = 0;
+io.sockets.on('connection', function(socket) {
+    user++;
+    console.log(user + ' user connected');
+    socket.on('disconnect', function() {
+        user--;
+        console.log(user + ' user connected');
+    });
+});
 
 const port = 4444;
 server.listen(port, function() {
