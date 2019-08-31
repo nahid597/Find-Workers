@@ -3,9 +3,13 @@ const router = express.Router();
 const Worker = require('../models/worker.model');
 const operation = require('../operation/operation');
 
-
 router.get('', function(req, res) {
-    operation.findInf(res, Worker, req.query);
+    operation.findInf(Worker, req.query, function(err, data) {
+        if (err)
+            res.status(500).json(err);
+        else
+            res.status(200).json(data);
+    });
 });
 
 router.post('', function(req, res) {
@@ -15,15 +19,30 @@ router.post('', function(req, res) {
     for (var key in req.body)
         newWorker[key] = req.body[key];
 
-    operation.insertData(res, newWorker);
+    operation.insertData(newWorker, function(err) {
+        if (err)
+            res.status(500).json(err);
+        else
+            res.status(200).json('Successfull');
+    });
 });
 
 router.delete('', function(req, res) {
-    operation.deleteData(res, Worker, req.query);
+    operation.deleteData(Worker, req.query, function(err) {
+        if (err)
+            res.status(500).json(err);
+        else
+            res.status(200).json('Successfull');
+    });
 });
 
 router.put('', function(req, res) {
-    operation.updateData(res, Worker, { _id: req.body._id }, req.body);
+    operation.updateData(Worker, { _id: req.body._id }, req.body, function(err) {
+        if (err)
+            res.status(500).json(err);
+        else
+            res.status(200).json('Successfull');
+    });
 });
 
 

@@ -1,41 +1,28 @@
 //Find data from a database
-function findInf(res, model, query) {
+function findInf(model, query, callback) {
     model.find(query)
         .exec(function(err, data) {
-            if (err)
-                res.status(404).json(err.errmsg);
-            else
-                res.status(200).json(data);
+            callback(err, data);
         });
 }
 
 //Insert into a database
-function insertData(res, model) {
+function insertData(model, callback) {
     model.save(function(err) {
-        if (err)
-            res.status(500).json(err);
-        else
-            res.status(200).json('Inserted');
+        callback(err);
     });
 }
 
 //Delete data from database
-function deleteData(res, model, query) {
+function deleteData(model, query, callback) {
     model.remove(query, function(err) {
-        if (err)
-            res.status(500).json(err.errmsg);
-
-        else
-            res.status(200).json('deleted');
+        callback(data);
     });
 }
 
-function updateData(res, model, query, newData) {
-    model.findOneAndUpdate(query, newData, { upsert: true }, function(err, doc) {
-        if (err)
-            return res.send(500, { error: err });
-
-        return res.send("succesfully saved");
+function updateData(model, query, newData, callback) {
+    model.findOneAndUpdate(query, newData, { upsert: true }, function(err) {
+        callback(err);
     });
 }
 
