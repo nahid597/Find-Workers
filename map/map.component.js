@@ -316,3 +316,16 @@ function generatedHtmlelemnets(id,name, category, phone) {
      
   }
 
+  function singleSelectChangeText() {
+    //Getting Value
+    
+
+    var selObj = document.getElementById("singleSelectTextDDJS");
+    var setValue = selObj.options[selObj.selectedIndex].value;
+     console.log(setValue);
+
+    
+    //Setting Value
+    // document.getElementById("textFieldTextJS").value = selValue;
+}
+
