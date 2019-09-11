@@ -31,18 +31,7 @@ var workerSchema = new Schema({
         default: false
     },
 
-    Coordinate_self: {
-        x: {
-            type: Number,
-            default: 0.00,
-        },
-        y: {
-            type: Number,
-            default: 0.00,
-        }
-    },
-
-    Coordinate_user: {
+    Coordinate: {
         x: {
             type: Number,
             default: 0.00,
