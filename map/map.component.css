@@ -10,7 +10,7 @@
     margin: 2%;
     width: 35%;
     height: 25%;
-     top: 10%;
+     top: 15%;
      bottom: 5%; 
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.9);
@@ -24,3 +24,19 @@
   .duration {
     font-size: 2em;
   }
+
+  .mr-sm-2
+  {
+    width: 60%;
+    height: 20%;
+  }
+  
+  .btn-outline-secondary
+  {
+    margin: 2px;
+  }
+
+  .btn-sm {
+    margin: 2px
+  }
+

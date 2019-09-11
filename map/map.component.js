@@ -44,6 +44,10 @@ function initializeMap() {
         });
       });
     }
+    else
+    {
+      alert("please turn on your location service...");
+    }
 
     this.buildMap();
 
@@ -242,13 +246,16 @@ map.on('load', function () {
     
 }
 
+var popupCount = 0;
+
+
 function workerMarker(lng, lat,id, name, category, phone)
 {
 
      popup[id] = new mapboxgl.Popup({
         offset: 38,
-        closeOnClick: false,
-  
+        //closeOnClick: false,
+        
       })
        // .setHTML()
       .setHTML(generatedHtmlelemnets(id,name, category, phone));
@@ -308,4 +315,17 @@ function generatedHtmlelemnets(id,name, category, phone) {
   {
      
   }
+
+  function singleSelectChangeText() {
+    //Getting Value
+    
+
+    var selObj = document.getElementById("singleSelectTextDDJS");
+    var setValue = selObj.options[selObj.selectedIndex].value;
+     console.log(setValue);
+
+    
+    //Setting Value
+    // document.getElementById("textFieldTextJS").value = selValue;
+}
 
