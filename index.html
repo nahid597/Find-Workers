@@ -22,10 +22,6 @@
         $(function() {
             $("#navbarComponent").load("navbar/navbar.component.html");
         });
-        $(function () {
-           $("#homeComponent").load("home/home.component.html");
-        });
-
         let myData = JSON.parse(localStorage.getItem('status'));
     
         if(myData == null)
