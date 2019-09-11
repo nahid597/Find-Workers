@@ -1,4 +1,3 @@
-/* This will run main server and connect to the database.*/
 const server = require("./server");
 const io = require('socket.io')(server);
 
@@ -22,6 +21,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('connect_me', function(data) {
+        console.log(data);
         if (data.worker_id != null) {
             socket.id = data.user_id;
             cuser_socket[socket.id] = socket;
@@ -29,6 +29,11 @@ io.sockets.on('connection', function(socket) {
             socket.id = data.user_id;
             fuser_socket[socket.id] = socket;
         }
+    });
+
+    socket.on('worker_reconnect', function(data) {
+        socket.id = data.worker_id;
+        worker_socket[socket.id] = socket;
     });
 
     socket.on('login', function(data) {
@@ -45,12 +50,25 @@ io.sockets.on('connection', function(socket) {
 
 
     socket.on('newLocation', function(data) {
-        if (cuser_socket[data.id] != undefined) {
-
+        if (cuser_socket[data.user_id] != undefined) {
+            worker_socket[data.worker_id].emit('newLocation', data);
+        } else if (avail[data.worker_id] != undefined) {
+            fuser_socket.forEach(function(user_soc) {
+                user_soc.emit('newLocation', {});
+            });
+        } else if (busy[data.worker_id] != undefined) {
+            cuser_socket[data.user_id].emit('newLocation', data);
         }
-    })
+    });
+
     console.log(user + ' user connected');
     socket.on('disconnect', function() {
+        if (worker_socket[socket.id] != undefined)
+            delete worker_socket[socket.id];
+        if (fuser_socket[socket.id] != undefined)
+            delete fuser_socket[socket.id];
+        if (cuser_socket[socket.id] != undefined)
+            delete cuser_socket[socket.id];
         user--;
         console.log(user + ' user connected');
     });
