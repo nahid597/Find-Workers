@@ -21,12 +21,66 @@ var success = 0;
 
 this.initializeMap();
 
+
+// read data from database
+
+var HttpClient =  function() {
+  this.get =  function(aUrl, aCallback) {
+      var anHttpRequest = new XMLHttpRequest();
+      anHttpRequest.onreadystatechange = function() { 
+          if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+              aCallback(anHttpRequest.responseText);
+      };
+
+      anHttpRequest.open( "GET", aUrl, true );            
+      anHttpRequest.send( null );
+  };
+};
+
+// var data = httpGet('http://localhost:4487/admin/workers');
+// console.log(data);
+
+  var dbElementsCount = 0;
+  var storeDbElements;
+
+var client = new HttpClient();
+client.get('http://localhost:4487/admin/workers?Active_status=true', function(response) {
+    // do something with response
+     this.storeDbElements  =  JSON.parse(response);
+    //console.log(store.length);
+    //console.log(store[1].Coordinate.x);
+    this.dbElementsCount = this.storeDbElements.length;
+    //console.log(this.dbElementsCount);
+
+    this.showMarkersFromDatabase(this.dbElementsCount);
+
+    // call workersmarkers
+
+    //  for(var id1 = 1; id1 <= 5; id1++)
+    //  {
+    //   this.workerMarker(88.60580 + p, 24.366079199999998, id1, 'nahid', 'Engineer', '01783272160');
+    //   p += 0.01;
+    //  }
+});
+
+   function showMarkersFromDatabase(numbers)
+   {
+     console.log("wrker: " + this.storeDbElements[0].Name);
+
+     for (var i = 0; i < numbers; i++)
+      {
+        //if(this.storeDbElements[i].Active_status)
+          this.workerMarker(this.storeDbElements[i].Coordinate.y, this.storeDbElements[i].Coordinate.x, this.storeDbElements[i].Phone, this.storeDbElements[i].Name , this.storeDbElements[i].Catagory, this.storeDbElements[i].Phone);
+      }
+   }
+
+
 var canvas = map.getCanvasContainer();
 
-for (var i = 1; i <= 5; i++) {
-  this.workerMarker(88.60580 + p, 24.366079199999998, i, 'nahid', 'Engineer', '01783272160');
-  p += 0.01;
-}
+// for (var i = 1; i <= this.dbElementsCount; i++) {
+//   this.workerMarker(88.60580 + p, 24.366079199999998, i, 'nahid', 'Engineer', '01783272160');
+//   p += 0.01;
+// }
 
 function initializeMap() {
   /// locate the user
@@ -168,7 +222,7 @@ function finishedWork(){
 
 function userMarker() {
 
-  alert('please click on marker to get details of worker');
+ // alert('please click on marker to get details of worker');
   var size = 110;
 
   var pulsingDot = {
@@ -280,8 +334,8 @@ function workerMarker(lng, lat, id, name, category, phone) {
     })
       // .setHTML()
       .setHTML(generatedHtmlelemnets(id, name, category, phone));
-
-    this.marker[i] = new mapboxgl.Marker({
+      console.log("id:" + id);
+    this.marker[id] = new mapboxgl.Marker({
       color: 'red',
     })
       .setLngLat([lng, lat])
@@ -297,7 +351,8 @@ function workerMarker(lng, lat, id, name, category, phone) {
 
 
 function generatedHtmlelemnets(id, name, category, phone) {
-
+    
+  console.log(typeof(id));
   // var LngLat = this.marker[id].getLngLat();
   // console.log(LngLat.lng);
   // console.log(LngLat.lat);
@@ -307,15 +362,16 @@ function generatedHtmlelemnets(id, name, category, phone) {
   html += "<h3>" + category + "</h3>";
   html += "<h4>" + '<a href="tel:' + phone + '">call to worker</a>' + "</h4>";
   // html += "<button type='button' onclick= 'confirmToWorker()'>This Button</button>"
-  html += "<div>" + '<button type = "button" class = "btn btn-success" onClick = "confirmToWorker(' + id + ')"> confirm </button>' + "</div>"
+  html += "<div>" + '<button type = "button" class = "btn btn-success" onClick = "confirmToWorker(\'' + id + '\')"> confirm </button>' + "</div>"
   //console.log(html);
 
   return html;
 }
 
-function confirmToWorker(id) {
-  // console.log(id);
-  var lnglat = this.marker[id].getLngLat();
+function confirmToWorker(id1) {
+   console.log(id1);
+   console.log(typeof(id1));
+  var lnglat = this.marker[id1].getLngLat();
     // console.log(lnglat.lng);
     // console.log(lnglat.lat);
   //getRoute(lnglat.lng, lnglat.lat);
@@ -327,7 +383,7 @@ function confirmToWorker(id) {
   getRoute(coords);
 
   this.getInstractionsOfDrive();
-  popup[id].remove();
+  popup[id1].remove();
 
   success = 1;
 
