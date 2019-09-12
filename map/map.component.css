@@ -9,7 +9,7 @@
     position: absolute;
     margin: 2%;
     width: 35%;
-    height: 25%;
+    height: 30%;
      top: 15%;
      bottom: 5%; 
     padding: 10px;
@@ -19,7 +19,12 @@
     font-size: 0.8em;
     line-height: 2em;
     /* display: none; */
+    
   }
+
+ .btn-danger{
+   margin: 5px;
+ }
   
   .duration {
     font-size: 2em;
