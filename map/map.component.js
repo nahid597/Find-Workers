@@ -24,55 +24,53 @@ this.initializeMap();
 
 // read data from database
 
-var HttpClient =  function() {
-  this.get =  function(aUrl, aCallback) {
-      var anHttpRequest = new XMLHttpRequest();
-      anHttpRequest.onreadystatechange = function() { 
-          if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-              aCallback(anHttpRequest.responseText);
-      };
+var HttpClient = function () {
+  this.get = function (aUrl, aCallback) {
+    var anHttpRequest = new XMLHttpRequest();
+    anHttpRequest.onreadystatechange = function () {
+      if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+        aCallback(anHttpRequest.responseText);
+    };
 
-      anHttpRequest.open( "GET", aUrl, true );            
-      anHttpRequest.send( null );
+    anHttpRequest.open("GET", aUrl, true);
+    anHttpRequest.send(null);
   };
 };
 
 // var data = httpGet('http://localhost:4487/admin/workers');
 // console.log(data);
 
-  var dbElementsCount = 0;
-  var storeDbElements;
+var dbElementsCount = 0;
+var storeDbElements;
 
 var client = new HttpClient();
-client.get('http://localhost:4487/admin/workers?Active_status=true', function(response) {
-    // do something with response
-     this.storeDbElements  =  JSON.parse(response);
-    //console.log(store.length);
-    //console.log(store[1].Coordinate.x);
-    this.dbElementsCount = this.storeDbElements.length;
-    //console.log(this.dbElementsCount);
+client.get('http://localhost:4487/admin/workers?Active_status=true', function (response) {
+  // do something with response
+  this.storeDbElements = JSON.parse(response);
+  //console.log(store.length);
+  //console.log(store[1].Coordinate.x);
+  this.dbElementsCount = this.storeDbElements.length;
+  //console.log(this.dbElementsCount);
 
-    this.showMarkersFromDatabase(this.dbElementsCount);
+  this.showMarkersFromDatabase(this.dbElementsCount);
 
-    // call workersmarkers
+  // call workersmarkers
 
-    //  for(var id1 = 1; id1 <= 5; id1++)
-    //  {
-    //   this.workerMarker(88.60580 + p, 24.366079199999998, id1, 'nahid', 'Engineer', '01783272160');
-    //   p += 0.01;
-    //  }
+  //  for(var id1 = 1; id1 <= 5; id1++)
+  //  {
+  //   this.workerMarker(88.60580 + p, 24.366079199999998, id1, 'nahid', 'Engineer', '01783272160');
+  //   p += 0.01;
+  //  }
 });
 
-   function showMarkersFromDatabase(numbers)
-   {
-     console.log("wrker: " + this.storeDbElements[0].Name);
+function showMarkersFromDatabase(numbers) {
+  console.log("wrker: " + numbers);
 
-     for (var i = 0; i < numbers; i++)
-      {
-        //if(this.storeDbElements[i].Active_status)
-          this.workerMarker(this.storeDbElements[i].Coordinate.y, this.storeDbElements[i].Coordinate.x, this.storeDbElements[i].Phone, this.storeDbElements[i].Name , this.storeDbElements[i].Catagory, this.storeDbElements[i].Phone);
-      }
-   }
+  for (var i = 0; i < numbers; i++) {
+    //if(this.storeDbElements[i].Active_status)
+    this.workerMarker(this.storeDbElements[i].Coordinate.y, this.storeDbElements[i].Coordinate.x, this.storeDbElements[i]._id, this.storeDbElements[i].Name, this.storeDbElements[i].Catagory, this.storeDbElements[i].Rating, this.storeDbElements[i].Phone);
+  }
+}
 
 
 var canvas = map.getCanvasContainer();
@@ -108,7 +106,7 @@ function buildMap() {
   map = new mapboxgl.Map({
     container: 'map',
     style: this.style,
-    zoom: 13,
+    zoom: 10,
     center: [lng, lat]
 
   });
@@ -148,8 +146,8 @@ function getRoute(end) {
       }
     };
     // if the route already exists on the map, reset it using setData
-    
-    
+
+
 
     if (map.getSource('route')) {
       map.getSource('route').setData(geojson);
@@ -184,45 +182,95 @@ function getRoute(end) {
 
     var instructions = document.getElementById('instructions');
     //var finishedWork = document.getElementById('finishedWork');
+    var ratingPopup = document.getElementById("ratingPopup");
     var steps = data.legs[0].steps;
     $("#instructions").hide();
+    $("#ratingPopup").hide();
     //$('#finishedWork').hide();
     var tripInstructions = [];
     for (var i = 0; i < steps.length; i++) {
       tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
-      instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor(data.duration / 60) + ' min 🚴 </span>' 
-      + '<button type="button" class="btn btn-danger btn-sm" onClick = "finishedWork()"> Finished Work</button>';
-     
+      instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor(data.duration / 60) + ' min 🚴 </span>'
+        + '<button type="button" class="btn btn-primary btn-sm" onClick = "finishedWork()"> Finished Work</button>';
+
     }
 
     if (success) {
-     // $('#closeButton').show();
+      // $('#closeButton').show();
       $('#instructions').show();
-     // map.getSource('route').hide();
+      // map.getSource('route').hide();
 
     }
 
-   
+
     // success = 0;
 
+    ratingPopup.innerHTML = '<h4 style = "color : #000099; font-weight: bold"> please give rating to worker: </h4>'
+      + '<span class="fa fa-star checked1" id= "1" onClick = "starmark(' + 1 + ')" style = "font-size:30px; cursor: pointer "></span>'
+      + '<span class="fa fa-star checked1" id= "2" onClick = "starmark(' + 2 + ')" style = "font-size:30px; cursor: pointer "></span>'
+      + '<span class="fa fa-star checked1" id= "3" onClick = "starmark(' + 3 + ')" style = "font-size:30px; cursor: pointer "></span>'
+      + '<span class="fa fa-star checked1" id= "4" onClick = "starmark(' + 4 + ')" style = "font-size:30px; cursor: pointer "></span>'
+      + '<span class="fa fa-star checked1" id= "5" onClick = "starmark(' + 5 + ')" style = "font-size:30px; cursor: pointer "></span>';
+
+    ratingPopup.innerHTML += '<div>' + '<button class = "btn btn-primary" onClick = "submitStars()"> submit </button>' + '</div>';
 
   };
   req.send();
 
 }
 
-function finishedWork(){
- // console.log("close button");
- $("#instructions").hide();
- location.reload(true);
- 
+// rating count
+var rating = 0;
+var storeIdofRating = 0;
+
+function starmark(item) {
+  var count = item;
+  rating = count;
+  //console.log(item);
+  //  var subid = item.id.substring(0,1);
+  //console.log(subid);
+  for (var i = 0; i < 5; i++) {
+    if (i < count) {
+      document.getElementById((i + 1)).style.color = "red";
+    }
+    else {
+      document.getElementById((i + 1)).style.color = "black";
+    }
+  }
+}
+
+
+// sumbit rating bar 
+
+function submitStars() {
+   console.log("rating id: "+this.storeIdofRating);
+   console.log("rating: " + rating);
+   
+   // reload current page
+
+   location.reload(true);
+}
+
+
+function finishedWork() {
+  // console.log("close button");
+  $("#instructions").hide();
+
+  //  var popup = document.getElementById("popup");
+  //popup.style.display = 'block';
+  $("#ratingPopup").show();
+
+  //popup.innerHTML = '<div>'+ "please give rating to worker "+'</div>';
+
+  //location.reload(true);
+
 }
 
 
 
 function userMarker() {
 
- // alert('please click on marker to get details of worker');
+  // alert('please click on marker to get details of worker');
   var size = 110;
 
   var pulsingDot = {
@@ -315,33 +363,43 @@ function userMarker() {
 
 var popupCount = 0;
 
-var worklng , worklat;
+var worklng, worklat;
 
-function workerMarker(lng, lat, id, name, category, phone) {
+
+
+function workerMarker(lng, lat, id, name, category, rating, phone) {
 
   // navigator.geolocation.watchPosition(position => {
 
   //   lng = position.coords.longitude;
   //   lat = position.coords.latitude;
 
-    //console.log("w1: " + lng);
-    //console.log("w2:" + lat);
+  //console.log("w1: " + lng);
+  //console.log("w2:" + lat);
 
-    popup[id] = new mapboxgl.Popup({
-      offset: 38,
-      //closeOnClick: false,
+  var el = document.createElement('div');
+  var male = document.createElement('i');
+  male.className = 'fa fa-male';
+  male.style = "font-size:35px";
+  el.appendChild(male);
 
-    })
-      // .setHTML()
-      .setHTML(generatedHtmlelemnets(id, name, category, phone));
-      console.log("id:" + id);
-    this.marker[id] = new mapboxgl.Marker({
-      color: 'red',
-    })
-      .setLngLat([lng, lat])
-      .setPopup(popup[id])
-      //.getLngLat()
-      .addTo(map);
+
+  
+  //var maleSymbol = document.getElementById("maleSymbol");
+
+  popup[id] = new mapboxgl.Popup({
+    offset: 38,
+    //closeOnClick: false,
+
+  })
+    // .setHTML()
+    .setHTML(generatedHtmlelemnets(id, name, category, rating, phone));
+  console.log("id:" + id);
+  this.marker[id] = new mapboxgl.Marker(el)
+    .setLngLat([lng, lat])
+    .setPopup(popup[id])
+    //.getLngLat()
+    .addTo(map);
 
   //});
 
@@ -350,16 +408,17 @@ function workerMarker(lng, lat, id, name, category, phone) {
 
 
 
-function generatedHtmlelemnets(id, name, category, phone) {
-    
-  console.log(typeof(id));
+function generatedHtmlelemnets(id, name, category, rating, phone) {
+
+  console.log(typeof (id));
   // var LngLat = this.marker[id].getLngLat();
   // console.log(LngLat.lng);
   // console.log(LngLat.lat);
   var html = "";
 
-  html += "<h3>" + name + "</h3>";
-  html += "<h3>" + category + "</h3>";
+  html += "<h5 style = 'color: green'>" + "Name: " + name + "</h5>";
+  html += "<h6 style = 'color: green'>" + "Category: " + category + "</h6>";
+  html += "<h6  style = 'color: red'>" + "<span class='fa fa-star checked' style = 'font-size:20px'></span>" + " : " + rating + " / 5" + " </h6>";
   html += "<h4>" + '<a href="tel:' + phone + '">call to worker</a>' + "</h4>";
   // html += "<button type='button' onclick= 'confirmToWorker()'>This Button</button>"
   html += "<div>" + '<button type = "button" class = "btn btn-success" onClick = "confirmToWorker(\'' + id + '\')"> confirm </button>' + "</div>"
@@ -369,11 +428,15 @@ function generatedHtmlelemnets(id, name, category, phone) {
 }
 
 function confirmToWorker(id1) {
-   console.log(id1);
-   console.log(typeof(id1));
+  console.log(id1);
+  console.log(typeof (id1));
+  
+  // id store for rating work
+  this.storeIdofRating = id1;
+
   var lnglat = this.marker[id1].getLngLat();
-    // console.log(lnglat.lng);
-    // console.log(lnglat.lat);
+  // console.log(lnglat.lng);
+  // console.log(lnglat.lat);
   //getRoute(lnglat.lng, lnglat.lat);
 
   var ln = lnglat.lng;

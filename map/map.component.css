@@ -45,3 +45,34 @@
     margin: 2px
   }
 
+  #ratingPopup {
+    position: absolute;
+    margin: 2%;
+    width: 65%;
+    height: 35%;
+     top: 15%;
+     bottom: 5%; 
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow-y: scroll;
+    font-family: sans-serif;
+    font-size: 0.8em;
+    line-height: 2em;
+    /* display: none; */
+  }
+
+  .checked{
+    color: red;
+    font-size: 40px;
+  }
+  .checked1
+  {
+    columns: #FFFF33;
+  }
+
+  .fa-male{
+    color: red;
+    /* height: 20em;
+    width: 5em; */
+    /* background-size: 100% 100%; */
+  }
