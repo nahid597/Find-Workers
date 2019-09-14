@@ -45,8 +45,14 @@ var workerSchema = new Schema({
     Date: { type: Date, default: Date.now },
 
     Rating: {
-        type: Number,
-        default: 0
+        rating: {
+            type: Number,
+            default: 0
+        },
+        count: {
+            type: Number,
+            default: 0
+        }
     }
 });
 
