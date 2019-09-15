@@ -2,7 +2,9 @@
 function findInf(model, query, callback) {
     model.find(query)
         .exec(function(err, data) {
-            callback(err, data);
+            if (err)
+                return callback(err);
+            return callback(data);
         });
 }
 
@@ -10,8 +12,8 @@ function findInf(model, query, callback) {
 function insertData(model, callback) {
     model.save(function(err) {
         if (err)
-            callback(err);
-        callback(true);
+            return callback(err);
+        return callback(true);
     });
 }
 
@@ -19,16 +21,16 @@ function insertData(model, callback) {
 function deleteData(model, query, callback) {
     model.remove(query, function(err) {
         if (err)
-            callback(err);
-        callback(true);
+            return callback(err);
+        return callback(true);
     });
 }
 
 function updateData(model, query, newData, callback) {
     model.findOneAndUpdate(query, newData, { upsert: true }, function(err) {
         if (err)
-            callback(err);
-        callback(true);
+            return callback(err);
+        return callback(true);
     });
 }
 
