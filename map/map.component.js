@@ -47,7 +47,7 @@ var client = new HttpClient();
 client.get('http://localhost:4487/admin/workers?Active_status=true', function (response) {
   // do something with response
   this.storeDbElements = JSON.parse(response);
-  //console.log(store.length);
+  console.log(storeDbElements);
   //console.log(store[1].Coordinate.x);
   this.dbElementsCount = this.storeDbElements.length;
   //console.log(this.dbElementsCount);
@@ -184,20 +184,21 @@ function getRoute(end) {
     //var finishedWork = document.getElementById('finishedWork');
     var ratingPopup = document.getElementById("ratingPopup");
     var steps = data.legs[0].steps;
-    $("#instructions").hide();
-    $("#ratingPopup").hide();
+    //$("#instructions").hide();
+    //$("#ratingPopup").hide();
     //$('#finishedWork').hide();
     var tripInstructions = [];
     for (var i = 0; i < steps.length; i++) {
       tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
       instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor(data.duration / 60) + ' min 🚴 </span>'
-        + '<button type="button" class="btn btn-primary btn-sm" onClick = "finishedWork()"> Finished Work</button>';
+        + '<button type="button" style = "margin:5px" class="btn btn-primary btn-sm" onClick = "finishedWork()"> Finished Work</button>';
 
     }
 
     if (success) {
       // $('#closeButton').show();
-      $('#instructions').show();
+      document.getElementById("instructions").style.visibility = 'visible';
+      //$('#instructions').show();
       // map.getSource('route').hide();
 
     }
@@ -212,7 +213,7 @@ function getRoute(end) {
       + '<span class="fa fa-star checked1" id= "4" onClick = "starmark(' + 4 + ')" style = "font-size:30px; cursor: pointer "></span>'
       + '<span class="fa fa-star checked1" id= "5" onClick = "starmark(' + 5 + ')" style = "font-size:30px; cursor: pointer "></span>';
 
-    ratingPopup.innerHTML += '<div>' + '<button class = "btn btn-primary" onClick = "submitStars()"> submit </button>' + '</div>';
+    ratingPopup.innerHTML += '<div>' + '<button style = "margin:5px" class = "btn btn-primary" onClick = "submitStars()"> submit </button>' + '</div>';
 
   };
   req.send();
@@ -256,9 +257,11 @@ function finishedWork() {
   // console.log("close button");
   $("#instructions").hide();
 
-  //  var popup = document.getElementById("popup");
+    var popup = document.getElementById("ratingPopup");
+
+    popup.style.visibility = 'visible';
   //popup.style.display = 'block';
-  $("#ratingPopup").show();
+  //$("#ratingPopup").show();
 
   //popup.innerHTML = '<div>'+ "please give rating to worker "+'</div>';
 
