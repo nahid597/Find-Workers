@@ -24,7 +24,8 @@ this.initializeMap();
 
 // read data from database
 
-var HttpClient = function () {
+var HttpClient = function () 
+{
   this.get = function (aUrl, aCallback) {
     var anHttpRequest = new XMLHttpRequest();
     anHttpRequest.onreadystatechange = function () {
@@ -68,7 +69,7 @@ function showMarkersFromDatabase(numbers) {
 
   for (var i = 0; i < numbers; i++) {
     //if(this.storeDbElements[i].Active_status)
-    this.workerMarker(this.storeDbElements[i].Coordinate.y, this.storeDbElements[i].Coordinate.x, this.storeDbElements[i]._id, this.storeDbElements[i].Name, this.storeDbElements[i].Catagory, this.storeDbElements[i].Rating, this.storeDbElements[i].Phone);
+    this.workerMarker(this.storeDbElements[i].Coordinate.y, this.storeDbElements[i].Coordinate.x, this.storeDbElements[i]._id, this.storeDbElements[i].Name, this.storeDbElements[i].Catagory, this.storeDbElements[i].Rating.rating, this.storeDbElements[i].Phone);
   }
 }
 
@@ -244,9 +245,56 @@ function starmark(item) {
 // sumbit rating bar 
 
 function submitStars() {
-   console.log("rating id: "+this.storeIdofRating);
-   console.log("rating: " + rating);
+
+  //  console.log("rating id: "+this.storeIdofRating);
+  //  console.log("rating: " + rating);
+
+   var putUrl = 'http://localhost:4487/admin/workers';
+
+   var dbrating =  this.storeDbElements[this.storeIdOfRatingWorker].Rating.rating;
+   var dbRatingCount = this.storeDbElements[this.storeIdOfRatingWorker].Rating.count;
+  //  console.log(dbrating);
+  //  console.log(dbRatingCount);
+
+   dbrating = dbrating * dbRatingCount;
    
+   if(rating != 0)
+      dbRatingCount ++;
+      
+   dbrating = (dbrating + rating)/dbRatingCount;
+  //  console.log(dbrating);
+  //  console.log(dbRatingCount);
+
+   var sendData = {
+     Rating: {
+       rating: dbrating,
+       count: dbRatingCount
+     },
+     _id: this.storeIdofRating
+
+   };
+
+  //  sendData.Rating.rating = dbrating;
+  //  sendData.Rating.count = dbRatingCount;
+  //  sendData._id = this.storeIdofRating;
+
+   var jsonSendData = JSON.stringify(sendData);
+
+   var xhr = new XMLHttpRequest();
+
+   xhr.open("PUT", putUrl, true);
+   xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+   
+   xhr.onload = function () {
+    var users = JSON.parse(xhr.responseText);
+    if (xhr.readyState == 4 && xhr.status == "200") {
+      console.table(users);
+    } else {
+      console.error(users);
+    }
+  };
+  xhr.send(jsonSendData);
+    
    // reload current page
 
    location.reload(true);
@@ -383,7 +431,7 @@ function workerMarker(lng, lat, id, name, category, rating, phone) {
   var el = document.createElement('div');
   var male = document.createElement('i');
   male.className = 'fa fa-male';
-  male.style = "font-size:35px";
+  male.style = "font-size:45px";
   el.appendChild(male);
 
 
@@ -397,7 +445,7 @@ function workerMarker(lng, lat, id, name, category, rating, phone) {
   })
     // .setHTML()
     .setHTML(generatedHtmlelemnets(id, name, category, rating, phone));
-  console.log("id:" + id);
+  //console.log("id:" + id);
   this.marker[id] = new mapboxgl.Marker(el)
     .setLngLat([lng, lat])
     .setPopup(popup[id])
@@ -413,7 +461,7 @@ function workerMarker(lng, lat, id, name, category, rating, phone) {
 
 function generatedHtmlelemnets(id, name, category, rating, phone) {
 
-  console.log(typeof (id));
+  //console.log(typeof (id));
   // var LngLat = this.marker[id].getLngLat();
   // console.log(LngLat.lng);
   // console.log(LngLat.lat);
@@ -421,7 +469,7 @@ function generatedHtmlelemnets(id, name, category, rating, phone) {
 
   html += "<h5 style = 'color: green'>" + "Name: " + name + "</h5>";
   html += "<h6 style = 'color: green'>" + "Category: " + category + "</h6>";
-  html += "<h6  style = 'color: red'>" + "<span class='fa fa-star checked' style = 'font-size:20px'></span>" + " : " + rating + " / 5" + " </h6>";
+  html += "<h6  style = 'color: red'>" + "<span class='fa fa-star checked' style = 'font-size:20px'></span>" + " : " + rating.toFixed(1) + " / 5" + " </h6>";
   html += "<h4>" + '<a href="tel:' + phone + '">call to worker</a>' + "</h4>";
   // html += "<button type='button' onclick= 'confirmToWorker()'>This Button</button>"
   html += "<div>" + '<button type = "button" class = "btn btn-success" onClick = "confirmToWorker(\'' + id + '\')"> confirm </button>' + "</div>"
@@ -430,9 +478,27 @@ function generatedHtmlelemnets(id, name, category, rating, phone) {
   return html;
 }
 
+var storeIdOfRatingWorker ;
+
 function confirmToWorker(id1) {
-  console.log(id1);
-  console.log(typeof (id1));
+ // console.log(this.storeDbElements[id1].Rating.rating);
+  //console.log(id1);
+  //console.log(typeof (id1));
+
+  //console.log(this.dbElementsCount);
+
+  var numberOfDbElements = this.dbElementsCount; 
+
+
+  for(var i = 0; i < numberOfDbElements; i++ )
+  {
+     if(id1 === this.storeDbElements[i]._id)
+     {
+        this.storeIdOfRatingWorker = i;
+        break;
+     }
+
+  }
   
   // id store for rating work
   this.storeIdofRating = id1;
