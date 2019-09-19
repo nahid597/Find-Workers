@@ -45,7 +45,8 @@ var dbElementsCount = 0;
 var storeDbElements;
 
 var client = new HttpClient();
-client.get('http://localhost:4487/admin/workers?Active_status=true', function (response) {
+
+this.client.get('http://localhost:4487/admin/workers?Active_status=true', function (response) {
   // do something with response
   this.storeDbElements = JSON.parse(response);
   console.log(storeDbElements);
@@ -191,7 +192,7 @@ function getRoute(end) {
     var tripInstructions = [];
     for (var i = 0; i < steps.length; i++) {
       tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
-      instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor(data.duration / 60) + ' min 🚴 </span>'
+      instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor((data.duration / 60)/60) + ' hour ' + Math.floor((data.duration / 60)%60) + ' min 🚴 </span>'
         + '<button type="button" style = "margin:5px" class="btn btn-primary btn-sm" onClick = "finishedWork()"> Finished Work</button>';
 
     }
@@ -322,7 +323,7 @@ function finishedWork() {
 function userMarker() {
 
   // alert('please click on marker to get details of worker');
-  var size = 110;
+  var size = 120;
 
   var pulsingDot = {
     width: size,
@@ -533,6 +534,38 @@ function singleSelectChangeText() {
   var selObj = document.getElementById("singleSelectTextDDJS");
   var setValue = selObj.options[selObj.selectedIndex].value;
   console.log(setValue);
+
+  // remove all markers from map
+
+  console.log(this.dbElementsCount);
+
+  for(var i = 0; i < this.dbElementsCount; i++)
+  {
+    var id = this.storeDbElements[i]._id;
+    //console.log(id);
+    this.marker[id].remove();
+  }
+
+  // show selected workers markers
+
+  this.client.get('http://localhost:4487/admin/workers?Active_status=true&Catagory='+setValue, function (response) {
+  // do something with response
+  this.storeDbElements = JSON.parse(response);
+  console.log(storeDbElements);
+  //console.log(store[1].Coordinate.x);
+  this.dbElementsCount = this.storeDbElements.length;
+  console.log("numerb agter select: " + this.dbElementsCount);
+
+  this.showMarkersFromDatabase(this.dbElementsCount);
+
+  // call workersmarkers
+
+  //  for(var id1 = 1; id1 <= 5; id1++)
+  //  {
+  //   this.workerMarker(88.60580 + p, 24.366079199999998, id1, 'nahid', 'Engineer', '01783272160');
+  //   p += 0.01;
+  //  }
+});
 
 
   //Setting Value
