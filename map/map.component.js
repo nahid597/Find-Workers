@@ -434,7 +434,7 @@ function workerMarker(lng, lat, id, name, category, rating, phone) {
   male.style = "font-size:45px";
   el.appendChild(male);
   console.log("nahid");
-    
+
   //var maleSymbol = document.getElementById("maleSymbol");
 
   popup[id] = new mapboxgl.Popup({
@@ -464,10 +464,24 @@ function generatedHtmlelemnets(id, name, category, rating, phone) {
   // var LngLat = this.marker[id].getLngLat();
   // console.log(LngLat.lng);
   // console.log(LngLat.lat);
+
+  console.log(category);
+
+  var storeCategory = "";
+
+  if(category === '0')
+     storeCategory = "কারেন্টের মিস্ত্রি";
+  else if(category === '1')
+      storeCategory = "গাড়ির মিস্ত্রি";
+  else if(category === '2')
+      storeCategory = "গ্যাসের চুলার মিস্ত্রি";
+  else if(category === '3')
+      storeCategory = "পানির লাইনের মিস্ত্রিরি";
+
   var html = "";
 
   html += "<h5 style = 'color: green'>" + "Name: " + name + "</h5>";
-  html += "<h6 style = 'color: green'>" + "Category: " + category + "</h6>";
+  html += "<h6 style = 'color: green'>" + "Category: " + storeCategory + "</h6>";
   html += "<h6  style = 'color: red'>" + "<span class='fa fa-star checked' style = 'font-size:20px'></span>" + " : " + rating.toFixed(1) + " / 5" + " </h6>";
   html += "<h4>" + '<a href="tel:' + phone + '">call to worker</a>' + "</h4>";
   // html += "<button type='button' onclick= 'confirmToWorker()'>This Button</button>"
