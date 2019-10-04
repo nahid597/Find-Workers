@@ -434,9 +434,8 @@ function workerMarker(lng, lat, id, name, category, rating, phone) {
   male.className = 'fa fa-male';
   male.style = "font-size:45px";
   el.appendChild(male);
-
-
-  
+  console.log("nahid");
+    
   //var maleSymbol = document.getElementById("maleSymbol");
 
   popup[id] = new mapboxgl.Popup({
