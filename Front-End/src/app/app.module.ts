@@ -20,6 +20,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { HelpComponent } from './component/help/help.component';
 import { UserRegisterComponent } from './component/user-register/user-register.component';
 import { SignupComponent } from './component/signup/signup.component';
+import { EarnComponent } from './component/earn/earn.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SignupComponent } from './component/signup/signup.component';
     RegisterComponent,
     HelpComponent,
     UserRegisterComponent,
-    SignupComponent
+    SignupComponent,
+    EarnComponent
   ],
   imports: [
     MatButtonModule,
@@ -61,6 +63,10 @@ import { SignupComponent } from './component/signup/signup.component';
       {
         path: 'user',
         component: UserRegisterComponent
+      },
+      {
+        path: 'earn',
+        component: EarnComponent
       }
     ])
   ],

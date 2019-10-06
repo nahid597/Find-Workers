@@ -1,113 +1,58 @@
-.font{
-    font-family: Comic Sans MS
+.resizeimage{
+    width: 100%;
+    height: auto;
 }
 
-a:hover {
-    text-decoration: none;
-}
-
-#sidebar{
-    transition-duration: 1.3s;
-}
-
-.color{
-    background: rgb(255, 196, 0);
-}
-
-.textcenter{
+.container {
+    position: relative;
     text-align: center;
     color: white;
-}
-
-.back{
-    background: black;
-    color: white;
-}
-
-.one{
-    z-index: 1;
-}
-
-.two{
+  }
+  
+  .bottom-left {
     position: absolute;
-    bottom: 0;
-    background: rgb(0, 0, 0); /* Fallback color */
-    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
-    color: #f1f1f1;
-    width: 100%;
-    padding: 2px;
-}
-
-.dropbtn {
-    background-color: black;
-    color: white;
-    padding: 16px;
-    font-size:2vw;
-    border: none;
-    text-align: right;
+    bottom: 8px;
+    left: 16px;
   }
   
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
+  .top-left {
     position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    top: 8px;
+    left: 16px;
   }
   
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
+  .top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+  }
+  
+  .bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+  }
+  
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .center {
     display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
   }
 
-  .control-slideshow{
-    left: 5%;
+  .card{
+    border: none;
   }
 
-  li{
-    display: inline-block; 
-    zoom: 1;
-    margin: 15px;
-  }
 
-  .textcolor{
-      color: white;
-      background: black;
-  }
-
-  .top{
-      overflow: hidden;
-  }
-  .responsive {
-    max-width: 400px;
-    max-height: 500px;
-  }
-  
-  .resizeimage{
-      max-width: 230px;
-      max-height: 250px;
-      padding: 15px;
-      margin: 15px;
-  }
-
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  .dropdown:hover .dropdown-content {display: block;}
-  
-  .dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-
-
-
-/*<![CDATA[*/
+  /*<![CDATA[*/
 @font-face{font-family:"fontfutura";src:url("https://fonts.googleapis.com/css?family=Open+Sans") format("ttf");font-weight:normal;font-style:normal;}
 a.btn-google{color:#fff}
 .btn{padding:10px 16px;margin:5px;font-size:18px;line-height:1.3333333;border-radius:6px;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid transparent;font-weight:500;text-decoration:none;display:inline-block}
