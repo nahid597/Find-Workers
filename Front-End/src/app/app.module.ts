@@ -17,6 +17,7 @@ import { LoginComponent } from './component/login/login.component';
 import { LoginService } from './service/login.service';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { RegisterComponent } from './component/register/register.component';
+import { HelpComponent } from './component/help/help.component';
 import { UserRegisterComponent } from './component/user-register/user-register.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
@@ -28,6 +29,7 @@ import { CustomerSectionComponent } from './component/help/customer-section/cust
     LoginComponent,
     NavbarComponent,
     RegisterComponent,
+    HelpComponent,
     UserRegisterComponent,
     SignupComponent,
     CustomerSectionComponent
