@@ -51,6 +51,11 @@
     border: none;
   }
 
+  .textcolor{
+    color: white;
+    background: black;
+  }
+
 
   /*<![CDATA[*/
 @font-face{font-family:"fontfutura";src:url("https://fonts.googleapis.com/css?family=Open+Sans") format("ttf");font-weight:normal;font-style:normal;}

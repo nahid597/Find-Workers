@@ -26,6 +26,9 @@ app.use('', route);
 
 app.use(express.static(path.join(__dirname, '../')));
 
+app.get('/',function(req,res){
+    res.sendFile(path.join(__dirname , '../FrontEnd/navbar/navbar.component.html'));
+});
 const port = 4444;
 server.listen(port, function() {
     console.log('app listening on port ' + port);
