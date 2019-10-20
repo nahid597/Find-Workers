@@ -39,12 +39,15 @@ a:hover {
 }
 
 .dropbtn {
-    background-color: black;
-    color: white;
-    padding: 16px;
-    font-size:2vw;
+    display: block;
+    width: 100%;
     border: none;
-    text-align: right;
+    padding: 14px 28px;
+    background-color: black;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    color: white;
   }
   
   .dropdown {
@@ -87,8 +90,8 @@ a:hover {
       overflow: hidden;
   }
   .responsive {
-    max-width: 400px;
-    max-height: 500px;
+    max-width: 230px;
+    max-height: 250px;
   }
   
   .resizeimage{
@@ -96,6 +99,10 @@ a:hover {
       max-height: 250px;
       padding: 15px;
       margin: 15px;
+  }
+
+  .card{
+      border: none;
   }
 
   .dropdown-content a:hover {background-color: #ddd;}

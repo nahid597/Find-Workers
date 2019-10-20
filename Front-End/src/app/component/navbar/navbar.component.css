@@ -84,6 +84,7 @@ a:hover {
       font-family: cursive;
       text-emphasis: emphasis;
       font-weight: bold;
+      
   }
   
   .dropdown-content a:hover {background-color: #ddd;}

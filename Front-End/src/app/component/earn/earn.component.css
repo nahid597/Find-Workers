@@ -56,6 +56,11 @@
     background: black;
   }
 
+  .imgswing{
+    max-width: 320px;
+    max-height: 350px;
+  }
+
 
   /*<![CDATA[*/
 @font-face{font-family:"fontfutura";src:url("https://fonts.googleapis.com/css?family=Open+Sans") format("ttf");font-weight:normal;font-style:normal;}
