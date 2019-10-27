@@ -81,3 +81,38 @@
     width: 5em; */
     /* background-size: 100% 100%; */
   }
+
+  .nameLink{
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+  }
+
+  
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+
+  .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    /* margin-top: 25px; */
+    font-size: 15px;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 25px;
+  }
+
+  .nameLink:hover .tooltiptext {
+    visibility: visible;
+  }
