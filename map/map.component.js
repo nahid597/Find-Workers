@@ -1,5 +1,5 @@
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibmFoaWQ1OTciLCJhIjoiY2p4ejZ5bHk1MDFiYzNubnRnbHZtb3JjMyJ9._66RgxKGbfjUgWDqwwl7Pw';
+mapboxgl.accessToken = 'pk.eyJ1IjoibmFoaWQ1OTciLCJhIjoiY2syMzQwZThqMHNnODNnbnIwZTYxbXptciJ9.pCJVXu5d-k1CDRZ9qJsFJQ';
 
 
 var map;
@@ -29,6 +29,7 @@ var HttpClient = function ()
   this.get = function (aUrl, aCallback) {
     var anHttpRequest = new XMLHttpRequest();
     anHttpRequest.onreadystatechange = function () {
+       //console.log(anHttpRequest.status);
       if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
         aCallback(anHttpRequest.responseText);
     };
@@ -108,7 +109,7 @@ function buildMap() {
   map = new mapboxgl.Map({
     container: 'map',
     style: this.style,
-    zoom: 10,
+    zoom: 13,
     center: [lng, lat]
 
   });
@@ -245,6 +246,8 @@ function starmark(item) {
 
 // sumbit rating bar 
 
+  var stroeDbRatingPerPerson = [];
+
 function submitStars() {
 
   //  console.log("rating id: "+this.storeIdofRating);
@@ -252,12 +255,15 @@ function submitStars() {
 
    var putUrl = 'http://localhost:4487/admin/workers';
 
-   var dbrating =  this.storeDbElements[this.storeIdOfRatingWorker].Rating.rating;
+    var dbrating =  this.storeDbElements[this.storeIdOfRatingWorker].Rating.rating;
    var dbRatingCount = this.storeDbElements[this.storeIdOfRatingWorker].Rating.count;
   //  console.log(dbrating);
   //  console.log(dbRatingCount);
+  stroeDbRatingPerPerson[this.storeIdOfRatingWorker] = dbrating;
 
    dbrating = dbrating * dbRatingCount;
+
+   //console.log("rating " + dbrating);
    
    if(rating != 0)
       dbRatingCount ++;
@@ -434,7 +440,7 @@ function workerMarker(lng, lat, id, name, category, rating, phone) {
   male.className = 'fa fa-male';
   male.style = "font-size:45px";
   el.appendChild(male);
-  console.log("nahid");
+  //console.log("nahid");
 
   //var maleSymbol = document.getElementById("maleSymbol");
 
@@ -466,7 +472,11 @@ function generatedHtmlelemnets(id, name, category, rating, phone) {
   // console.log(LngLat.lng);
   // console.log(LngLat.lat);
 
-  console.log(category);
+  //console.log(category);
+
+  // cal function for getting rating number 
+  //submitStars();
+
 
   var storeCategory = "";
 
@@ -479,15 +489,18 @@ function generatedHtmlelemnets(id, name, category, rating, phone) {
   else if(category === '3')
       storeCategory = "পানির লাইনের মিস্ত্রিরি";
 
+      console.log(stroeDbRatingPerPerson[id]);
+
   var html = "";
 
-  html += "<h5 style = 'color: green'>" + "Name: " + name + "</h5>";
+  html += "<h5 style = 'color: green;'>" + "Name: " + '<a class= "nameLink"; href = "../workerprofile/workerprofile.component.html?_id='+id+'">' +'<span class="tooltiptext">click for details</span>'  + name  + '</a>'+"</h5>";
   html += "<h6 style = 'color: green'>" + "Category: " + storeCategory + "</h6>";
-  html += "<h6  style = 'color: red'>" + "<span class='fa fa-star checked' style = 'font-size:20px'></span>" + " : " + rating.toFixed(1) + " / 5" + " </h6>";
-  html += "<h4>" + '<a href="tel:' + phone + '">call to worker</a>' + "</h4>";
+  html += "<h6  style = 'color: red'>" + "<span class='fa fa-star checked' style = 'font-size:20px'></span>" + " : " + rating.toFixed(1) +" </h6>";
+  html += "<h4>" + '<a class= "nameLink" href="tel:' + phone + '">' + '<span class="tooltiptext">' +phone+ '</span>' + "call to worker" + '</a>' + "</h4>";
   // html += "<button type='button' onclick= 'confirmToWorker()'>This Button</button>"
   html += "<div>" + '<button type = "button" class = "btn btn-success" onClick = "confirmToWorker(\'' + id + '\')"> confirm </button>' + "</div>"
   //console.log(html);
+
 
   return html;
 }
@@ -561,7 +574,7 @@ function singleSelectChangeText() {
 
   // show selected workers markers
 
-  this.client.get('http://localhost:4487/admin/workers?Active_status=true&Catagory='+setValue, function (response) {
+  this.client.get('http://localhost:4444/admin/workers?Active_status=true&Catagory='+setValue, function (response) {
   // do something with response
   this.storeDbElements = JSON.parse(response);
   console.log(storeDbElements);
