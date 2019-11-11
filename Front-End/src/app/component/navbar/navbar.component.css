@@ -86,6 +86,20 @@ a:hover {
       font-weight: bold;
       
   }
+
+  .circularbtn {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 1px solid red;
+  }
+  .circularbtttn {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: none;
+    
+  }
   
   .dropdown-content a:hover {background-color: #ddd;}
   

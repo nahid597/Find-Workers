@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment.prod';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './component/home/home.component';
@@ -17,10 +16,11 @@ import { LoginComponent } from './component/login/login.component';
 import { LoginService } from './service/login.service';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { RegisterComponent } from './component/register/register.component';
-import { HelpComponent } from './component/help/help.component';
 import { UserRegisterComponent } from './component/user-register/user-register.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { EarnComponent } from './component/earn/earn.component';
+import { ServicesComponent } from './component/services/services.component';
+import { EditprofileComponent } from './component/editprofile/editprofile.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +29,11 @@ import { EarnComponent } from './component/earn/earn.component';
     LoginComponent,
     NavbarComponent,
     RegisterComponent,
-    HelpComponent,
     UserRegisterComponent,
     SignupComponent,
-    EarnComponent
+    EarnComponent,
+    ServicesComponent,
+    EditprofileComponent
   ],
   imports: [
     MatButtonModule,
@@ -42,33 +43,8 @@ import { EarnComponent } from './component/earn/earn.component';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: HomeComponent
-      },
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'register',
-        component: SignupComponent,
-      },
-      {
-        path: 'employee',
-        component: RegisterComponent
-      },
-      {
-        path: 'user',
-        component: UserRegisterComponent
-      },
-      {
-        path: 'earn',
-        component: EarnComponent
-      }
-    ])
+    HttpClientModule
+
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

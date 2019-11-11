@@ -142,3 +142,7 @@
     text-align: center;
     margin-left: 11vw;
 }
+
+select {
+    text-align-last:center; 
+}

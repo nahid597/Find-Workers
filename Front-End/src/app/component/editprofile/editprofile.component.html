@@ -13,29 +13,22 @@
             <div>   
               <div class="form-group">
                 <input type="text" [class.is-invalid]="username.Phone.invalid && username.Phone.touched" formControlName="Phone"  class="form-control align-center" placeholder="Your Phone *"/>
-                <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger align-center">
+                <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger">
                   Phone number is required
                 </small>
               </div>          
               <div class="form-group">
                 <input type="password" [class.is-invalid]="username.Password.invalid && username.Password.touched" formControlName="Password" class="form-control align-center" placeholder="Password *"/>
-                <small  [class.d-none]="username.Password.untouched || username.Password.valid" class="text-danger align-center">
+                <small  [class.d-none]="username.Password.untouched || username.Password.valid" class="text-danger">
                   Password is required
                 </small>
               </div>
 
               <div class="form-group">
                 <input type="password" [class.is-invalid]="username.confirmPassword.invalid && username.confirmPassword.touched" formControlName="confirmPassword" class="form-control align-center"  placeholder="Confirm Password *"/>
-                <small  [class.d-none]="username.confirmPassword.untouched || username.confirmPassword.valid" class="text-danger align-center">
+                <small  [class.d-none]="username.confirmPassword.untouched || username.confirmPassword.valid" class="text-danger">
                   Password do not match
                 </small>
-              </div>
-
-              <div class="form-group">
-                <select id="category" class="form-control align-center">
-                  <option value="">Category</option>
-                  <option value="worker">Worker</option>
-                </select>
               </div>
 
               <button type="submit" class="btonRegister">Register</button>

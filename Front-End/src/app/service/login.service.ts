@@ -11,21 +11,28 @@ export class LoginService {
 
   ob: any;
   passwordCheck = true;
+  loginButton = true;
+  saveid;
 
   constructor(private route: Router, private httpClint: HttpClient) {
     // this.passwordCheck$ = true;
   }
 
   save(formData) {
+    this.saveid = formData.value.Phone;
+    console.log(this.saveid + 'saveid');
     console.log(formData.value);
-    this.httpClint.post('http://192.168.0.119:4444/admin/workers', formData.value)
+    this.httpClint.post('http://192.168.0.122:4487/admin/workers', formData.value)
     .subscribe(data => {
       console.log('posted: ', data);
+      this.saveid = formData.Phone;
+      console.log(this.saveid + 'saveid');
     });
-    this.httpClint.get('http://192.168.0.119:4444/admin/workers')
+    this.httpClint.get('http://192.168.0.122:4487/admin/workers')
     .subscribe(data => {
       console.log('getting: ', data);
     });
+    return this.saveid;
   }
 
   saveUser(formData) {
@@ -44,6 +51,14 @@ export class LoginService {
     this.httpClint.get('http://192.168.0.119:4444/admin/workers?Phone=' + formValue.Phone)
     .subscribe(data => {
       this.passwordCheck = (data[0]) ? ((data[0].Password === formValue.Password) ? true : false) : false;
+      if (this.passwordCheck) {
+        data[0].Active_status = true;
+        this.loginButton = true;
+      }
     });
+  }
+
+  test() {
+    return this.saveid;
   }
 }
