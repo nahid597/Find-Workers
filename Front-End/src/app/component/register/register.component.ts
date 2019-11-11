@@ -8,6 +8,7 @@ import { LoginService } from '../../service/login.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  contain;
 
   get username() {
     return {
@@ -28,7 +29,8 @@ export class RegisterComponent {
   save(formData) {
     console.log(formData.value.Password);
     if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
-      this.loginService.save(formData);
+      this.contain = this.loginService.save(formData);
+      console.log(this.contain);
     } else {
       console.log('form is not valid');
     }
