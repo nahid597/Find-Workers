@@ -21,6 +21,9 @@ import { SignupComponent } from './component/signup/signup.component';
 import { EarnComponent } from './component/earn/earn.component';
 import { ServicesComponent } from './component/services/services.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
+import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
+import { WorkerSectionComponent } from './component/help/worker-section/worker-section.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { EditprofileComponent } from './component/editprofile/editprofile.compon
     SignupComponent,
     EarnComponent,
     ServicesComponent,
-    EditprofileComponent
+    EditprofileComponent,
+    CustomerSectionComponent,
+    WorkerSectionComponent 
   ],
   imports: [
     MatButtonModule,
