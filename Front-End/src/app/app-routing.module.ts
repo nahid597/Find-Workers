@@ -10,6 +10,8 @@ import { ServicesComponent } from './component/services/services.component';
 import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
 import { WorkerSectionComponent } from './component/help/worker-section/worker-section.component';
 import { CusComponentIComponent } from './component/help/customer-section/cus-component-i/cus-component-i.component';
+import { CustomercomponetIIComponent } from './component/help/customer-section/customercomponet-ii/customercomponet-ii.component';
+import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
 
 
 const routes: Routes = [
@@ -63,7 +65,7 @@ const routes: Routes = [
   },
   {
     path : 'help/customer/My app is not working,What should I do?',
-    component : CustomerSectionComponent
+    component : CustomercomponetIIComponent
   },
   {
     path : 'help/customer/How can I report an Issue/Complain?',
@@ -75,7 +77,7 @@ const routes: Routes = [
   },
   {
     path : "help/customer/I can't sign into my account?",
-    component : CustomerSectionComponent
+    component : CustomercomponentIIIComponent
   },
  
   {

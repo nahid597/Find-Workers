@@ -24,6 +24,8 @@ import { EditprofileComponent } from './component/editprofile/editprofile.compon
 import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
 import { WorkerSectionComponent } from './component/help/worker-section/worker-section.component';
 import { CusComponentIComponent } from './component/help/customer-section/cus-component-i/cus-component-i.component';
+import { CustomercomponetIIComponent } from './component/help/customer-section/customercomponet-ii/customercomponet-ii.component';
+import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { CusComponentIComponent } from './component/help/customer-section/cus-co
     EditprofileComponent,
     CustomerSectionComponent,
     WorkerSectionComponent,
-    CusComponentIComponent 
+    CusComponentIComponent,
+    CustomercomponetIIComponent,
+    CustomercomponentIIIComponent 
   ],
   imports: [
     MatButtonModule,
