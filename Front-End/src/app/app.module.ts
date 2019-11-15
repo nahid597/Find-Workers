@@ -23,6 +23,7 @@ import { ServicesComponent } from './component/services/services.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
 import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
 import { WorkerSectionComponent } from './component/help/worker-section/worker-section.component';
+import { CusComponentIComponent } from './component/help/customer-section/cus-component-i/cus-component-i.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { WorkerSectionComponent } from './component/help/worker-section/worker-s
     ServicesComponent,
     EditprofileComponent,
     CustomerSectionComponent,
-    WorkerSectionComponent 
+    WorkerSectionComponent,
+    CusComponentIComponent 
   ],
   imports: [
     MatButtonModule,
