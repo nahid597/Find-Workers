@@ -12,6 +12,7 @@ import { WorkerSectionComponent } from './component/help/worker-section/worker-s
 import { CusComponentIComponent } from './component/help/customer-section/cus-component-i/cus-component-i.component';
 import { CustomercomponetIIComponent } from './component/help/customer-section/customercomponet-ii/customercomponet-ii.component';
 import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
+import { CustomercomponentIVComponent } from './component/help/customer-section/customercomponent-iv/customercomponent-iv.component';
 
 
 const routes: Routes = [
@@ -82,7 +83,7 @@ const routes: Routes = [
  
   {
     path : "help/customer/I can't update my phone number or email.",
-    component : CustomerSectionComponent
+    component : CustomercomponentIVComponent
   },
   {
     path : "help/customer/How to talk with a worker?",
