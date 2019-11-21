@@ -13,6 +13,7 @@ import { CusComponentIComponent } from './component/help/customer-section/cus-co
 import { CustomercomponetIIComponent } from './component/help/customer-section/customercomponet-ii/customercomponet-ii.component';
 import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
 import { CustomercomponentIVComponent } from './component/help/customer-section/customercomponent-iv/customercomponent-iv.component';
+import { PhoneNumberUpdateComponent } from './component/help/customer-section/phone-number-update/phone-number-update.component';
 
 
 const routes: Routes = [
@@ -96,6 +97,10 @@ const routes: Routes = [
   {
     path : "help/customer/My worker’s number is unreachable. What should I do?",
     component : CustomerSectionComponent
+  },
+  {
+    path : "phone_number_update",
+    component : PhoneNumberUpdateComponent
   }
 ];
 

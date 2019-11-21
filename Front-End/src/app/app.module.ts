@@ -27,6 +27,7 @@ import { CusComponentIComponent } from './component/help/customer-section/cus-co
 import { CustomercomponetIIComponent } from './component/help/customer-section/customercomponet-ii/customercomponet-ii.component';
 import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
 import { CustomercomponentIVComponent } from './component/help/customer-section/customercomponent-iv/customercomponent-iv.component';
+import { PhoneNumberUpdateComponent } from './component/help/customer-section/phone-number-update/phone-number-update.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { CustomercomponentIVComponent } from './component/help/customer-section/
     CusComponentIComponent,
     CustomercomponetIIComponent,
     CustomercomponentIIIComponent,
-    CustomercomponentIVComponent 
+    CustomercomponentIVComponent,
+    PhoneNumberUpdateComponent 
   ],
   imports: [
     MatButtonModule,
@@ -57,7 +59,6 @@ import { CustomercomponentIVComponent } from './component/help/customer-section/
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
-
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]
