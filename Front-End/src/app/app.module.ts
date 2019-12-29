@@ -21,6 +21,9 @@ import { SignupComponent } from './component/signup/signup.component';
 import { EarnComponent } from './component/earn/earn.component';
 import { ServicesComponent } from './component/services/services.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
+import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
+import { CategoryService } from './service/category.service';
+import { CategoryComponent } from './component/category/category.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { EditprofileComponent } from './component/editprofile/editprofile.compon
     SignupComponent,
     EarnComponent,
     ServicesComponent,
-    EditprofileComponent
+    EditprofileComponent,
+    CustomerSectionComponent,
+    CategoryComponent
   ],
   imports: [
     MatButtonModule,
@@ -46,7 +51,7 @@ import { EditprofileComponent } from './component/editprofile/editprofile.compon
     HttpClientModule
 
   ],
-  providers: [LoginService],
+  providers: [LoginService, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

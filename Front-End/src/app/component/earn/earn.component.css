@@ -1,6 +1,9 @@
 .resizeimage{
     width: 100%;
     height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('https://st3.depositphotos.com/1252160/17932/v/600/depositphotos_179323376-stock-video-female-car-owner-mechanic-testing.jpg');
 }
 
 .container {

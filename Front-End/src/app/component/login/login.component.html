@@ -7,7 +7,8 @@
       <h3>Please login first</h3>
     </div>
 
-    <small *ngIf="!passwordCheck" class="text-danger">Phone or password is incorrect </small>
+    <small class="text-danger">Phone or password is incorrect </small>
+    <h1>{{check}}</h1>
 
     <!-- Login Form -->
     <form #formValue="ngForm" (ngSubmit)="login(formValue)" [formGroup]="loginForm">

@@ -3,19 +3,24 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const route = require('./route');
 const path = require("path");
+const cors = require('cors');
 
 const app = express();
 const server = require('http').Server(app);
 
 var db = 'mongodb+srv://khayrul1234:khayrul1234@cluster0-q6u9x.mongodb.net/test?retryWrites=true';
-var db0 = 'mongodb+srv://khayrul123:khayrul123@cluster0-6kqzz.mongodb.net/test?retryWrites=true';
+var db0 = 'mongodb://localhost:27017/mydb';
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
 
-mongoose.connect(db, { useNewUrlParser: true });
+mongoose.connect(db0, { useNewUrlParser: true }, ()=>{
+    console.log('ok');
+});
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

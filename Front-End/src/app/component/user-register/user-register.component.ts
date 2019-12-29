@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
+import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
   styleUrls: ['./user-register.component.css']
 })
-export class UserRegisterComponent {
+export class UserRegisterComponent implements OnInit, OnDestroy {
 
   get username() {
     return {
@@ -17,7 +19,7 @@ export class UserRegisterComponent {
     };
   }
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {}
+  constructor(private fb: FormBuilder, private authService: LoginService) {}
 
   registrationForm = this.fb.group({
     Password: ['', Validators.required],
@@ -25,17 +27,30 @@ export class UserRegisterComponent {
     Phone: ['', Validators.required]
   });
 
-  saveUser(formData) {
-    console.log(formData.value.Password);
-    if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
-      this.loginService.saveUser(formData);
-    } else {
-      console.log('form is not valid');
-    }
+  isLoadin = false;
+  private authStatusSub: Subscription;
+
+
+  ngOnInit() {
+      this.authStatusSub = this.authService.getAuthStatus().subscribe(authStatus => {
+          this.isLoadin = false;
+      });
   }
 
-  // logout() {
-  //   this.loginService.logout();
-  // }
+  onSignup(formData: NgForm) {
+      if (formData.invalid) {
+          return;
+      }
+
+      this.isLoadin = true;
+      this.authService.createUser(formData.value);
+  }
+
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
+
 
 }
+

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../../service/category.service';
 
 @Component({
   selector: 'app-services',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesComponent implements OnInit {
 
-  constructor() { }
+  arr: any[] = ['dfdkf', 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd'];
+
+  constructor(private category: CategoryService) { }
 
   ngOnInit() {
+  }
+
+  selectcat(event) {
+    this.category.passData(event);
   }
 
 }
