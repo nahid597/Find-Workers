@@ -24,6 +24,7 @@ import { EditprofileComponent } from './component/editprofile/editprofile.compon
 import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
 import { CategoryService } from './service/category.service';
 import { CategoryComponent } from './component/category/category.component';
+import { FooterpageComponent } from './component/footerpage/footerpage.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CategoryComponent } from './component/category/category.component';
     ServicesComponent,
     EditprofileComponent,
     CustomerSectionComponent,
-    CategoryComponent
+    CategoryComponent,
+    FooterpageComponent
   ],
   imports: [
     MatButtonModule,

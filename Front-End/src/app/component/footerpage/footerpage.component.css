@@ -1,107 +1,12 @@
-.font{
-    font-family: Comic Sans MS
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-#sidebar{
-    transition-duration: 1.3s;
-}
-
-.color{
-    background: rgb(255, 196, 0);
-}
-
-.back{
-    background: black;
+.textcolor{
     color: white;
+    background: black;
 }
 
-.one{
-    z-index: 1;
-}
-
-.two{
-    position: absolute;
-    bottom: 0;
-    background: rgb(0, 0, 0); /* Fallback color */
-    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
-    color: #f1f1f1;
-    width: 100%;
-    padding: 2px;
-}
-
-.dropbtn {
-    display: block;
-    width: 100%;
-    border: none;
-    padding: 14px 28px;
-    background-color: black;
-    font-size: 16px;
-    cursor: pointer;
+.textcenter{
     text-align: center;
     color: white;
-  }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-
-  .control-slideshow{
-    left: 5%;
-  }
-
-  li{
-    display: inline-block; 
-    zoom: 1;
-    margin: 15px;
-  }
-
-  .top{
-      overflow: hidden;
-  }
-  .responsive {
-    max-width: 230px;
-    max-height: 250px;
-  }
-  
-  .resizeimage{
-      max-width: 230px;
-      max-height: 250px;
-      padding: 15px;
-      margin: 15px;
-  }
-
-  .card{
-      border: none;
-  }
-
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  .dropdown:hover .dropdown-content {display: block;}
-  
-  .dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-
+}
 
 
 /*<![CDATA[*/
@@ -117,5 +22,3 @@ a.btn-google{color:#fff}
 .btn-google:before{content:"";background-image:url(https://4.bp.blogspot.com/-52U3eP2JDM4/WSkIT1vbUxI/AAAAAAAArQA/iF1BeARv2To-2FGQU7V6UbNPivuv_lccACLcB/s30/nexus2cee_ic_launcher_play_store_new-1.png);background-size:cover;background-repeat:no-repeat;width:30px;height:30px;position:absolute;left:6px;top:50%;margin-top:-15px}
 .btn-google:after{content:"GET IT ON";position:absolute;top:5px;left:40px;font-size:10px;font-weight:400;}
 /*]]>*/
-
-
