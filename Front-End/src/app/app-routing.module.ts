@@ -14,6 +14,11 @@ import { CustomercomponetIIComponent } from './component/help/customer-section/c
 import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
 import { CustomercomponentIVComponent } from './component/help/customer-section/customercomponent-iv/customercomponent-iv.component';
 import { PhoneNumberUpdateComponent } from './component/help/customer-section/phone-number-update/phone-number-update.component';
+import { CustomerComponentVComponent } from './component/help/customer-component-v/customer-component-v.component';
+import { UpdatePasswordComponent } from './component/help/update-password/update-password.component';
+import { CustomerComponentVIComponent } from './component/help/customer-component-vi/customer-component-vi.component';
+import { CustomerCompontVIIComponent } from './component/help/customer-compont-vii/customer-compont-vii.component';
+import { CustomerComponentVIIIComponent } from './component/help/customer-component-viii/customer-component-viii.component';
 
 
 const routes: Routes = [
@@ -63,7 +68,7 @@ const routes: Routes = [
   },
   {
     path : 'help/customer/How to change account password?',
-    component : CustomerSectionComponent
+    component : UpdatePasswordComponent
   },
   {
     path : 'help/customer/My app is not working,What should I do?',
@@ -71,11 +76,11 @@ const routes: Routes = [
   },
   {
     path : 'help/customer/How can I report an Issue/Complain?',
-    component : CustomerSectionComponent
+    component : CustomerCompontVIIComponent
   },
   {
     path : 'help/customer/How I can get the Find-Worker app?',
-    component : CustomerSectionComponent
+    component : CustomerComponentVComponent
   },
   {
     path : "help/customer/I can't sign into my account?",
@@ -88,11 +93,11 @@ const routes: Routes = [
   },
   {
     path : "help/customer/How to talk with a worker?",
-    component : CustomerSectionComponent
+    component : CustomerComponentVIComponent
   },
   {
-    path : "help/customer/What is Find-Worker system?",
-    component : CustomerSectionComponent
+    path : "help/customer/How Find-Worker system is working?",
+    component : CustomerComponentVIIIComponent
   },
   {
     path : "help/customer/My worker’s number is unreachable. What should I do?",

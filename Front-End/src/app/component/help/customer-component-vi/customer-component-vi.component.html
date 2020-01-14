@@ -1,27 +1,14 @@
-
 <br>
 <div class="container">
+    <h4 class = "text-center">How to talk with a worker?</h4>
     <div class="card">
         <div class="card-body">
-          <h4 align="center">Update Phone Number</h4>
-           <form #f = "ngForm" (ngSubmit) = "save(f)" [formGroup] = "updatenumber">
-                <label for="oldnumber">Old Phone Number</label>
-               <input type = "text" class = "form-control" formControlName = "OldNumber" id = "oldnumber"
-               [ngClass] = "{'is-invalid':updatenumber.get('OldNumber').touched && updatenumber.get('OldNumber').invalid}">
-               <div class = "invalid-feedback">
-                   <div>Old phone number required</div>
-               </div>
 
-               <label for="newnumber">New Phone Number</label>
-               <input type = "text" class = "form-control" formControlName = "NewNumber" id = "newnumber"
-               [ngClass] = "{'is-invalid':updatenumber.get('NewNumber').touched && updatenumber.get('NewNumber').invalid}">
-               <div class = "invalid-feedback">
-                   <div>New phone number required</div>
-               </div>
-
-               <button type = "submit" class = "btn btn-success">Update</button>
-           </form>
-
+            <span>
+                <p class="content">When you search worker based on your need ,you see all workers who are active at that moment want to that work.</p>
+                <p class = "content">You just click worker icon to call a specific worker.</p>
+            </span>
+           
         </div>
     </div>
 </div>

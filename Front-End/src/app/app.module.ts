@@ -28,6 +28,11 @@ import { CustomercomponetIIComponent } from './component/help/customer-section/c
 import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
 import { CustomercomponentIVComponent } from './component/help/customer-section/customercomponent-iv/customercomponent-iv.component';
 import { PhoneNumberUpdateComponent } from './component/help/customer-section/phone-number-update/phone-number-update.component';
+import { CustomerComponentVComponent } from './component/help/customer-component-v/customer-component-v.component';
+import { UpdatePasswordComponent } from './component/help/update-password/update-password.component';
+import { CustomerComponentVIComponent } from './component/help/customer-component-vi/customer-component-vi.component';
+import { CustomerCompontVIIComponent } from './component/help/customer-compont-vii/customer-compont-vii.component';
+import { CustomerComponentVIIIComponent } from './component/help/customer-component-viii/customer-component-viii.component';
 
 
 @NgModule({
@@ -48,7 +53,12 @@ import { PhoneNumberUpdateComponent } from './component/help/customer-section/ph
     CustomercomponetIIComponent,
     CustomercomponentIIIComponent,
     CustomercomponentIVComponent,
-    PhoneNumberUpdateComponent 
+    PhoneNumberUpdateComponent,
+    CustomerComponentVComponent,
+    UpdatePasswordComponent,
+    CustomerComponentVIComponent,
+    CustomerCompontVIIComponent,
+    CustomerComponentVIIIComponent 
   ],
   imports: [
     MatButtonModule,
