@@ -1,24 +1,22 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand navfont h4-responsive active" routerLink="/">Vservice</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg text-center fixed-top bg-light">
+  <a class="navbar-brand navfont h4-responsive" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Vservice</a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="earn">Earn <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="earn" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Earn</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="help">Help</a>
+        <a class="nav-link" routerLink="help" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Help</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link " routerLink="services">
-          Services
-        </a>
+        <a class="nav-link " routerLink="services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Services</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="category" tabindex="-1" aria-disabled="true">Others</a>
+        <a class="nav-link" routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Others</a>
       </li>
     </ul>
     <ul *ngIf="userAuthenticated">
@@ -35,9 +33,9 @@
         </div>
       </div>
     </ul>
-    <ul *ngIf="!userAuthenticated" class="nav navbar-nav navbar-right">
-      <li><a routerLink="login" class="mr-sm-2"><i class="fa fa-user mr-2"></i>Login</a></li>
-      <li><a routerLink="register"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Signup</button></a></li>
+    <ul *ngIf="!userAuthenticated">
+      <li><a routerLink="login"><i class="fa fa-user mr-2"></i>Login</a></li>
+      <li><a routerLink="register"><button class="btn btn-outline-success" type="submit">Signup</button></a></li>
       <li><a href="#"><i class="fa fa-globe mr-2"></i>En</a></li>
     </ul>
   </div>

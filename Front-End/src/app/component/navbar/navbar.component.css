@@ -1,40 +1,7 @@
-.navcontent{
-    height: 100px;
-}
 
-.font{
-    font-family: Comic Sans MS
-}
 
 a:hover {
     text-decoration: none;
-}
-
-#sidebar{
-    transition-duration: 1.3s;
-}
-
-.color{
-    background: rgb(255, 196, 0);
-}
-
-.back{
-    background: black;
-    color: white;
-}
-
-.one{
-    z-index: 1;
-}
-
-.two{
-    position: absolute;
-    bottom: 0;
-    background: rgb(0, 0, 0); /* Fallback color */
-    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
-    color: #f1f1f1;
-    width: 100%;
-    padding: 2px;
 }
 
 .dropbtn {
@@ -66,18 +33,10 @@ a:hover {
     display: block;
   }
 
-  .control-slideshow{
-    left: 5%;
-  }
-
   li{
     display: inline-block; 
     zoom: 1;
     margin: 15px;
-  }
-
-  .floatright{
-      float: right;
   }
 
   .navfont{
@@ -99,6 +58,10 @@ a:hover {
     border-radius: 50%;
     border: none;
     
+  }
+
+  a.active {
+    color: red;
   }
   
   .dropdown-content a:hover {background-color: #ddd;}
