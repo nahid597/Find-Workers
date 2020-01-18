@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
 
   passwordCheck: any;
-  check;
+  check = true;
 
   get loginInfo() {
     return {
@@ -21,10 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     };
   }
 
-  constructor(private fb: FormBuilder, private authService: LoginService) {
-     // this.passwordCheck = this.loginService.passwordCheck;
-     // console.log('Save number constructor: ' + localStorage.getItem('loggedIn' || ''));
-  }
+  constructor(private fb: FormBuilder, private authService: LoginService, private route: ActivatedRoute) {}
 
   loginForm = this.fb.group({
     Phone: ['', Validators.required],
@@ -36,13 +34,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
      this.authStatusSub = this.authService.getAuthStatus().subscribe(authStatus => {
+         console.log('auht ', authStatus);
          this.isLoading = false;
+         this.check = this.authService.check;
+         console.log(this.authService.getUserId());
      });
  }
 
   login(formData) {
-      this.isLoading = true;
-      this.authService.login(formData.value);
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl', returnUrl);
+    this.isLoading = true;
+    this.check = this.authService.login(formData.value);
   }
 
   ngOnDestroy() {

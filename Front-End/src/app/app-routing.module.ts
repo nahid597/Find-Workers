@@ -9,6 +9,8 @@ import { EarnComponent } from './component/earn/earn.component';
 import { ServicesComponent } from './component/services/services.component';
 import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
 import { CategoryComponent } from './component/category/category.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { AuthGuardService } from './service/auth-guard.service';
 
 
 const routes: Routes = [
@@ -46,7 +48,13 @@ const routes: Routes = [
   },
   {
     path: 'category',
-    component: CategoryComponent
+    component: CategoryComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuardService]
   }
 ];
 

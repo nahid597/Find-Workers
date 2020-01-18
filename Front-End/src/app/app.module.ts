@@ -25,6 +25,8 @@ import { CustomerSectionComponent } from './component/help/customer-section/cust
 import { CategoryService } from './service/category.service';
 import { CategoryComponent } from './component/category/category.component';
 import { FooterpageComponent } from './component/footerpage/footerpage.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { AuthGuardService } from './service/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { FooterpageComponent } from './component/footerpage/footerpage.component
     EditprofileComponent,
     CustomerSectionComponent,
     CategoryComponent,
-    FooterpageComponent
+    FooterpageComponent,
+    ProfileComponent
   ],
   imports: [
     MatButtonModule,
@@ -53,7 +56,7 @@ import { FooterpageComponent } from './component/footerpage/footerpage.component
     HttpClientModule
 
   ],
-  providers: [LoginService, CategoryService],
+  providers: [LoginService, CategoryService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

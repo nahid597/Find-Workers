@@ -14,8 +14,9 @@ export class LoginService {
   private durationTimer: any;
   private isAuthenticated = false;
   private  token: string;
-  private userId: string;
+  private userId;
   private authStatus = new Subject<boolean>();
+  check = false;
   obj: {};
 
     constructor(private http: HttpClient , private router: Router) {}
@@ -37,54 +38,39 @@ export class LoginService {
     }
 
     createUser(authData) {
-      console.log(authData);
-      this.http.post('http://127.0.0.1:4444/admin/workers/signup' , authData)
-      .subscribe((response) => {
-        console.log('response in createuser ' + response);
-        this.router.navigate(['/']);
-        // console.log(response);
-      }, error => {
-          this.authStatus.next(false);
-      });
+        this.http.post('http://127.0.0.1:4444/admin/workers/signup' , authData)
+        .subscribe((response) => {
+            this.router.navigate(['/']);
+        }, error => {
+            this.authStatus.next(false);
+        });
     }
 
     login(authData) {
-        console.log(authData);
-        // const authData: AuthData = {email: email,  password: password}
-        this.http.post<{token: string , expiresIn: number, userId: string}>('http://127.0.0.1:4444/admin/workers/login' , authData)
+        this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/workers/login' , authData)
         .subscribe(response => {
-            console.log('vallagena');
-            console.log('token print ' + response.token);
-            const obj = JSON.stringify(response);
-            const objj = JSON.parse(obj);
-            console.log('response ' + objj);
-            const token = obj;
+            const token = response.token;
 
-            this.token = token;
-            // console.log(JSON.parse(response));
             if (token) {
-              console.log('token ' + token);
-              const expireInDuration = response.expiresIn;
-              // this.durationTimer = setTimeout(() => {
-                // this.logout();
-              // }, expireInDuration * 1000);
-              localStorage.setItem('flag', JSON.stringify(true));
-              this.isAuthenticated = JSON.parse(localStorage.getItem('flag'));
+                const expireInDuration = response.expiresIn;
+                this.durationTimer = setTimeout(() => {
+                     this.logout();
+                }, expireInDuration * 1000);
 
-              console.log('check local ' + this.isAuthenticated);
-              this.userId = response.userId;
-              this.authStatus.next(true);
-              const now = new Date();
-              const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
-              // console.log(expirationDate);
-              this.saveAuthDataInLocalStorage(token, expirationDate, this.userId );
-              console.log('navigate');
-              this.router.navigate(['/']);
+                this.isAuthenticated = true;
+                this.userId = response;
+                this.authStatus.next(true);
+                const now = new Date();
+                const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
+                this.saveAuthDataInLocalStorage(token, expirationDate, this.userId );
+                this.check = true;
+                let returnUrl = localStorage.getItem('returnUrl');
+                this.router.navigate([returnUrl]);
             }
         }, error => {
-            console.log('baler error found');
             this.authStatus.next(false);
         });
+        return this.check;
     }
 
     autoAuthUser() {
@@ -105,7 +91,6 @@ export class LoginService {
     }
 
     private setAuthTimer(duration: number) {
-       // console.log("setting time: " + duration);
         this.durationTimer = setTimeout(() => {
             this.logout();
        }, duration * 1000);

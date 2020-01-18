@@ -18,12 +18,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userAuthenticated = this.authService.isAuth();
     this.authListerSubs = this.authService.getAuthStatus()
     .subscribe(isAuthenticated => {
-        this.userAuthenticated = JSON.parse(localStorage.getItem('flag'));
-        console.log('user authenticated ' + this.userAuthenticated);
+        this.userAuthenticated = isAuthenticated;
+        // console.log('user authenticated ' + this.userAuthenticated);
     });
   }
 
   onLogout() {
+    console.log('logout');
     this.authService.logout();
   }
 
