@@ -55,7 +55,11 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuardService]
-  }
+  },
+  {
+    path: 'earn/login',
+    component: LoginComponent
+  },
 ];
 
 @NgModule({

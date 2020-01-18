@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EarnComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    // localStorage.setItem('returnUrl', state.url);
+  }
 
   ngOnInit() {
   }

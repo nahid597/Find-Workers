@@ -10,7 +10,7 @@ export class CategoryService {
   constructor(private http: HttpClient , private router: Router) { }
 
   passData(event) {
-    this.http.post('http://127.0.0.1:4444/admin/workers/signup' , event)
+    this.http.post('http://127.0.0.1:4444/admin/category/post' , event)
     .subscribe(response => {
       console.log(response);
       if (response) {
