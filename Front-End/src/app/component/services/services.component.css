@@ -2,3 +2,8 @@
     max-width: 320px;
     max-height: 350px;
 }
+
+.imageclass{
+    max-height: 150px;
+    max-width: 200px;
+}

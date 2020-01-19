@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../environments/environment.prod';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,8 @@ import { CategoryComponent } from './component/category/category.component';
 import { FooterpageComponent } from './component/footerpage/footerpage.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { AuthInterceptorService } from './service/auth-interceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { AuthGuardService } from './service/auth-guard.service';
     HttpClientModule
 
   ],
-  providers: [LoginService, CategoryService, AuthGuardService],
+  providers: [{provide: HTTP_INTERCEPTORS , useClass: AuthInterceptorService, multi: true},
+     LoginService, CategoryService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

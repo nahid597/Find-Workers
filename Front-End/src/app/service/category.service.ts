@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class CategoryService {
 
-  constructor(private http: HttpClient , private router: Router) { }
+  constructor(private http: HttpClient , private router: Router) {}
 
   passData(event) {
     this.http.post('http://127.0.0.1:4444/admin/category/post' , event)
@@ -17,5 +17,13 @@ export class CategoryService {
         this.router.navigate(['/']);
       }
     });
+  }
+
+  getCategory() {
+    this.http.get('http://127.0.0.1:4444/admin/category/get')
+    .subscribe(response => {
+      return response;
+    });
+    return 3;
   }
 }

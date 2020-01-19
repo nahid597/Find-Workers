@@ -13,8 +13,7 @@ export class CategoryComponent implements OnInit {
 
   constructor(private category: CategoryService, private http: HttpClient) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   save(value) {
     this.category.passData(value);
