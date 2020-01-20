@@ -3,3 +3,10 @@ td{
     padding-top: 5%;
     margin-bottom: 1000px;
 }
+
+.container{
+    margin-top: 5%;
+    margin-bottom: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+}

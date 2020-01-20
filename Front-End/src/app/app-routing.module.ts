@@ -11,6 +11,8 @@ import { CustomerSectionComponent } from './component/help/customer-section/cust
 import { CategoryComponent } from './component/category/category.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
+import { UserLoginComponent } from './component/user-login/user-login.component';
 
 
 const routes: Routes = [
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'workerlogin',
+    component: WorkerLoginComponent
+  },
+  {
+    path: 'userlogin',
+    component: UserLoginComponent
   },
   {
     path: 'register',

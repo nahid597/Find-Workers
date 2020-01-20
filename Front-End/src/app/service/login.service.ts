@@ -37,7 +37,7 @@ export class LoginService {
         return this.userId;
     }
 
-    createUser(authData) {
+    createWorker(authData) {
         this.http.post('http://127.0.0.1:4444/admin/workers/signup' , authData)
         .subscribe((response) => {
             this.router.navigate(['/']);
@@ -46,31 +46,55 @@ export class LoginService {
         });
     }
 
-    login(authData) {
+    createUser(authData) {
+        this.http.post('http://127.0.0.1:4444/admin/users/signup' , authData)
+        .subscribe((response) => {
+            this.router.navigate(['/']);
+        }, error => {
+            this.authStatus.next(false);
+        });
+    }
+
+    workerLogin(authData) {
         this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/workers/login' , authData)
         .subscribe(response => {
-            const token = response.token;
-
-            if (token) {
-                const expireInDuration = response.expiresIn;
-                this.durationTimer = setTimeout(() => {
-                     this.logout();
-                }, expireInDuration * 1000);
-
-                this.isAuthenticated = true;
-                this.userId = response;
-                this.authStatus.next(true);
-                const now = new Date();
-                const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
-                this.saveAuthDataInLocalStorage(token, expirationDate, this.userId );
-                this.check = true;
-                let returnUrl = localStorage.getItem('returnUrl');
-                this.router.navigate([returnUrl]);
-            }
+            this.callbackFunction(response);
         }, error => {
             this.authStatus.next(false);
         });
         return this.check;
+    }
+
+    userLogin(authData) {
+        this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/users/login' , authData)
+        .subscribe(response => {
+            this.callbackFunction(response);
+        }, error => {
+            this.authStatus.next(false);
+        });
+        return this.check;
+    }
+
+    callbackFunction(response) {
+
+        const token = response.token;
+
+        if (token) {
+            const expireInDuration = response.expiresIn;
+            this.durationTimer = setTimeout(() => {
+                 this.logout();
+            }, expireInDuration * 1000);
+
+            this.isAuthenticated = true;
+            this.userId = response;
+            this.authStatus.next(true);
+            const now = new Date();
+            const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
+            this.saveAuthDataInLocalStorage(token, expirationDate, this.userId );
+            this.check = true;
+            let returnUrl = localStorage.getItem('returnUrl');
+            this.router.navigate([returnUrl]);
+        }
     }
 
     autoAuthUser() {
@@ -106,10 +130,12 @@ export class LoginService {
         this.router.navigate(['/']);
     }
 
-    private saveAuthDataInLocalStorage(token: string, expiretionDate: Date, userId: string) {
+    private saveAuthDataInLocalStorage(token: string, expiretionDate: Date, userId: any) {
         localStorage.setItem('token', token);
         localStorage.setItem('expire', expiretionDate.toISOString());
-        localStorage.setItem('userId', userId);
+        localStorage.setItem('userId', JSON.stringify(userId));
+        // let parse = JSON.parse(localStorage.getItem('userId'));
+        // console.log(parse);
     }
 
     private clearAuthDataInLocalStorage() {
@@ -121,7 +147,7 @@ export class LoginService {
     private getAUthData() {
         const token = localStorage.getItem('token');
         const expirationDate = localStorage.getItem('expire');
-        const userId = localStorage.getItem('userId');
+        const userId = JSON.parse(localStorage.getItem('userId'));
 
         if (!token || !expirationDate) {
             return;

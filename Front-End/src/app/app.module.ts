@@ -28,6 +28,8 @@ import { FooterpageComponent } from './component/footerpage/footerpage.component
 import { ProfileComponent } from './component/profile/profile.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { AuthInterceptorService } from './service/auth-interceptor.service';
+import { UserLoginComponent } from './component/user-login/user-login.component';
+import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { AuthInterceptorService } from './service/auth-interceptor.service';
     CustomerSectionComponent,
     CategoryComponent,
     FooterpageComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserLoginComponent,
+    WorkerLoginComponent
   ],
   imports: [
     MatButtonModule,

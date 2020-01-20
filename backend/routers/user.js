@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Worker = require('../models/worker.model');
+const User = require('../models/user.model');
 const operation = require('../operation/operation');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 router.get('', function(req, res) {
-    operation.findInf(Worker, req.query, function(data,err) {
+    operation.findInf(User, req.query, function(data,err) {
         if (err != true){
             res.status(200).json(data);
         }
@@ -22,7 +22,7 @@ router.post('/login', (req, res , next) => {
 
     let fetchData;
    
-    Worker.findOne({Phone: req.body.Phone})
+    User.findOne({Phone: req.body.Phone})
     .then(user => {
         if(!user)
         {
@@ -68,12 +68,9 @@ router.post('/signup', (req, res, next) => {
     
     bcryptjs.hash(req.body.Password, 10)
     .then(hash => {
-       const user = new Worker({
-            Name: req.body.Name,
+       const user = new User({
             Phone: req.body.Phone,
             Password: hash,
-            Category: req.body.Category,
-            Image: req.body.Image
         });
         user.save()
         .then(result => {
@@ -92,7 +89,7 @@ router.post('/signup', (req, res, next) => {
  });
 
 router.delete('', function(req, res) {
-    operation.deleteData(Worker, req.query, function(err) {
+    operation.deleteData(User, req.query, function(err) {
         if (err != true)
             res.status(500).json(err);
         else
@@ -101,7 +98,7 @@ router.delete('', function(req, res) {
 });
 
 router.put('', function(req, res) {
-    operation.updateData(Worker, { _id: req.body._id }, req.body, function(err) {
+    operation.updateData(User, { _id: req.body._id }, req.body, function(err) {
         if (err != true)
             res.status(500).json(err);
         else

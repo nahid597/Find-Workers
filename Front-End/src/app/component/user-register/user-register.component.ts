@@ -37,13 +37,14 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSignup(formData: NgForm) {
-      if (formData.invalid) {
-          return;
-      }
-
+  saveUser(formData: NgForm) {
+    if (formData.valid || formData.value.password === formData.value.confirmPassword) {
       this.isLoadin = true;
       this.authService.createUser(formData.value);
+      console.log(formData.value);
+      return;
+    }
+    return;
   }
 
 
