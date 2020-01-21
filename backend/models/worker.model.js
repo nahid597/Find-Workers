@@ -32,6 +32,11 @@ var workerSchema = new Schema({
         required: true
     },
 
+    IsAdmin: {
+        type: Boolean,
+        default: false
+    },
+
     Active_status: {
         type: Boolean,
         default: false

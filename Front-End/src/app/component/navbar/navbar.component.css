@@ -56,6 +56,11 @@ a.active {
   color: red;
 }
 
+.navbar-toggler{
+  color: #fff;
+  border: 2px solid #7f7f7f;
+}
+
 .dropdown-content a:hover {background-color: #ddd;}
 
 .dropdown:hover .dropdown-content {display: block;}

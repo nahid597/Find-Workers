@@ -18,6 +18,11 @@ var userSchema = new Schema({
         required: true
     },
 
+    IsAdmin: {
+        type: Boolean,
+        default: false
+    },
+
     Coordinate: {
         x: {
             type: Number,

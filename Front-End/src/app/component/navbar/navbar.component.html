@@ -1,11 +1,15 @@
 <nav class="navbar navbar-expand-lg text-center fixed-top bg-light">
+  <div class="container">
   <a class="navbar-brand navfont h4-responsive" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Vservice</a>
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="earn" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Earn</a>
       </li>
@@ -15,7 +19,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link " routerLink="services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Services</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="user" class="nav-item">
         <a class="nav-link" routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Others</a>
       </li>
     </ul>
@@ -33,10 +37,11 @@
         </div>
       </div>
     </ul>
-    <ul *ngIf="!userAuthenticated">
-      <li><a routerLink="login"><i class="fa fa-user mr-2"></i>Login</a></li>
+    <ul class="navbar-nav ml-auto" *ngIf="!userAuthenticated">
+      <li class="nav-item"><a class="nav-link" routerLink="login"><i class="fa fa-user mr-2"></i>Login</a></li>
       <li><a routerLink="register"><button class="btn btn-outline-success" type="submit">Signup</button></a></li>
-      <li><a href="#"><i class="fa fa-globe mr-2"></i>En</a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-globe mr-2"></i>En</a></li>
     </ul>
+  </div>
   </div>
 </nav>
