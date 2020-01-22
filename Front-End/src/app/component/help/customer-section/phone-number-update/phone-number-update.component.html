@@ -1,0 +1,84 @@
+
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+          <h4 align="center">Update Phone Number</h4>
+           <form #f = "ngForm" (ngSubmit) = "save(f)" [formGroup] = "updatenumber">
+                <label for="oldnumber">Old Phone Number</label>
+               <input type = "text" class = "form-control" formControlName = "OldNumber" id = "oldnumber"
+               [ngClass] = "{'is-invalid':updatenumber.get('OldNumber').touched && updatenumber.get('OldNumber').invalid}">
+               <div class = "invalid-feedback">
+                   <div>Old phone number required</div>
+               </div>
+
+               <label for="newnumber">New Phone Number</label>
+               <input type = "text" class = "form-control" formControlName = "NewNumber" id = "newnumber"
+               [ngClass] = "{'is-invalid':updatenumber.get('NewNumber').touched && updatenumber.get('NewNumber').invalid}">
+               <div class = "invalid-feedback">
+                   <div>New phone number required</div>
+               </div>
+
+               <button type = "submit" class = "btn btn-success">Update</button>
+           </form>
+
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<footer class="page-footer font-small pt-4 textcolor">
+    <div class="container text-center text-md-left">
+        <div class="row">
+            <div class="col-md-4 mx-auto textcenter">
+                <h5 class="font-weight-bold text-uppercase">Find Workers</h5>
+                <div><a routerLink="/help/customer" style="color:white"><i class="fa fa-question-circle p-2"
+                            style="color: white;" aria-hidden="true"></i>Help center</a></div>
+                <div><a href="#" style="color:white"><i class="fa fa-expeditedssl p-2" style="color: white;"
+                            aria-hidden="true"></i>Privacy</a></div>
+                <a class="btn btn-google" href="#" title="Google Play">Google Play</a>
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-4 mx-auto textcenter">
+                <h5 class="font-weight-bold text-uppercase">About us</h5>
+                <div>
+                    <div>
+                        <a href="#!" style="color:white">Link 1</a>
+                    </div>
+                    <div>
+                        <a href="#!" style="color:white">Link 2</a>
+                    </div>
+                    <div>
+                        <a href="#!" style="color:white">Link 3</a>
+                    </div>
+                    <div>
+                        <a href="#!" style="color:white">Link 4</a>
+                    </div>
+                </div>
+
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-4 mx-auto textcenter">
+                <h5 class="font-weight-bold text-uppercase">Links</h5>
+                <div class="list-unstyled">
+                    <div>
+                        <a href="#!" style="color:white">Link 1</a>
+                    </div>
+                    <div>
+                        <a href="#!" style="color:white">Link 2</a>
+                    </div>
+                    <div>
+                        <a href="#!" style="color:white">Link 3</a>
+                    </div>
+                    <div>
+                        <a href="#!" style="color:white">Link 4</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+        </div>
+    </div>
+    <hr>
