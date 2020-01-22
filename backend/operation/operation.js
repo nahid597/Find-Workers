@@ -1,7 +1,7 @@
 //Find data from a database
 function findInf(model, query, callback) {
-    console.log(query);
-    model.find(query)
+    console.log("id: ", query);
+    model.findOne(query)
         .exec(function(err, data) {
             console.log(data);
             if (err){
@@ -32,10 +32,16 @@ function deleteData(model, query, callback) {
 }
 
 function updateData(model, query, newData, callback) {
-    model.findOneAndUpdate(query, newData, { upsert: true }, function(err) {
+    console.log(newData);
+    ob = {
+        Name: newData.Name,
+        Phone: newData.Phone,
+        Category: newData.Category
+    };
+    model.findOneAndUpdate(query, ob, { upsert: true }, function(err) {
         if (err)
             return callback(err);
-        return callback(true);
+        return callback(ob);
     });
 }
 

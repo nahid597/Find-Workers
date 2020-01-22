@@ -23,6 +23,11 @@ var userSchema = new Schema({
         default: false
     },
 
+    IsWorker: {
+        type: Boolean,
+        default: false
+    },
+
     Coordinate: {
         x: {
             type: Number,

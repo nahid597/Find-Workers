@@ -30,7 +30,7 @@ a:hover {
     background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
     color: #f1f1f1;
     width: 100%;
-    padding: 2px;
+
 }
 
 .dropbtn {
@@ -100,6 +100,31 @@ a:hover {
   .dropdown:hover .dropdown-content {display: block;}
   
   .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+  .element {
+    width: 100%;
+
+    background: black;
+    color: white;
+    margin: auto;
+
+  }
+  
+  .first {
+    width: 50%;
+    float: left;
+  }
+  
+  .second {
+    margin-left: 50%;
+    width: 50%;
+  }
+
+  .containerr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* fraction*/
+  }
+
 
 
 

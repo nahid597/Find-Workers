@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userAuthenticated = false;
   user = false;
   userId: any;
+  ob: any;
   private authListerSubs: Subscription;
 
   constructor(private authService: LoginService) {}
@@ -19,13 +20,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userAuthenticated = this.authService.isAuth();
 
+    this.userId = this.authService.getUserId();
+    this.user = this.userId.userId.IsAdmin;
+    console.log(this.user);
+
     this.authListerSubs = this.authService.getAuthStatus()
     .subscribe(isAuthenticated => {
         this.userAuthenticated = isAuthenticated;
         console.log('user authenticated ' + this.userAuthenticated);
-        this.userId = this.authService.getUserId();
-        this.user = this.userId.userId.IsAdmin;
-        console.log(this.user);
     });
   }
 
@@ -33,6 +35,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     console.log('logout');
     this.authService.logout();
     this.user = false;
+  }
+
+  toggleEditable(event) {
+    this.ob = {
+      _id: this.userId.userId._id,
+      Active_status: event.target.checked
+    };
+    this.authService.updateWorkerStatus(this.ob);
   }
 
   ngOnDestroy() {

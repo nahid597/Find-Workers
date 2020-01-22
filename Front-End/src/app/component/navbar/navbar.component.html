@@ -22,6 +22,12 @@
       <li *ngIf="user" class="nav-item">
         <a class="nav-link" routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Others</a>
       </li>
+      <li *ngIf="userAuthenticated && userId.userId.IsWorker" class="nav-item">
+        <label class="switch ">
+          <input type="checkbox" (change)="toggleEditable($event)">
+          <span class="slider round"></span>
+        </label>
+      </li>
     </ul>
     <ul *ngIf="userAuthenticated">
       <div class="dropdown">

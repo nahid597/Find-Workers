@@ -1,27 +1,25 @@
-<div class="container">
-    <div class="row">
-        <div class="col-4 bg-light m-2" style="padding: 5%;">
+<div class="border-box">
+    <div style="padding-top: 5%; padding-bottom: 10%; padding-left: 10%; padding-right: 10%;">
+        <div class=" bg-light m-2" style="padding: 5%;">
             <h4>Professional details</h4>
             <hr>
             <img src="{{profile.userId.Image}}">
         </div>
-        <div class="col-7 bg-light m-2" style="padding: 5%;">
+        <div class="bg-light m-2" style="padding: 5%;">
             <h4>About Me</h4>
             <hr>
-            <table>
-                <tr>
-                    <td><b>Name:</b></td>
-                    <td>{{profile.userId.Name}}</td>
-                </tr>
-                <tr>
-                    <td><b>Phone:</b></td>
-                    <td>{{profile.userId.Phone}}</td>
-                </tr>
-                <tr>
-                    <td><b>Category:</b></td>
-                    <td>{{profile.userId.Category}}</td>
-                </tr>
-            </table>
+            <div>
+                <p><b>Name:</b>{{profile.userId.Name}}</p>
+            </div>
+            <div>
+                <p><b>Phone:</b>{{profile.userId.Phone}}</p>
+            </div>
+            <div>
+                <p><b>Category:</b>{{profile.userId.Category}}</p>
+            </div>
+            <div>
+                <a routerLink="/updateprofile"><button class="btn btn-success">Edit Profile</button></a>
+            </div>
         </div>
     </div>
 </div>

@@ -15,6 +15,8 @@ export class LoginService {
   private isAuthenticated = false;
   private  token: string;
   private userId;
+  private id;
+  private _id: any;
   private authStatus = new Subject<boolean>();
   check = false;
   obj: {};
@@ -46,6 +48,47 @@ export class LoginService {
         });
     }
 
+    updateWorker(authData) {
+        this.http.put<any>('http://127.0.0.1:4444/admin/workers/update' , authData)
+        .subscribe((response) => {
+            console.log(response);
+            if (response.Phone) {
+                this._id = {
+                    _id: this.id
+                };
+                this.http.post('http://127.0.0.1:4444/admin/workers/get', this._id)
+                .subscribe(res => {
+                    this.userId = res;
+                    console.log(res);
+                });
+            }
+            this.router.navigate(['/profile']);
+        }, error => {
+            this.authStatus.next(false);
+        });
+    }
+
+    updateWorkerStatus(authData) {
+        this.http.put<any>('http://127.0.0.1:4444/admin/workers/updatestatus' , authData)
+        .subscribe((response) => {
+            console.log(response);
+            if (response.Phone) {
+                this._id = {
+                    _id: this.id
+                };
+                this.http.post('http://127.0.0.1:4444/admin/workers/get', this._id)
+                .subscribe(res => {
+                    this.userId = res;
+                    console.log(res);
+                });
+            }
+            let returnUrl = localStorage.getItem('returnUrl');
+            this.router.navigate([returnUrl]);
+        }, error => {
+            this.authStatus.next(false);
+        });
+    }
+
     createUser(authData) {
         this.http.post('http://127.0.0.1:4444/admin/users/signup' , authData)
         .subscribe((response) => {
@@ -58,6 +101,8 @@ export class LoginService {
     workerLogin(authData) {
         this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/workers/login' , authData)
         .subscribe(response => {
+            this.id = response.userId._id;
+            console.log(this.id);
             this.callbackFunction(response);
         }, error => {
             this.authStatus.next(false);
@@ -68,6 +113,8 @@ export class LoginService {
     userLogin(authData) {
         this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/users/login' , authData)
         .subscribe(response => {
+            this.id = response.userId._id;
+            console.log(this.id);
             this.callbackFunction(response);
         }, error => {
             this.authStatus.next(false);

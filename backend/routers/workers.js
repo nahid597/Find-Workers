@@ -5,14 +5,24 @@ const operation = require('../operation/operation');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-router.get('', function(req, res) {
-    operation.findInf(Worker, req.query, function(data,err) {
-        if (err != true){
-            res.status(200).json(data);
+router.post('/get', function(req, res) {
+    console.log("in " , req.body);
+    Worker.findOne({_id: req.body._id})
+    .then(user => {
+        if(user) {
+            ob = {
+                'userId': user
+            }
+            res.status(200).send(ob);
         }
         else{
-            res.status(500).json(err);
+            res.status(500).send(err);
         }
+    })
+    .catch(err => {
+        return res.status(404).json({
+            message: 'user not found'
+        });
     });
 });
 
@@ -100,12 +110,24 @@ router.delete('', function(req, res) {
     });
 });
 
-router.put('', function(req, res) {
+router.put('/update', function(req, res) {
+    console.log(req.body._id);
     operation.updateData(Worker, { _id: req.body._id }, req.body, function(err) {
-        if (err != true)
-            res.status(500).json(err);
-        else
-            res.status(200).json('Successfull');
+        res.status(200).send(err);
+    });
+});
+
+router.put('/updatestatus', function(req, res) {
+    console.log(req.body._id);
+
+    ob = {
+        Active_status: req.body.Active_status
+    }
+
+    Worker.findOneAndUpdate({ _id: req.body._id }, ob, { upsert: true }, function(err) {
+        if (err)
+            res.status(400).send(err);
+        else res.status(200).send(ob);
     });
 });
 
