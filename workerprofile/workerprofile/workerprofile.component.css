@@ -1,0 +1,44 @@
+
+.my-container {
+    background-color: rgb(54, 53, 53);
+    /* margin: 5px; */
+}
+
+.my-col {
+    text-align: center;
+    color: honeydew;
+    margin-bottom: 15px;
+}
+img{
+     /* border-radius: 50%;  */
+    width: 300px;
+}
+
+.my-col-2{
+    text-align: center;
+    color: rgb(233, 172, 19);
+    margin-bottom: 15px;
+}
+.my-col-3 {
+    float: left;
+    color: honeydew;
+    margin-top: 25px; 
+}
+
+.my-col-4 {
+    float: left;
+    color: honeydew;
+    margin-top: 10px; 
+}
+
+#arrowbutton{
+    float: left;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.footer{
+    text-align: center;
+    color: honeydew;
+    margin-top: 20px;
+}
