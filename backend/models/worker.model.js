@@ -1,6 +1,7 @@
 /*Database schema for workers table*/
 
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 var workerSchema = new Schema({
@@ -21,9 +22,19 @@ var workerSchema = new Schema({
         required: true
     },
 
-    Catagory: {
+    Category: {
         type: String,
         required: true
+    },
+
+    Image: {
+        type: String,
+        required: true
+    },
+
+    IsAdmin: {
+        type: Boolean,
+        default: false
     },
 
     Active_status: {
@@ -55,5 +66,7 @@ var workerSchema = new Schema({
         }
     }
 });
+
+workerSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Worker', workerSchema);

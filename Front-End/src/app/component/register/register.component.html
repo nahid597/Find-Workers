@@ -1,4 +1,4 @@
-<br/><br/><br/>
+
 <div class="register container">
   <div class="row">
     <div class="col-md-3 register-left">
@@ -10,7 +10,13 @@
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
           <h3 class="register-heading">Apply as an Employee</h3>
           <form #f="ngForm" (ngSubmit)="save(f)"  [formGroup]="registrationForm" class="row register-form">
-            <div>   
+            <div>  
+              <div class="form-group">
+                <input type="text" [class.is-invalid]="username.Name.invalid && username.Name.touched" formControlName="Name"  class="form-control align-center" placeholder="Username *"/>
+                <small  [class.d-none]="username.Name.untouched || username.Name.valid" class="text-danger align-center">
+                  Username is required
+                </small>
+              </div>  
               <div class="form-group">
                 <input type="text" [class.is-invalid]="username.Phone.invalid && username.Phone.touched" formControlName="Phone"  class="form-control align-center" placeholder="Your Phone *"/>
                 <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger align-center">
@@ -32,10 +38,41 @@
               </div>
 
               <div class="form-group">
-                <select id="category" class="form-control align-center">
+                <select id="category" [class.is-invalid]="username.Category.invalid && username.Category.touched" formControlName="Category" class="form-control align-center">
                   <option value="">Category</option>
                   <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
+                  <option value="worker">Worker</option>
                 </select>
+                <small  [class.d-none]="username.Category.untouched || username.Category.valid" class="text-danger align-center">
+                  Category is required
+                </small>
+              </div>
+
+              <div class="form-group">
+                <div class="card" style="max-width: 100px; max-height: 100px;">
+                  <img class="image" style="max-width: 100px; max-height: 100px;"/>
+                </div>
+                <input id="image" [class.is-invalid]="username.Image.invalid && username.Image.touched" formControlName="Image" class="image align-center" type="file" (change)="changeListner($event)" />
               </div>
 
               <button type="submit" class="btonRegister">Register</button>

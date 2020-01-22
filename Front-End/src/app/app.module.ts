@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../environments/environment.prod';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,16 @@ import { SignupComponent } from './component/signup/signup.component';
 import { EarnComponent } from './component/earn/earn.component';
 import { ServicesComponent } from './component/services/services.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
+import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
+import { CategoryService } from './service/category.service';
+import { CategoryComponent } from './component/category/category.component';
+import { FooterpageComponent } from './component/footerpage/footerpage.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { AuthGuardService } from './service/auth-guard.service';
+import { AuthInterceptorService } from './service/auth-interceptor.service';
+import { UserLoginComponent } from './component/user-login/user-login.component';
+import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +43,13 @@ import { EditprofileComponent } from './component/editprofile/editprofile.compon
     SignupComponent,
     EarnComponent,
     ServicesComponent,
-    EditprofileComponent
+    EditprofileComponent,
+    CustomerSectionComponent,
+    CategoryComponent,
+    FooterpageComponent,
+    ProfileComponent,
+    UserLoginComponent,
+    WorkerLoginComponent
   ],
   imports: [
     MatButtonModule,
@@ -46,7 +62,8 @@ import { EditprofileComponent } from './component/editprofile/editprofile.compon
     HttpClientModule
 
   ],
-  providers: [LoginService],
+  providers: [{provide: HTTP_INTERCEPTORS , useClass: AuthInterceptorService, multi: true},
+     LoginService, CategoryService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

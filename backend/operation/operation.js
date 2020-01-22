@@ -1,9 +1,13 @@
 //Find data from a database
 function findInf(model, query, callback) {
+    console.log(query);
     model.find(query)
         .exec(function(err, data) {
-            if (err)
+            console.log(data);
+            if (err){
+                console.log(err);
                 return callback(err);
+            }
             return callback(data);
         });
 }
@@ -11,6 +15,7 @@ function findInf(model, query, callback) {
 //Insert into a database
 function insertData(model, callback) {
     model.save(function(err) {
+        console.log(err);
         if (err)
             return callback(err);
         return callback(true);
