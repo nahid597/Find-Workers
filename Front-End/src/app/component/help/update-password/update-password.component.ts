@@ -23,7 +23,7 @@ export class UpdatePasswordComponent implements OnInit {
 
   save(formData)
   {
-       this.http.post('/admin/update/password',formData.value)
+       this.http.post('/admin/password/update',formData.value)
        .subscribe(data => {});
        this.router.navigateByUrl('/login');
   }
