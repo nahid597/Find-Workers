@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../environments/environment.prod';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +38,15 @@ import { BecomeWorkerComponent } from './component/help/become-worker/become-wor
 import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
 import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
 import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
+=======
+import { CategoryService } from './service/category.service';
+import { CategoryComponent } from './component/category/category.component';
+import { FooterpageComponent } from './component/footerpage/footerpage.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { AuthGuardService } from './service/auth-guard.service';
+import { AuthInterceptorService } from './service/auth-interceptor.service';
+import { UserLoginComponent } from './component/user-login/user-login.component';
+import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +76,11 @@ import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-pr
     WorkerComplainComponent,
     WorkerPhoneUpdateComponent,
     WorkerSignInProblemComponent 
+    CategoryComponent,
+    FooterpageComponent,
+    ProfileComponent,
+    UserLoginComponent,
+    WorkerLoginComponent
   ],
   imports: [
     MatButtonModule,
@@ -78,7 +92,8 @@ import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-pr
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [LoginService],
+  providers: [{provide: HTTP_INTERCEPTORS , useClass: AuthInterceptorService, multi: true},
+     LoginService, CategoryService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

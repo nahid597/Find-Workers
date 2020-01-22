@@ -1,6 +1,9 @@
 .resizeimage{
     width: 100%;
     height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('https://st3.depositphotos.com/1252160/17932/v/600/depositphotos_179323376-stock-video-female-car-owner-mechanic-testing.jpg');
 }
 
 .container {
@@ -61,8 +64,14 @@
     max-height: 350px;
   }
 
+  .backgroundimage{
+    background-image: url('https://st3.depositphotos.com/1252160/17932/v/600/depositphotos_179323376-stock-video-female-car-owner-mechanic-testing.jpg');
+    background-size: 100%;
+  }
 
-  /*<![CDATA[*/
+
+  
+/*<![CDATA[*/
 @font-face{font-family:"fontfutura";src:url("https://fonts.googleapis.com/css?family=Open+Sans") format("ttf");font-weight:normal;font-style:normal;}
 a.btn-google{color:#fff}
 .btn{padding:10px 16px;margin:5px;font-size:18px;line-height:1.3333333;border-radius:6px;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid transparent;font-weight:500;text-decoration:none;display:inline-block}
@@ -75,5 +84,3 @@ a.btn-google{color:#fff}
 .btn-google:before{content:"";background-image:url(https://4.bp.blogspot.com/-52U3eP2JDM4/WSkIT1vbUxI/AAAAAAAArQA/iF1BeARv2To-2FGQU7V6UbNPivuv_lccACLcB/s30/nexus2cee_ic_launcher_play_store_new-1.png);background-size:cover;background-repeat:no-repeat;width:30px;height:30px;position:absolute;left:6px;top:50%;margin-top:-15px}
 .btn-google:after{content:"GET IT ON";position:absolute;top:5px;left:40px;font-size:10px;font-weight:400;}
 /*]]>*/
-
-

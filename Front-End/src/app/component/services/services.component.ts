@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../../service/category.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-services',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesComponent implements OnInit {
 
-  constructor() { }
+  arr: any[] = ['dfdkf', 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd' , 'dfdfd'];
+  categoryWorker;
+
+  constructor(private category: CategoryService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get('http://127.0.0.1:4444/admin/category/get')
+    .subscribe(response => {
+      this.categoryWorker = response;
+      this.categoryWorker.forEach(element => {
+        console.log(element);
+      });
+    });
+  }
+
+  selectcat(event) {
+    this.category.passData(event);
   }
 
 }

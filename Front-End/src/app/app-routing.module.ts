@@ -24,6 +24,12 @@ import { BecomeWorkerComponent } from './component/help/become-worker/become-wor
 import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
 import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
 import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
+import { CategoryComponent } from './component/category/category.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { AuthGuardService } from './service/auth-guard.service';
+import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
+import { UserLoginComponent } from './component/user-login/user-login.component';
+
 
 
 const routes: Routes = [
@@ -34,6 +40,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'workerlogin',
+    component: WorkerLoginComponent
+  },
+  {
+    path: 'userlogin',
+    component: UserLoginComponent
   },
   {
     path: 'register',
@@ -144,6 +158,19 @@ const routes: Routes = [
     path : 'help/worker/How I can get the Find-Worker app?',
     component : CustomerComponentVComponent
   },
+    path: 'help',
+    component: CustomerSectionComponent
+  },
+  {
+    path: 'category',
+    component: CategoryComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuardService]
+  }
 ];
 
 @NgModule({

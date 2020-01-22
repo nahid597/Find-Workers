@@ -1,29 +1,10 @@
 <div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-
-    <!-- Icon -->
+  <div class="formContent">
     <div class="fadeIn">
-      <h3>Please login first</h3>
+      <h3><b>Please Sign up first</b></h3><br/><br/>
     </div>
-
-    <small *ngIf="!passwordCheck" class="text-danger">Phone or password is incorrect </small>
-
-    <!-- Login Form -->
-    <form #formValue="ngForm" (ngSubmit)="login(formValue)" [formGroup]="loginForm">
-      <div class="form-group">
-        <input type="text" [class.is-invalid]="loginInfo.Phone.invalid && loginInfo.Phone.touched" formControlName="Phone"  class="fadeIn form-control" placeholder="phone number">
-      </div>
-      <div class="form-group">
-        <input type="password" [class.is-invalid]="loginInfo.Password.invalid && loginInfo.Password.touched" formControlName="Password"  class="fadeIn form-control" placeholder="password">
-      </div>
-      <input type="submit" class="fadeIn bttonRegister" value="LOG IN">
-    </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
-
+    <div style="font-size: 3vw;"><a routerLink="/workerlogin"><button  class="btn custom btn-success btn-lg btn-block bg-dark-light">Worker Login <i class="fa fa-arrow-right pl-4"></i></button></a></div>
+    <div class="py-2" style="font-size: 3vw;"><a routerLink="/userlogin"><button class="btn custom btn-success btn-lg btn-block bg-dark-light">User Login<i class="fa fa-arrow-right pl-4"></i></button></a></div>
+    
   </div>
 </div>
