@@ -38,8 +38,6 @@ import { BecomeWorkerComponent } from './component/help/become-worker/become-wor
 import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
 import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
 import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
-
-
 @NgModule({
   declarations: [
     AppComponent,
