@@ -19,6 +19,11 @@ import { UpdatePasswordComponent } from './component/help/update-password/update
 import { CustomerComponentVIComponent } from './component/help/customer-component-vi/customer-component-vi.component';
 import { CustomerCompontVIIComponent } from './component/help/customer-compont-vii/customer-compont-vii.component';
 import { CustomerComponentVIIIComponent } from './component/help/customer-component-viii/customer-component-viii.component';
+import { ForgotPasswordComponent } from './component/help/forgot-password/forgot-password.component';
+import { BecomeWorkerComponent } from './component/help/become-worker/become-worker.component';
+import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
+import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
+import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
 
 
 const routes: Routes = [
@@ -106,7 +111,39 @@ const routes: Routes = [
   {
     path : "phone_number_update",
     component : PhoneNumberUpdateComponent
-  }
+  },
+  {
+    path : 'help/forgot-password',
+    component : ForgotPasswordComponent
+  },
+  {
+    path : 'help/worker/How can I become a worker',
+    component : BecomeWorkerComponent
+  },
+  {
+    path : 'help/worker/How can I report an Issue/Complain?',
+    component : WorkerComplainComponent
+  },
+  {
+    path : "help/worker/I can't update my phone number",
+    component : WorkerPhoneUpdateComponent
+  },
+  {
+     path : 'help/worker/How to change account password?',
+     component : UpdatePasswordComponent
+  },
+  {
+    path : "help/worker/I can't sign into my account?",
+    component : WorkerSignInProblemComponent
+  },
+  {
+    path : 'help/worker/My app is not working,What should I do?',
+    component : CustomercomponetIIComponent
+  },
+  {
+    path : 'help/worker/How I can get the Find-Worker app?',
+    component : CustomerComponentVComponent
+  },
 ];
 
 @NgModule({

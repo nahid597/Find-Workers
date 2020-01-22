@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customercomponent-iv',
@@ -12,12 +14,14 @@ export class CustomercomponentIVComponent implements OnInit {
     Phone : new FormControl('',Validators.required),
     Message : new FormControl('',Validators.required)
   })
-  constructor() { }
+  constructor(private http : HttpClient,private router : Router) { }
 
   save(formData)
   {
-     console.log(formData.value.Phone);
-     console.log(formData.value.Message)
+    
+     this.http.post('admin/update/complain',formData.value)
+     .subscribe(data => {});
+     this.router.navigateByUrl('/');
   }
 
   ngOnInit() {

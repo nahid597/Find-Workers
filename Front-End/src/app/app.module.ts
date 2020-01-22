@@ -33,6 +33,11 @@ import { UpdatePasswordComponent } from './component/help/update-password/update
 import { CustomerComponentVIComponent } from './component/help/customer-component-vi/customer-component-vi.component';
 import { CustomerCompontVIIComponent } from './component/help/customer-compont-vii/customer-compont-vii.component';
 import { CustomerComponentVIIIComponent } from './component/help/customer-component-viii/customer-component-viii.component';
+import { ForgotPasswordComponent } from './component/help/forgot-password/forgot-password.component';
+import { BecomeWorkerComponent } from './component/help/become-worker/become-worker.component';
+import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
+import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
+import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
 
 
 @NgModule({
@@ -58,7 +63,12 @@ import { CustomerComponentVIIIComponent } from './component/help/customer-compon
     UpdatePasswordComponent,
     CustomerComponentVIComponent,
     CustomerCompontVIIComponent,
-    CustomerComponentVIIIComponent 
+    CustomerComponentVIIIComponent,
+    ForgotPasswordComponent,
+    BecomeWorkerComponent,
+    WorkerComplainComponent,
+    WorkerPhoneUpdateComponent,
+    WorkerSignInProblemComponent 
   ],
   imports: [
     MatButtonModule,

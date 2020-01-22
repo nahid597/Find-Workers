@@ -1,20 +1,34 @@
 <br>
 <div class="container">
-    <h4 align="center">I can't sign in to my account</h4>
+    <h4 class="text-center">How can I report an Issue/Complain?</h4>
     <div class="card">
         <div class="card-body">
             <span>
-                <p class = "content">If you can't sign in to your account because you forgot your password, click the button below to reset your password.</p>
+                <p class = "content">If you face any inconvenience while using the Find Worker platform, please report through the report box
+                and we will look into the matter.</p>
+            </span>
+            <span>
+                <p class = "content">You can also call our helpline: 01969311081</p>
             </span>
             
-            <span><a routerLink = "/help/forgot-password" role = "button" class = "btn btn-primary">Forgot password</a></span>
-     
-            <span>
-                <p class = "content">Make sure that you have an account in Find-Worker platform.</p>
-                <p class = "content">If you have no account in Find-Worker platform click the button below to create an account.</p>
-                <span><a routerLink = "/employee" role = "button" class = "btn btn-success">Create new account</a></span>
-            </span>
            
+            <form #f = "ngForm" (ngSubmit) = "save(f)" [formGroup] = "report">
+                <label for="reportTitle">Report title</label>
+               <input type = "text" class = "form-control" formControlName = "title" id = "reportTitle"
+               [ngClass] = "{'is-invalid':report.get('title').touched && report.get('title').invalid}">
+               <div class = "invalid-feedback">
+                   <div>Report title is required</div>
+               </div>
+
+               <label for="message">Describe your problem in details</label>
+               <textarea row = "3" class = "form-control" formControlName = "message" id = "message"
+               [ngClass] = "{'is-invalid':report.get('message').touched && report.get('message').invalid}"></textarea>
+               <div class = "invalid-feedback">
+                   <div>message required</div>
+               </div>
+
+               <button type = "submit" class = "btn btn-primary">Send</button>
+           </form>
         </div>
     </div>
 </div>

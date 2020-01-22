@@ -1,20 +1,43 @@
 <br>
 <div class="container">
-    <h4 align="center">I can't sign in to my account</h4>
+    <h4 class ="text-center">I can't update my phone number or email</h4>
     <div class="card">
         <div class="card-body">
+
             <span>
-                <p class = "content">If you can't sign in to your account because you forgot your password, click the button below to reset your password.</p>
+                <p class="content">Make sure you've entered your new phone number correctly.</p>
             </span>
-            
-            <span><a routerLink = "/help/forgot-password" role = "button" class = "btn btn-primary">Forgot password</a></span>
-     
             <span>
-                <p class = "content">Make sure that you have an account in Find-Worker platform.</p>
-                <p class = "content">If you have no account in Find-Worker platform click the button below to create an account.</p>
-                <span><a routerLink = "/employee" role = "button" class = "btn btn-success">Create new account</a></span>
+                <p class="content">You can retry to change your phone number using the link below : </p>
+                <a routerLink="/phone_number_update" role="button" class="btn btn-success">Change Mobile Number</a>
             </span>
-           
+
+            <span>
+
+                <p class="content">If you're getting an error message when attempting to update your mobile phone number
+                    , or if you're not receiving the verification code, let us know here.
+                    We will send a message on your phone within 48 hours.
+                </p>
+            </span>
+
+           <form #f = "ngForm" (ngSubmit) = "save(f)" [formGroup] = "form">
+                <label for="PhoneNumber">New Phone Number</label>
+               <input type = "text" class = "form-control" formControlName = "Phone" id = "PhoneNumber"
+               [ngClass] = "{'is-invalid':form.get('Phone').touched && form.get('Phone').invalid}">
+               <div class = "invalid-feedback">
+                   <div>New phone number required</div>
+               </div>
+
+               <label for="message">Share additional details</label>
+               <textarea row = "3" class = "form-control" formControlName = "Message" id = "message"
+               [ngClass] = "{'is-invalid':form.get('Message').touched && form.get('Message').invalid}"></textarea>
+               <div class = "invalid-feedback">
+                   <div>Additional message required</div>
+               </div>
+
+               <button type = "submit" class = "btn btn-primary">SUBMIT</button>
+           </form>
+
         </div>
     </div>
 </div>
