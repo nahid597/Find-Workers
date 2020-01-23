@@ -12,6 +12,20 @@ function findInf(model, query, callback) {
         });
 }
 
+
+function findIn(model, query, callback) {
+    console.log("id: ", query);
+    model.find(query)
+        .exec(function(err, data) {
+            console.log(data);
+            if (err){
+                console.log(err);
+                return callback(err);
+            }
+            return callback(data);
+        });
+}
+
 //Insert into a database
 function insertData(model, callback) {
     model.save(function(err) {

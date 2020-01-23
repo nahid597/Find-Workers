@@ -27,14 +27,15 @@ router.post('/post', (req, res, next) => {
 
 
  router.get('/get', function(req, res) {
-    operation.findInf(Category, req.query, function(data,err) {
-        if (err != true){
-            res.status(200).json(data);
-        }
-        else{
-            res.status(500).json(err);
-        }
-    });
+
+    Category.find(req.query)
+        .exec(function(err, data) {
+            console.log(data);
+            if (err){
+                res.status(400).send(err);
+            }
+            else res.status(200).send(data);
+        });
 });
  
 

@@ -13,10 +13,14 @@ export class LoginService {
 
   private durationTimer: any;
   private isAuthenticated = false;
+  private isWorker = false;
+  private isAadmin = false;
   private  token: string;
   private userId;
   private id;
+  private idd: any;
   private _id: any;
+  private status = false;
   private authStatus = new Subject<boolean>();
   check = false;
   obj: {};
@@ -33,6 +37,18 @@ export class LoginService {
 
     isAuth() {
         return this.isAuthenticated;
+    }
+
+    isAdmin() {
+        return this.isAadmin;
+    }
+
+    isStatus() {
+        return this.status;
+    }
+
+    isWorrker() {
+        return this.isWorker;
     }
 
     getUserId() {
@@ -82,8 +98,6 @@ export class LoginService {
                     console.log(res);
                 });
             }
-            let returnUrl = localStorage.getItem('returnUrl');
-            this.router.navigate([returnUrl]);
         }, error => {
             this.authStatus.next(false);
         });
@@ -134,6 +148,9 @@ export class LoginService {
 
             this.isAuthenticated = true;
             this.userId = response;
+            this.isWorker = response.userId.IsWorker;
+            this.isAadmin = response.userId.IsAdmin;
+            this.status = response.userId.Active_status;
             this.authStatus.next(true);
             const now = new Date();
             const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
@@ -155,9 +172,27 @@ export class LoginService {
       if (expiresIn > 0) {
           this.token = authInformation.token;
           this.isAuthenticated = true;
+          this.isWorker = authInformation.userId.userId.IsWorker;
+          this.isAadmin = authInformation.userId.userId.IsAdmin;
+          // this.status = authInformation.userId.userId.Active_status;
+          console.log(this.isWorker);
           this.userId = authInformation.userId;
+          console.log(this.userId);
           this.setAuthTimer(expiresIn / 1000);
           this.authStatus.next(true);
+
+          this.idd = {
+              _id: this.userId.userId._id
+          };
+
+          if (this.isWorker) {
+
+            this.http.post<{userId: any}>('http://127.0.0.1:4444/admin/workers/get', this.idd)
+                .subscribe(res => {
+                    this.status = res.userId.Active_status;
+                    console.log(this.status);
+                });
+          }
       }
     }
 
@@ -170,6 +205,8 @@ export class LoginService {
     logout() {
         this.token = null;
         this.isAuthenticated = false;
+        this.isWorker = false;
+        this.isAadmin = false;
         this.authStatus.next(false);
         clearTimeout(this.durationTimer);
         this.clearAuthDataInLocalStorage();

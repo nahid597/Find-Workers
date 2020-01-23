@@ -63,7 +63,7 @@ router.post('/login', (req, res , next) => {
             'userId': fetchData
         }
 
-        res.send(obj);
+        res.status(200).send(obj);
 
     })
     .catch(err => {
@@ -120,14 +120,18 @@ router.put('/update', function(req, res) {
 router.put('/updatestatus', function(req, res) {
     console.log(req.body._id);
 
-    ob = {
-        Active_status: req.body.Active_status
-    }
+    // ob = {
+    //     Active_status: req.body.Active_status,
+    //     Coordinate: {
+    //         x: req.body.Coordinate.x,
+    //         y: req.body.Coordinate.y
+    //     }
+    // }
 
-    Worker.findOneAndUpdate({ _id: req.body._id }, ob, { upsert: true }, function(err) {
+    Worker.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
         if (err)
             res.status(400).send(err);
-        else res.status(200).send(ob);
+        else res.status(200).send(req.body);
     });
 });
 

@@ -19,10 +19,16 @@
       <li class="nav-item dropdown">
         <a class="nav-link " routerLink="services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Services</a>
       </li>
-      <li *ngIf="user" class="nav-item">
+      <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Others</a>
       </li>
-      <li *ngIf="userAuthenticated && userId.userId.IsWorker" class="nav-item">
+      <li *ngIf="userAuthenticated && IsWorker && isStatus" class="nav-item">
+        <label class="switch ">
+          <input type="checkbox" (change)="toggleEditable($event)" checked>
+          <span class="slider round"></span>
+        </label>
+      </li>
+      <li *ngIf="userAuthenticated && IsWorker && !isStatus" class="nav-item">
         <label class="switch ">
           <input type="checkbox" (change)="toggleEditable($event)">
           <span class="slider round"></span>
