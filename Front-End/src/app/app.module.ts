@@ -46,6 +46,8 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { AuthInterceptorService } from './service/auth-interceptor.service';
 import { UserLoginComponent } from './component/user-login/user-login.component';
 import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
+import { UpdatepasswordworkerComponent } from './component/help/updatepasswordworker/updatepasswordworker.component';
+import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-update-worker/phone-number-update-worker.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +81,9 @@ import { WorkerLoginComponent } from './component/worker-login/worker-login.comp
     FooterpageComponent,
     ProfileComponent,
     UserLoginComponent,
-    WorkerLoginComponent
+    WorkerLoginComponent,
+    UpdatepasswordworkerComponent,
+    PhoneNumberUpdateWorkerComponent
   ],
   imports: [
     MatButtonModule,

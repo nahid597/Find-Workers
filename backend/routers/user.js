@@ -106,6 +106,24 @@ router.put('', function(req, res) {
     });
 });
 
+router.put('/password/update',function(req,res){
+    
+    operation.updateData(User,{Phone : req.body.Phone_number},{Password : req.body.Newpass},function(err)
+    {
+        if(err != true)
+         res.status(500).json(err);
+         else 
+         res.status(200).json('password update successfully');
+    });
+});
 
+router.put('/phone-number/update',function(req,res){
+   
+    operation.updateData(User,{Phone : req.body.OldNumber},{Phone : req.body.NewNumber},(err) =>{
+        if(err != true)
+        res.status(500).json(err);
+        else res.status(200).json('phone number update successfully!!!');
+    });
+});
 
 module.exports = router;

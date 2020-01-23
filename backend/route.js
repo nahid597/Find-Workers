@@ -7,5 +7,7 @@ const category = require('./routers/category');
 router.use('/admin/workers', workers);
 router.use('/admin/users', users);
 router.use('/admin/category', category);
+router.use('/user',users);
+router.use('/worker',workers);
 
 module.exports = router;

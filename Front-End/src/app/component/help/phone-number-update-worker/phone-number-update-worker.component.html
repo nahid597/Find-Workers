@@ -1,0 +1,33 @@
+
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+          <h4 align="center">Update Phone Number</h4>
+           <form #f = "ngForm" (ngSubmit) = "save(f)" [formGroup] = "updatenumber">
+                <label for="oldnumber">Old Phone Number</label>
+               <input type = "text" class = "form-control" formControlName = "OldNumber" id = "oldnumber"
+               [ngClass] = "{'is-invalid':updatenumber.get('OldNumber').touched && updatenumber.get('OldNumber').invalid}">
+               <div class = "invalid-feedback">
+                   <div>Old phone number required</div>
+               </div>
+
+               <label for="newnumber">New Phone Number</label>
+               <input type = "text" class = "form-control" formControlName = "NewNumber" id = "newnumber"
+               [ngClass] = "{'is-invalid':updatenumber.get('NewNumber').touched && updatenumber.get('NewNumber').invalid}">
+               <div class = "invalid-feedback">
+                   <div>New phone number required</div>
+               </div>
+
+               <button type = "submit" class = "btn btn-success">Update</button>
+           </form>
+
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
