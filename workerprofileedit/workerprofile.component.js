@@ -1,7 +1,11 @@
 // defined arrow button function
 
-function arrowButton() {
-    location.href = "../map/map.component.html";
+function homeButton() {
+    location.href = "../home/home.component.html";
+}
+
+function editButton() {
+    location.href = "../workerprofileedit/edit/edit.component.html";
 }
 
 var _id = document.location.search.replace(/^.*?\=/, '');
@@ -50,5 +54,10 @@ this.client.get("http://localhost:4487/admin/workers?_id=" + _id, function(respo
     var category = document.getElementById("category").innerHTML = storeCategory;
     var successfulWork = document.getElementById("successfulWork").innerHTML = dbElement[0].Rating.count;
     var rating = document.getElementById("rating").innerHTML = parseFloat(Math.round(rate * 100) / 100).toFixed(1);
-    var reviews = document.getElementById("reviews").innerHTML = dbElement[0].Rating.count;
+    var reviews = document.getElementById("reviews").innerHTML = dbElement[0].Rating.count * 5;
 });
+
+
+function gotoMap() {
+
+}

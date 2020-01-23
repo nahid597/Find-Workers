@@ -1,8 +1,6 @@
-<!doctype html>
-<html lang="en">
+<html>
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js'></script>
@@ -15,46 +13,26 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src='/js/socket.io.js'></script>
 
-    <script>
-        var socket = io();
-        $(function() {
-            $("#navbarComponent").load("navbar/navbar.component.html");
-        });
-        let myData = JSON.parse(localStorage.getItem('status'));
-    
-        if(myData == null)
-            socket.emit('no_id', {});
-        else 
-            socket.emit('connect_me', myData);
-    
-        //console.log(myData.hei==undefined);
-
-        let tmp = {};
-        socket.on('new_id', function(data){
-            tmp.user_id = data.id;
-            tmp.worker_id = null;
-            myData = tmp;
-            localStorage.setItem("status", JSON.stringify(myData));
-            console.log(localStorage.getItem("status"));
-
-        });
-
-        $(function() {
-            $("#homeComponent").load("home/home.component.html");
-        });
-
-    </script>
-
-    <title>Find Worker</title>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="workermap.component.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
 <body>
-    <div id="navbarComponent"></div>
-    
-    <div id = "homeComponent"></div>
+
+    <nav class="navbar navbar-light bg-light">
+        <input type=button class="btn btn-warning btn-sm" onClick="location.href='../home/home.component.html'" value='Home'>
+
+    </nav>
+    <div id='map'></div>
+
+    <script src="workermap.component.js"></script>
+
+
+
 </body>
 
 </html>

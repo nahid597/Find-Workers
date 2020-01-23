@@ -6,7 +6,7 @@ const operation = require('../operation/operation');
 router.get('', function(req, res) {
     operation.findInf(Worker, req.query, function(err, data) {
         if (err != true)
-            res.status(500).json(err);
+            res.status(200).json(err);
         else
             res.status(200).json(data);
     });

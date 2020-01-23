@@ -17,6 +17,15 @@ mongoose.set('useCreateIndex', true);
 
 mongoose.connect(db, { useNewUrlParser: true });
 
+app.use((req, res, next)=> {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, content-Type, Authorization, Accept, X-Requested-With");
+    res.setHeader("Access-Control-Allow-Methods",
+    "GET,POST, PATCH, PUT, DELETE, OPTIONS");
+
+    next();
+})
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true,
@@ -26,7 +35,7 @@ app.use('', route);
 
 app.use(express.static(path.join(__dirname, '../')));
 
-const port = 4444;
+const port = 4487;
 server.listen(port, function() {
     console.log('app listening on port ' + port);
 });
