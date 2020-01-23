@@ -21,6 +21,10 @@ export class LoginService {
   private idd: any;
   private _id: any;
   private status = false;
+  private userpath = 'http://127.0.0.1:4444/admin/users/login';
+  private workerpath = 'http://127.0.0.1:4444/admin/workers/login';
+  private workerregister = 'http://127.0.0.1:4444/admin/workers/signup';
+  private userregister = 'http://127.0.0.1:4444/admin/users/signup';
   private authStatus = new Subject<boolean>();
   check = false;
   obj: {};
@@ -55,15 +59,6 @@ export class LoginService {
         return this.userId;
     }
 
-    createWorker(authData) {
-        this.http.post('http://127.0.0.1:4444/admin/workers/signup' , authData)
-        .subscribe((response) => {
-            this.router.navigate(['/']);
-        }, error => {
-            this.authStatus.next(false);
-        });
-    }
-
     updateWorker(authData) {
         this.http.put<any>('http://127.0.0.1:4444/admin/workers/update' , authData)
         .subscribe((response) => {
@@ -78,33 +73,22 @@ export class LoginService {
                     console.log(res);
                 });
             }
-            this.router.navigate(['/profile']);
         }, error => {
             this.authStatus.next(false);
         });
     }
 
-    updateWorkerStatus(authData) {
-        this.http.put<any>('http://127.0.0.1:4444/admin/workers/updatestatus' , authData)
-        .subscribe((response) => {
-            console.log(response);
-            if (response.Phone) {
-                this._id = {
-                    _id: this.id
-                };
-                this.http.post('http://127.0.0.1:4444/admin/workers/get', this._id)
-                .subscribe(res => {
-                    this.userId = res;
-                    console.log(res);
-                });
-            }
-        }, error => {
-            this.authStatus.next(false);
-        });
+    createWorker(authData) {
+        this.register(this.workerregister, authData);
     }
+
 
     createUser(authData) {
-        this.http.post('http://127.0.0.1:4444/admin/users/signup' , authData)
+        this.register(this.userregister, authData);
+    }
+
+    register(path: string, authData) {
+        this.http.post(path , authData)
         .subscribe((response) => {
             this.router.navigate(['/']);
         }, error => {
@@ -113,19 +97,15 @@ export class LoginService {
     }
 
     workerLogin(authData) {
-        this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/workers/login' , authData)
-        .subscribe(response => {
-            this.id = response.userId._id;
-            console.log(this.id);
-            this.callbackFunction(response);
-        }, error => {
-            this.authStatus.next(false);
-        });
-        return this.check;
+        return this.login(this.workerpath, authData);
     }
 
     userLogin(authData) {
-        this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/users/login' , authData)
+        return this.login(this.userpath, authData);
+    }
+
+    login(path: string, authData) {
+        this.http.post<{token: string , expiresIn: number, userId: any}>(path , authData)
         .subscribe(response => {
             this.id = response.userId._id;
             console.log(this.id);

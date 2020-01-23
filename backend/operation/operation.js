@@ -12,20 +12,6 @@ function findInf(model, query, callback) {
         });
 }
 
-
-function findIn(model, query, callback) {
-    console.log("id: ", query);
-    model.find(query)
-        .exec(function(err, data) {
-            console.log(data);
-            if (err){
-                console.log(err);
-                return callback(err);
-            }
-            return callback(data);
-        });
-}
-
 //Insert into a database
 function insertData(model, callback) {
     model.save(function(err) {
@@ -45,18 +31,4 @@ function deleteData(model, query, callback) {
     });
 }
 
-function updateData(model, query, newData, callback) {
-    console.log(newData);
-    ob = {
-        Name: newData.Name,
-        Phone: newData.Phone,
-        Category: newData.Category
-    };
-    model.findOneAndUpdate(query, ob, { upsert: true }, function(err) {
-        if (err)
-            return callback(err);
-        return callback(ob);
-    });
-}
-
-module.exports = { findInf, insertData, deleteData, updateData };
+module.exports = { findInf, insertData, deleteData };

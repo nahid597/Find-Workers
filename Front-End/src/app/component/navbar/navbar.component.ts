@@ -9,42 +9,25 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-  userAuthenticated = false;
-  isAdmin = false;
-  userId: any;
-  IsWorker = false;
-  ob: any;
-  isStatus = false;
-  put: any;
-  X: any;
-  Y: any;
+  private userAuthenticated = false;
+  private isAdmin = false;
+  private userId: any;
+  private IsWorker = false;
+  private ob: any;
+  private isStatus = false;
+  private put: any;
+  private X: any;
+  private Y: any;
   private authListerSubs: Subscription;
 
   constructor(private authService: LoginService) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.isStatus = this.authService.isStatus();
-    }, 500);
-    this.userAuthenticated = this.authService.isAuth();
-    this.isAdmin = this.authService.isAdmin();
-    this.IsWorker = this.authService.isWorrker();
-    this.userId = this.authService.getUserId();
 
-    console.log(this.isStatus);
-
-    console.log(this.userAuthenticated);
-
+    this.collback();
     this.authListerSubs = this.authService.getAuthStatus()
     .subscribe(isAuthenticated => {
-        this.userAuthenticated = isAuthenticated;
-        this.userId = this.authService.getUserId();
-        this.IsWorker = this.userId.userId.IsWorker;
-        this.isAdmin = this.userId.userId.IsAdmin;
-        setTimeout(() => {
-          this.isStatus = this.authService.isStatus();
-        }, 500);
-        console.log('worker ' + this.isStatus);
+        this.collback();
     });
 
     console.log(this.IsWorker);
@@ -62,7 +45,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 y: position.coords.longitude
               }
             };
-            this.authService.updateWorkerStatus(this.ob);
+            this.authService.updateWorker(this.ob);
           }
         });
       } else {
@@ -71,13 +54,27 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }, 5000);
   }
 
+  collback() {
+    setTimeout(() => {
+      this.isStatus = this.authService.isStatus();
+    }, 500);
+    this.userAuthenticated = this.authService.isAuth();
+    this.isAdmin = this.authService.isAdmin();
+    this.IsWorker = this.authService.isWorrker();
+    this.userId = this.authService.getUserId();
+
+    console.log(this.isStatus);
+
+    console.log(this.userAuthenticated);
+  }
+
   onLogout() {
     console.log('logout');
     this.ob = {
       _id: this.userId.userId._id,
       Active_status: false
     };
-    this.authService.updateWorkerStatus(this.ob);
+    this.authService.updateWorker(this.ob);
     this.authService.logout();
   }
 
@@ -104,7 +101,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       };
       console.log('ob ', this.ob);
 
-      this.authService.updateWorkerStatus(this.ob);
+      this.authService.updateWorker(this.ob);
     }, 10);
 
   }

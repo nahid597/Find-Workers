@@ -110,23 +110,15 @@ router.delete('', function(req, res) {
     });
 });
 
+// router.put('/update', function(req, res) {
+//     console.log(req.body._id);
+//     operation.updateData(Worker, { _id: req.body._id }, req.body, function(err) {
+//         res.status(200).send(err);
+//     });
+// });
+
 router.put('/update', function(req, res) {
     console.log(req.body._id);
-    operation.updateData(Worker, { _id: req.body._id }, req.body, function(err) {
-        res.status(200).send(err);
-    });
-});
-
-router.put('/updatestatus', function(req, res) {
-    console.log(req.body._id);
-
-    // ob = {
-    //     Active_status: req.body.Active_status,
-    //     Coordinate: {
-    //         x: req.body.Coordinate.x,
-    //         y: req.body.Coordinate.y
-    //     }
-    // }
 
     Worker.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
         if (err)
