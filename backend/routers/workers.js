@@ -5,6 +5,17 @@ const operation = require('../operation/operation');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+router.get('', function(req, res) {
+    operation.findInf(Worker, req.query, function(data,err) {
+        if (err != true){
+            res.status(200).json(data);
+        }
+        else{
+            res.status(500).json(err);
+        }
+    });
+});
+
 router.post('/get', function(req, res) {
     console.log("in " , req.body);
     Worker.findOne({_id: req.body._id})

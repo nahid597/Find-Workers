@@ -57,10 +57,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   collback() {
     setTimeout(() => {
       this.isStatus = this.authService.isStatus();
-    }, 500);
+    }, 200);
+
+    setTimeout(() => {
+      this.IsWorker = this.authService.isWorrker();
+    }, 200);
     this.userAuthenticated = this.authService.isAuth();
     this.isAdmin = this.authService.isAdmin();
-    this.IsWorker = this.authService.isWorrker();
+
     this.userId = this.authService.getUserId();
 
     console.log(this.isStatus);

@@ -18,7 +18,7 @@
                 <p><b>Category:</b>{{profile.userId.Category}}</p>
             </div>
             <div>
-                <a routerLink="/updateprofile"><button class="btn btn-success">Edit Profile</button></a>
+                <a [routerLink]="['/profile/',profile.userId._id]"><button class="btn btn-success">Edit Profile</button></a>
             </div>
         </div>
     </div>

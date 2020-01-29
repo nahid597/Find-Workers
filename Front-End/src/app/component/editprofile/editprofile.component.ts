@@ -3,6 +3,8 @@ import { LoginService } from '../../service/login.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-editprofile',
@@ -12,6 +14,7 @@ import { Subscription } from 'rxjs';
 export class EditprofileComponent implements OnInit, OnDestroy {
 
   formdata: any;
+  res;
   ob: any;
 
   get username() {
@@ -25,7 +28,11 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     };
   }
 
-  constructor(private fb: FormBuilder, private authService: LoginService, private element: ElementRef) {}
+  constructor(
+    private route: ActivatedRoute, private router: Router,
+    private fb: FormBuilder, private authService: LoginService, private element: ElementRef
+  ) {
+  }
 
   registrationForm = this.fb.group({
     Name: ['', Validators.required],
@@ -42,8 +49,10 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
+
     this.formdata = this.authService.getUserId();
-    console.log(this.formdata.userId);
+    // console.log(this.formdata.userId);
     this.authStatusSub = this.authService.getAuthStatus().subscribe(authStatus => {
         this.isLoadin = false;
         console.log(authStatus);
@@ -61,7 +70,9 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     console.log(this.ob);
     this.isLoadin = true;
     this.authService.updateWorker(this.ob);
-    // console.log(formData.value);
+    setTimeout(() => {
+      this.router.navigate(['/profile']);
+    }, 500);
     return;
     console.log('invalid');
   }

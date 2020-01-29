@@ -59,6 +59,10 @@ export class LoginService {
         return this.userId;
     }
 
+    getUser(id) {
+        return this.http.post('http://127.0.0.1:4444/admin/workers/get', id);
+    }
+
     updateWorker(authData) {
         this.http.put<any>('http://127.0.0.1:4444/admin/workers/update' , authData)
         .subscribe((response) => {
@@ -67,10 +71,8 @@ export class LoginService {
                 this._id = {
                     _id: this.id
                 };
-                this.http.post('http://127.0.0.1:4444/admin/workers/get', this._id)
-                .subscribe(res => {
+                this.getUser(this._id).subscribe(res => {
                     this.userId = res;
-                    console.log(res);
                 });
             }
         }, error => {

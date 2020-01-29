@@ -42,10 +42,6 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: 'updateprofile',
-    component: EditprofileComponent
-  },
-  {
     path: 'employee',
     component: RegisterComponent
   },
@@ -68,6 +64,11 @@ const routes: Routes = [
   {
     path: 'category',
     component: CategoryComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'profile/:id',
+    component: EditprofileComponent,
     canActivate: [AuthGuardService]
   },
   {

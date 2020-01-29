@@ -16,7 +16,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.profile = this.authService.getUserId();
+    setTimeout(() => {
+      this.profile = this.authService.getUserId();
+    }, 200);
 
     this.authListerSubs = this.authService.getAuthStatus()
     .subscribe(isAuthenticated => {
