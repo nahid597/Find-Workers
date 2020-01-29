@@ -9,30 +9,105 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-  userAuthenticated = false;
-  user = false;
-  userId: any;
+  private userAuthenticated = false;
+  private isAdmin = false;
+  private userId: any;
+  private IsWorker = false;
+  private ob: any;
+  private isStatus = false;
+  private put: any;
+  private X: any;
+  private Y: any;
   private authListerSubs: Subscription;
 
   constructor(private authService: LoginService) {}
 
   ngOnInit() {
-    this.userAuthenticated = this.authService.isAuth();
 
+    this.collback();
     this.authListerSubs = this.authService.getAuthStatus()
     .subscribe(isAuthenticated => {
-        this.userAuthenticated = isAuthenticated;
-        console.log('user authenticated ' + this.userAuthenticated);
-        this.userId = this.authService.getUserId();
-        this.user = this.userId.userId.IsAdmin;
-        console.log(this.user);
+        this.collback();
     });
+
+    console.log(this.IsWorker);
+
+    setInterval(() => {
+      if (navigator.geolocation) {
+        // this.isTracking = true;
+        navigator.geolocation.getCurrentPosition((position) => {
+          console.log('position ', position);
+          if (this.IsWorker) {
+            this.ob = {
+              _id: this.userId.userId._id,
+              Coordinate: {
+                x: position.coords.latitude,
+                y: position.coords.longitude
+              }
+            };
+            this.authService.updateWorker(this.ob);
+          }
+        });
+      } else {
+        alert('Geolocation is not supported by this browser.');
+      }
+    }, 5000);
+  }
+
+  collback() {
+    setTimeout(() => {
+      this.isStatus = this.authService.isStatus();
+    }, 200);
+
+    setTimeout(() => {
+      this.IsWorker = this.authService.isWorrker();
+    }, 200);
+    this.userAuthenticated = this.authService.isAuth();
+    this.isAdmin = this.authService.isAdmin();
+
+    this.userId = this.authService.getUserId();
+
+    console.log(this.isStatus);
+
+    console.log(this.userAuthenticated);
   }
 
   onLogout() {
     console.log('logout');
+    this.ob = {
+      _id: this.userId.userId._id,
+      Active_status: false
+    };
+    this.authService.updateWorker(this.ob);
     this.authService.logout();
-    this.user = false;
+  }
+
+  toggleEditable(event) {
+
+    if (navigator.geolocation) {
+      // this.isTracking = true;
+      navigator.geolocation.getCurrentPosition((position) => {
+        // console.log(position);
+        this.X = position.coords.latitude;
+        this.Y = position.coords.longitude;
+      });
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+    setTimeout(() => {
+      this.ob = {
+        _id: this.userId.userId._id,
+        Active_status: event.target.checked,
+        Coordinate: {
+          x: this.X,
+          y: this.Y
+        }
+      };
+      console.log('ob ', this.ob);
+
+      this.authService.updateWorker(this.ob);
+    }, 10);
+
   }
 
   ngOnDestroy() {

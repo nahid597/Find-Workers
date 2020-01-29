@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../service/login.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -8,13 +9,23 @@ import { LoginService } from '../../service/login.service';
 })
 export class ProfileComponent implements OnInit {
 
-  profile;
+  profile: any;
+  private authListerSubs: Subscription;
 
-  constructor(private auth: LoginService) { }
+  constructor(private authService: LoginService) { }
 
   ngOnInit() {
-    this.profile = this.auth.getUserId();
-    console.log(this.profile.userId.Name);
+
+    setTimeout(() => {
+      this.profile = this.authService.getUserId();
+    }, 200);
+
+    this.authListerSubs = this.authService.getAuthStatus()
+    .subscribe(isAuthenticated => {
+        this.profile = this.authService.getUserId();
+        console.log(this.profile.userId.Name);
+    });
+
   }
 
 }

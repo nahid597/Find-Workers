@@ -13,8 +13,18 @@ export class LoginService {
 
   private durationTimer: any;
   private isAuthenticated = false;
+  private isWorker = false;
+  private isAadmin = false;
   private  token: string;
   private userId;
+  private id;
+  private idd: any;
+  private _id: any;
+  private status = false;
+  private userpath = 'http://127.0.0.1:4444/admin/users/login';
+  private workerpath = 'http://127.0.0.1:4444/admin/workers/login';
+  private workerregister = 'http://127.0.0.1:4444/admin/workers/signup';
+  private userregister = 'http://127.0.0.1:4444/admin/users/signup';
   private authStatus = new Subject<boolean>();
   check = false;
   obj: {};
@@ -33,21 +43,54 @@ export class LoginService {
         return this.isAuthenticated;
     }
 
+    isAdmin() {
+        return this.isAadmin;
+    }
+
+    isStatus() {
+        return this.status;
+    }
+
+    isWorrker() {
+        return this.isWorker;
+    }
+
     getUserId() {
         return this.userId;
     }
 
-    createWorker(authData) {
-        this.http.post('http://127.0.0.1:4444/admin/workers/signup' , authData)
+    getUser(id) {
+        return this.http.post('http://127.0.0.1:4444/admin/workers/get', id);
+    }
+
+    updateWorker(authData) {
+        this.http.put<any>('http://127.0.0.1:4444/admin/workers/update' , authData)
         .subscribe((response) => {
-            this.router.navigate(['/']);
+            console.log(response);
+            if (response.Phone) {
+                this._id = {
+                    _id: this.id
+                };
+                this.getUser(this._id).subscribe(res => {
+                    this.userId = res;
+                });
+            }
         }, error => {
             this.authStatus.next(false);
         });
     }
 
+    createWorker(authData) {
+        this.register(this.workerregister, authData);
+    }
+
+
     createUser(authData) {
-        this.http.post('http://127.0.0.1:4444/admin/users/signup' , authData)
+        this.register(this.userregister, authData);
+    }
+
+    register(path: string, authData) {
+        this.http.post(path , authData)
         .subscribe((response) => {
             this.router.navigate(['/']);
         }, error => {
@@ -56,18 +99,18 @@ export class LoginService {
     }
 
     workerLogin(authData) {
-        this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/workers/login' , authData)
-        .subscribe(response => {
-            this.callbackFunction(response);
-        }, error => {
-            this.authStatus.next(false);
-        });
-        return this.check;
+        return this.login(this.workerpath, authData);
     }
 
     userLogin(authData) {
-        this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/users/login' , authData)
+        return this.login(this.userpath, authData);
+    }
+
+    login(path: string, authData) {
+        this.http.post<{token: string , expiresIn: number, userId: any}>(path , authData)
         .subscribe(response => {
+            this.id = response.userId._id;
+            console.log(this.id);
             this.callbackFunction(response);
         }, error => {
             this.authStatus.next(false);
@@ -87,6 +130,9 @@ export class LoginService {
 
             this.isAuthenticated = true;
             this.userId = response;
+            this.isWorker = response.userId.IsWorker;
+            this.isAadmin = response.userId.IsAdmin;
+            this.status = response.userId.Active_status;
             this.authStatus.next(true);
             const now = new Date();
             const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
@@ -108,9 +154,27 @@ export class LoginService {
       if (expiresIn > 0) {
           this.token = authInformation.token;
           this.isAuthenticated = true;
+          this.isWorker = authInformation.userId.userId.IsWorker;
+          this.isAadmin = authInformation.userId.userId.IsAdmin;
+          // this.status = authInformation.userId.userId.Active_status;
+          console.log(this.isWorker);
           this.userId = authInformation.userId;
+          console.log(this.userId);
           this.setAuthTimer(expiresIn / 1000);
           this.authStatus.next(true);
+
+          this.idd = {
+              _id: this.userId.userId._id
+          };
+
+          if (this.isWorker) {
+
+            this.http.post<{userId: any}>('http://127.0.0.1:4444/admin/workers/get', this.idd)
+                .subscribe(res => {
+                    this.status = res.userId.Active_status;
+                    console.log(this.status);
+                });
+          }
       }
     }
 
@@ -123,6 +187,8 @@ export class LoginService {
     logout() {
         this.token = null;
         this.isAuthenticated = false;
+        this.isWorker = false;
+        this.isAadmin = false;
         this.authStatus.next(false);
         clearTimeout(this.durationTimer);
         this.clearAuthDataInLocalStorage();

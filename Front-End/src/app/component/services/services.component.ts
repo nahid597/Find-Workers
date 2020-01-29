@@ -17,6 +17,7 @@ export class ServicesComponent implements OnInit {
   ngOnInit() {
     this.http.get('http://127.0.0.1:4444/admin/category/get')
     .subscribe(response => {
+      console.log(response);
       this.categoryWorker = response;
       this.categoryWorker.forEach(element => {
         console.log(element);
