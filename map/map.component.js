@@ -4,6 +4,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibmFoaWQ1OTciLCJhIjoiY2syMzQwZThqMHNnODNnbnIwZ
 var map;
 style = 'mapbox://styles/mapbox/streets-v10';
 
+var putUrl = 'http://192.168.0.110:4444/admin/workers/update';
+
 var p = 0;
 var popup = [];
 var marker = [];
@@ -16,10 +18,16 @@ var start = [lng, lat];
 
 var success = 0;
 
+
+
+// active user information from database
+const user_id = document.location.search.replace(/^.*?\=/, '');
+
+console.log('user id ' + user_id);
+
+
 // if we want to show arrival time without domain
 //getRoute(start);
-
-this.initializeMap();
 
 
 // read data from database
@@ -38,7 +46,7 @@ var HttpClient = function() {
     };
 };
 
-// var data = httpGet('http://localhost:4487/admin/workers');
+// var data = httpGet('http://192.168.0.110:4444/admin/workers');
 // console.log(data);
 
 var dbElementsCount = 0;
@@ -46,9 +54,35 @@ var storeDbElements;
 
 var client = new HttpClient();
 
+// active user information from database
+var user_Lat = 24.999;
+var user_Lng = 88.99;
+
+this.client.get('http://192.168.0.110:4444/admin/users?_id=' + user_id, function(response) {
+    // do something with response
+    var dbElement = JSON.parse(response);
+    //console.log(store[1].Coordinate.x);
+    var dbElementCount = dbElement.length;
+
+    var lng;
+    var lat;
+
+    for (var i = 0; i < dbElementCount; i++) {
+        user_Lng = dbElement[i].Coordinate.lng;
+        user_Lat = dbElement[i].Coordinate.lat;
+
+        console.log("user lng " + user_Lng);
+        console.log("user lat " + user_Lat);
+    }
+
+});
+
+
+this.initializeMap();
+
 function getWorkerFormDatabase() {
 
-    this.client.get('http://localhost:4487/admin/workers?Active_status=true', function(response) {
+    this.client.get('http://192.168.0.110:4444/admin/workers?Active_status=true', function(response) {
         // do something with response
         this.storeDbElements = JSON.parse(response);
         console.log(storeDbElements);
@@ -125,7 +159,7 @@ function initializeMap() {
             lat = position.coords.latitude;
             lng = position.coords.longitude;
 
-            //console.log(lat, lng);
+            console.log(lat, lng);
             map.flyTo({
                 center: [lng, lat]
             });
@@ -165,7 +199,7 @@ function getRoute(end) {
 
     // here we need data from user database
 
-    var start = [88.6008612, 24.3661267];
+    var start = [user_Lng, user_Lat];
 
     // console.log("start data" + start);
     var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
@@ -305,6 +339,8 @@ function starmark(item) {
 }
 
 
+
+
 // sumbit rating bar 
 
 var stroeDbRatingPerPerson = [];
@@ -315,7 +351,7 @@ function submitStars() {
     //  console.log("rating: " + rating);
     console.log("store db " + this.storeDbElements[0].Name);
 
-    var putUrl = 'http://localhost:4487/admin/workers';
+    // var putUrl = 'http://192.168.0.110:4444/admin/workers/update';
 
     console.log("number of db elment s sd " + this.storeIdOfRatingWorker);
 
@@ -369,7 +405,7 @@ function submitStars() {
     // reload current page
 
     // location.reload(true);
-    window.location.href = "http://localhost:4487/thankyou/thankyou.component.html";
+    window.location.href = "http://192.168.0.122:4487/thankyou/thankyou.component.html?_id=" + user_id;
 }
 
 
@@ -453,39 +489,39 @@ function userMarker() {
     map.on('load', function() {
 
         // getRoute(start);
-        navigator.geolocation.getCurrentPosition(position => {
-            lat = position.coords.latitude;
-            lng = position.coords.longitude;
-            console.log("lat " + lat);
-            console.log("lng " + lng);
+        // navigator.geolocation.getCurrentPosition(position => {
+        // lat = position.coords.latitude;
+        // lng = position.coords.longitude;
+        // console.log("lat " + lat);
+        // console.log("lng " + lng);
 
-            // call route function for ruting...
-            getRoute(start);
+        // call route function for ruting...
+        getRoute(start);
 
-            map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
+        map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
 
-            map.addLayer({
-                "id": "points",
-                "type": "symbol",
-                "source": {
-                    "type": "geojson",
-                    "data": {
-                        "type": "FeatureCollection",
-                        "features": [{
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [lng, lat]
-                            }
-                        }]
-                    }
-                },
-                "layout": {
-                    "icon-image": "pulsing-dot"
+        map.addLayer({
+            "id": "points",
+            "type": "symbol",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "FeatureCollection",
+                    "features": [{
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [user_Lng, user_Lat]
+                        }
+                    }]
                 }
-            });
-
+            },
+            "layout": {
+                "icon-image": "pulsing-dot"
+            }
         });
+
+        // });
     });
 
 
@@ -535,25 +571,32 @@ function workerMarker(lng, lat, id, name, category, rating, phone) {
 
 // create function for animate the location
 
+
 function animateMarker(id) {
     var radius = 10;
 
+    // lng1 += 0.34,
+    //     lat1 += 0.43
+
+    // console.log("animate lng " + lng1);
+    // console.log("animate lat " + lat1);
+
     // Update the data to a new position based on the animation timestamp. The
     // divisor in the expression `timestamp / 1000` controls the animation speed.
-    // marker.setLngLat([
-    //     Math.cos(timestamp / 1000) * radius,
-    //     Math.sin(timestamp / 1000) * radius
+    // this.marker[id].setLngLat([
+    //     lng1,
+    //     lat1
     // ]);
 
     //console.log("animate id " + id);
 
-    ///console.log(this.lng);
-    //console.log(this.lat);
+    // console.log("animate " + this.lng1);
+    // console.log(this.lng1);
 
     // show data from database
 
     if (id) {
-        this.client.get('http://localhost:4487/admin/workers?_id=' + id, function(response) {
+        this.client.get('http://192.168.0.110:4444/admin/workers?_id=' + id, function(response) {
             // do something with response
             var dbElement = JSON.parse(response);
             //console.log(store[1].Coordinate.x);
@@ -570,8 +613,8 @@ function animateMarker(id) {
                 console.log("animate lat " + lat);
 
                 this.marker[id].setLngLat([
-                    lng += 0.001,
-                    lat += 0.001
+                    lng,
+                    lat
                 ]);
             }
 
@@ -589,7 +632,7 @@ function animateMarker(id) {
             if (typeof marker[id] != 'undefined')
                 animateMarker(id);
         });
-    }, 8 * 1000);
+    }, 10 * 1000);
 
 
 }
@@ -700,7 +743,7 @@ function confirmToWorker(id1) {
     // only show the conform worker other workers remvoe from map
 
     if (id1) {
-        this.client.get('http://localhost:4487/admin/workers?_id=' + id1, function(response) {
+        this.client.get('http://192.168.0.110:4444/admin/workers?_id=' + id1, function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             //console.log(store[1].Coordinate.x);
@@ -711,6 +754,41 @@ function confirmToWorker(id1) {
 
         });
     }
+
+    console.log("conform page user lat " + user_Lat);
+    console.log("conform page user lng " + user_Lng);
+
+
+
+    var sendData = {
+        UserCoord: {
+            lat: user_Lat + .99,
+            lng: user_Lng + .99
+        },
+        _id: this.storeIdofRating
+
+    };
+
+    //  sendData.Rating.rating = dbrating;
+    //  sendData.Rating.count = dbRatingCount;
+    //  sendData._id = this.storeIdofRating;
+
+    var jsonSendData = JSON.stringify(sendData);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("PUT", putUrl, true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+    xhr.onload = function() {
+        var users = JSON.parse(xhr.responseText);
+        if (xhr.readyState == 4 && xhr.status == "200") {
+            // console.table(users);
+        } else {
+            console.error(users);
+        }
+    };
+    xhr.send(jsonSendData);
 
 }
 
@@ -767,7 +845,7 @@ function singleSelectChangeText() {
     // }
 
     if (setValue === "all") {
-        this.client.get('http://localhost:4487/admin/workers?Active_status=true', function(response) {
+        this.client.get('http://192.168.0.110:4444/admin/workers?Active_status=true', function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             console.log(storeDbElements);
@@ -779,7 +857,7 @@ function singleSelectChangeText() {
 
         });
     } else {
-        this.client.get('http://localhost:4487/admin/workers?Active_status=true&Catagory=' + setValue, function(response) {
+        this.client.get('http://192.168.0.110:4444/admin/workers?Active_status=true&Catagory=' + setValue, function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             console.log(storeDbElements);
