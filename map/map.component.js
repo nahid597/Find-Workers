@@ -762,10 +762,10 @@ function confirmToWorker(id1) {
 
     var sendData = {
         UserCoord: {
-            lat: user_Lat + .99,
-            lng: user_Lng + .99
+            lat: user_Lat - .99,
+            lng: user_Lng - .99
         },
-        _id: this.storeIdofRating
+        _id: id1
 
     };
 
