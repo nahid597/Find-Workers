@@ -2,3 +2,19 @@
     height: 100%;
     width: 100%;
 }
+
+#routeButton {
+    position: absolute;
+    margin: 2%;
+    width: 25%;
+    height: 10%;
+    top: 10%;
+    bottom: 5%;
+    padding: 10px;
+    /* background-color: rgba(255, 255, 255, 0.9); */
+    font-family: sans-serif;
+    font-size: 0.8em;
+    line-height: 2em;
+    visibility: visible;
+    /* display: none; */
+}
