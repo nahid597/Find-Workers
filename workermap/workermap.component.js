@@ -247,7 +247,16 @@ function userMarker(user_Lat, user_Lng) {
 }
 
 function goToRouteButton() {
-    console.log("button clicked ");
+    document.getElementById("routeButton").style.visibility = 'hidden';
+    document.getElementById("instructions").style.visibility = 'visible';
+
+    console.log("worker lat for route " + worker_Lat);
+    console.log("worker lat for route " + worker_Lng);
+    var coords = [worker_Lng, worker_Lat];
+
+    // call route function
+    getRoute(coords);
+
 }
 
 // disply route button
@@ -255,3 +264,92 @@ function goToRouteButton() {
 var routeButton = document.getElementById("routeButton");
 
 routeButton.innerHTML = '<button type="button" onClick= "goToRouteButton()" class = "btn btn-warning btn-small">Go to Route</button>';
+
+
+function getRoute(end) {
+    // make a directions request using cycling profile
+    // an arbitrary start will always be the same
+    // only the end or destination will change
+    //console.log("end data" + end);
+
+    // here we need data from user database
+
+    console.log("connect user in route lat " + connected_user_Lat);
+    console.log("connect user in route lat " + connected_user_Lng);
+
+    var start = [connected_user_Lng, connected_user_Lat];
+
+    // console.log("start data" + start);
+    var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+
+    // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+    var req = new XMLHttpRequest();
+    req.responseType = 'json';
+    req.open('GET', url, true);
+    req.onload = function() {
+        var data = req.response.routes[0];
+        var route = data.geometry.coordinates;
+        //console.log(route);
+        var geojson = {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+                type: 'LineString',
+                coordinates: route
+            }
+        };
+        // if the route already exists on the map, reset it using setData
+
+
+
+        if (map.getSource('route')) {
+            map.getSource('route').setData(geojson);
+        } else { // otherwise, make a new request
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: {
+                    type: 'geojson',
+                    data: {
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: geojson
+                        }
+                    }
+                },
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#0000FF',
+                    'line-width': 10,
+                    'line-opacity': 0.85
+                }
+            });
+        }
+        // add turn instructions here at the end
+        // get the sidebar and add the instructions
+
+        var instructions = document.getElementById('instructions');
+        //var finishedWork = document.getElementById('finishedWork');
+        // var ratingPopup = document.getElementById("ratingPopup");
+        var steps = data.legs[0].steps;
+        //$("#instructions").hide();
+        //$("#ratingPopup").hide();
+        //$('#finishedWork').hide();
+        var tripInstructions = [];
+        for (var i = 0; i < steps.length; i++) {
+            tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
+            instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor((data.duration / 60) / 60) + ' hour ' + Math.floor((data.duration / 60) % 60) + ' min 🚴 </span>' +
+                '<button type="button" style = "margin:5px" class="btn btn-primary btn-sm" onClick = "finishedWork()"> Finished Work</button>';
+
+        }
+
+    };
+
+    req.send();
+
+}
