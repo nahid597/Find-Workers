@@ -66,37 +66,46 @@ var HttpClient = function() {
 var client = new HttpClient();
 
 
-var worker_Lat = 25.990;
-var worker_Lng = 99.9990;
-var connected_user_Lat = 0;
-var connected_user_Lng = 0;
+var worker_Lat = 25.60;
+var worker_Lng = 89.14;
+var connected_user_Lat = 24.56;
+var connected_user_Lng = 88.62;
+
+var start = [connected_user_Lng, connected_user_Lat];
 
 
 function getWorkerDataFromDatabase() {
-    client.get('http://192.168.0.110:4444/admin/workers?_id=' + worker_id, function(response) {
-        // do something with response
-        var dbElement = JSON.parse(response);
-        console.log(dbElement);
-        var dbElementCount = dbElement.length;
 
-        for (var i = 0; i < dbElementCount; i++) {
-            worker_Lng = dbElement[i].Coordinate.y;
-            worker_Lat = dbElement[i].Coordinate.x;
+    if (worker_id) {
+        client.get('http://192.168.0.110:4444/admin/workers?_id=' + worker_id, function(response) {
+            // do something with response
+            var dbElement = JSON.parse(response);
+            console.log("nahid " + dbElement);
+            var dbElementCount = dbElement.length;
 
-            // get connected user lat lng
-            connected_user_Lat = dbElement[i].UserCoord.lat;
-            connected_user_Lng = dbElement[i].UserCoord.lng;
-        }
+            for (var i = 0; i < dbElementCount; i++) {
+                worker_Lng = dbElement[i].Coordinate.y;
+                worker_Lat = dbElement[i].Coordinate.x;
 
-        // console.log('nahid');
-        workerMarker(worker_Lat, worker_Lng);
-        if (connected_user_Lat != 0 || connected_user_Lng != 0) {
-            userMarker(connected_user_Lat, connected_user_Lng);
-        }
 
-        //console.log('connected user ' + connected_user_Lng);
 
-    });
+                // get connected user lat lng
+                connected_user_Lat = dbElement[i].UserCoord.lat;
+                connected_user_Lng = dbElement[i].UserCoord.lng;
+            }
+
+            // console.log('nahid');
+            console.log("worker" + worker_Lng);
+            workerMarker(worker_Lat, worker_Lng);
+            if (connected_user_Lat != 0 || connected_user_Lng != 0) {
+                userMarker(connected_user_Lat, connected_user_Lng);
+            }
+
+            //console.log('connected user ' + connected_user_Lng);
+
+        });
+    }
+
 }
 
 // get connected user
@@ -111,8 +120,8 @@ function workerMarker(lat, lng) {
     //lng = position.coords.longitude;
     //lat = position.coords.latitude;
 
-    //console.log("w1: " + lng);
-    //console.log("w2:" + lat);
+    console.log("w1: " + lng);
+    console.log("w2:" + lat);
 
     var el = document.createElement('div');
     var male = document.createElement('i');
@@ -206,7 +215,7 @@ function userMarker(user_Lat, user_Lng) {
         // console.log("lng " + lng);
 
         // call route function for ruting...
-        //getRoute(start);
+        getRoute(start);
 
         map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
 
@@ -252,9 +261,11 @@ function goToRouteButton() {
 
     console.log("worker lat for route " + worker_Lat);
     console.log("worker lat for route " + worker_Lng);
+
     var coords = [worker_Lng, worker_Lat];
 
     // call route function
+
     getRoute(coords);
 
 }
@@ -273,9 +284,11 @@ function getRoute(end) {
     //console.log("end data" + end);
 
     // here we need data from user database
+    console.log('connect user lat ' + connected_user_Lat);
+    console.log('connect user lng ' + connected_user_Lng);
+    console.log('end  lat ' + end[0]);
+    console.log('end lng ' + end[1]);
 
-    console.log("connect user in route lat " + connected_user_Lat);
-    console.log("connect user in route lat " + connected_user_Lng);
 
     var start = [connected_user_Lng, connected_user_Lat];
 
@@ -343,10 +356,30 @@ function getRoute(end) {
         var tripInstructions = [];
         for (var i = 0; i < steps.length; i++) {
             tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
-            instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor((data.duration / 60) / 60) + ' hour ' + Math.floor((data.duration / 60) % 60) + ' min 🚴 </span>' +
-                '<button type="button" style = "margin:5px" class="btn btn-primary btn-sm" onClick = "finishedWork()"> Finished Work</button>';
+            instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor((data.duration / 60) / 60) + ' hour ' + Math.floor((data.duration / 60) % 60) + ' min 🚴 </span>';
+            // '<button type="button" style = "margin:5px" class="btn btn-primary btn-sm" onClick = "finishedWork()"> Finished Work</button>';
 
         }
+
+        // if (success) {
+        //     // $('#closeButton').show();
+        //     document.getElementById("instructions").style.visibility = 'visible';
+        //     //$('#instructions').show();
+        //     // map.getSource('route').hide();
+
+        // }
+
+
+        // success = 0;
+
+        // ratingPopup.innerHTML = '<h4 style = "color : #000099; font-weight: bold"> please give rating to worker: </h4>' +
+        //     '<span class="fa fa-star checked1" id= "1" onClick = "starmark(' + 1 + ')" style = "font-size:30px; cursor: pointer "></span>' +
+        //     '<span class="fa fa-star checked1" id= "2" onClick = "starmark(' + 2 + ')" style = "font-size:30px; cursor: pointer "></span>' +
+        //     '<span class="fa fa-star checked1" id= "3" onClick = "starmark(' + 3 + ')" style = "font-size:30px; cursor: pointer "></span>' +
+        //     '<span class="fa fa-star checked1" id= "4" onClick = "starmark(' + 4 + ')" style = "font-size:30px; cursor: pointer "></span>' +
+        //     '<span class="fa fa-star checked1" id= "5" onClick = "starmark(' + 5 + ')" style = "font-size:30px; cursor: pointer "></span>';
+
+        // ratingPopup.innerHTML += '<div>' + '<button style = "margin:5px" class = "btn btn-primary" onClick = "submitStars()"> submit </button>' + '</div>';
 
     };
 
