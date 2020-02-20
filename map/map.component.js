@@ -669,6 +669,9 @@ function generatedHtmlelemnets(id, name, category, rating, phone) {
 
     //console.log(stroeDbRatingPerPerson[id]);
 
+    console.log("rating is " + rating);
+    console.log("name is " + name);
+
     var html = "";
 
     html += "<h5 style = 'color: green;'>" + "Name: " + '<a class= "nameLink"; href = "../workerprofile/workerprofile.component.html?_id=' + id + '">' + '<span class="tooltiptext">click for details</span>' + name + '</a>' + "</h5>";
@@ -762,16 +765,12 @@ function confirmToWorker(id1) {
 
     var sendData = {
         UserCoord: {
-            lat: user_Lat - .99,
-            lng: user_Lng - .99
+            lat: user_Lat,
+            lng: user_Lng
         },
         _id: id1
 
     };
-
-    //  sendData.Rating.rating = dbrating;
-    //  sendData.Rating.count = dbRatingCount;
-    //  sendData._id = this.storeIdofRating;
 
     var jsonSendData = JSON.stringify(sendData);
 

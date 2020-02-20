@@ -25,7 +25,7 @@ var HttpClient = function() {
 
 var client = new HttpClient();
 
-this.client.get("http://localhost:4487/admin/workers?_id=" + _id, function(respone) {
+this.client.get("http://192.168.0.110:4444/admin/workers?_id=" + _id, function(respone) {
     var dbElement = JSON.parse(respone);
     console.log(dbElement);
 
