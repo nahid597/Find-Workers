@@ -29,7 +29,7 @@
         else 
             socket.emit('connect_me', myData);
     
-        console.log(myData.hei==undefined);
+        //console.log(myData.hei==undefined);
 
         let tmp = {};
         socket.on('new_id', function(data){
@@ -41,6 +41,10 @@
 
         });
 
+        $(function() {
+            $("#homeComponent").load("home/home.component.html");
+        });
+
     </script>
 
     <title>Find Worker</title>
@@ -49,7 +53,8 @@
 
 <body>
     <div id="navbarComponent"></div>
-    <h2>Nahid fdsg</h2>
+    
+    <div id = "homeComponent"></div>
 </body>
 
 </html>

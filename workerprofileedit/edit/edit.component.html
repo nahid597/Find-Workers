@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="edit.component.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <script src="edit.component.js"></script>
+
+    <div style="text-align: center; margin-bottom: 8px; ">
+
+        <h4>
+            <b>Edit your profile</b>
+        </h4>
+
+    </div>
+
+    <div class="container" style="margin-bottom: 15px;">
+        <a id="cancelButton" class="btn btn-warning" href="../workerprofile.component.html">Cancel</a>
+    </div>
+
+    <br>
+
+    <div class="container" style="margin-bottom: 10px;">
+        <form onsubmit="event.preventDefault(); onFormSubmit()" autocomplete="off">
+            <div class="form-group">
+                <label for="exampleInputName">Name: </label>
+                <input type="text" class="form-control" id="exampleInputName" aria-describedby="namelHelp" placeholder="Enter Name" value="Ex. nahid">
+                <small id="nameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPhone">Phone: </label>
+                <input type="text" class="form-control" id="exampleInputPhone" aria-describedby="phonelHelp" placeholder="Enter Phone" value="Ex. 01783272160">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlCategory">Select Your Category:</label>
+                <select class="form-control" id="exampleFormControlCategory">
+                    <option value="all">click here</option>
+                    <option value="0">কারেন্টের মিস্ত্রি</option>
+                    <option value="1">গাড়ির মিস্ত্রি</option>
+                    <option value="2">গ্যাসের চুলার মিস্ত্রি</option>
+                    <option value="3">পানির লাইনের মিস্ত্রি</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputAddress"><b> Address: (optional) </b> </label>
+                <br>
+                <label for="exampleInputHouse"> House no: / village: </label>
+                <input type="text" class="form-control" id="exampleInputHouse" aria-describedby="AddresslHelp" placeholder="Enter House" value="Ex. 37/1">
+
+                <br>
+                <label for="exampleInputRoad"> Road no: </label>
+                <input type="text" class="form-control" id="exampleInputRoad" aria-describedby="AddresslHelp" placeholder="Enter Road" value="Ex. 1A">
+
+                <br>
+                <label for="exampleInputSubDistrict"> Sub District: </label>
+                <input type="text" class="form-control" id="exampleInputSubDistrict" aria-describedby="AddresslHelp" placeholder="Enter SubDistrict" value="Ex. bazar">
+
+                <br>
+                <label for="exampleInputDistrict">  District: </label>
+                <input type="text" class="form-control" id="exampleInputDistrict" aria-describedby="AddresslHelp" placeholder="Enter District" value="Ex. Rajshahi">
+
+                <br>
+                <label for="exampleInputDivision">  Division: </label>
+                <input type="text" class="form-control" id="exampleInputDivision" aria-describedby="AddresslHelp" placeholder="Enter Division" value="Rajshai">
+
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputImage">Image: </label>
+                <input type="file" class="form-control" id="exampleInputImage" aria-describedby="ImagelHelp" placeholder="Enter Image" value="srk.jpg">
+            </div>
+
+            <div class="form-action-buttons">
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+</html>

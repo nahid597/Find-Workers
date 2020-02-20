@@ -16,56 +16,26 @@
 
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="map.component.css">
+    <link rel="stylesheet" href="workermap.component.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <script src='../js/socket.io.js'></script> -->
-    <!-- <script src="map.component.js"></script> -->
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="http://localhost:4487/backend/socket/socket.io.js"></script>
 
-    <script>
-        $(function() {
-            $("#navbarComponent").load("../navbar/navbar.component.html");
-
-            // const host = "http://localhost:4487";
-
-            // var socket = io.connect(host);
-            // socket.on('connect', function() {
-            //     console.log('connection stablished!!');
-            // })
-
-        });
-    </script>
 </head>
 
 <body>
-    <!-- <div id="navbarComponent"></div> -->
 
     <nav class="navbar navbar-light bg-light">
-        <input type=button class="btn btn-warning btn-sm" onClick="location.href='http://192.168.0.110:4200/'" value='Home'>
+        <input type=button class="btn btn-warning btn-sm" onClick="location.href='../home/home.component.html'" value='Home'>
 
-        <select id="singleSelectTextDDJS" class="form-control" onchange="singleSelectChangeText()">
-        <option value="all">select your category</option>
-        <option value="0">কারেন্টের মিস্ত্রি</option>
-        <option value="1">গাড়ির মিস্ত্রি</option>
-        <option value="2">গ্যাসের চুলার মিস্ত্রি</option>
-        <option value="3">পানির লাইনের মিস্ত্রি</option>
-    </select>
-        <!--  
-    <input type="text" id="textFieldTextJS" class="form-control" 
-    placeholder="get value on option select"> -->
     </nav>
-
     <div id='map'></div>
-    <script src="map.component.js"></script>
 
+    <div id="routeButton"></div>
     <div id="instructions"></div>
 
-    <div id="ratingPopup"></div>
-    <!-- <iframe id="ratingPopup" src="../RatingBar/ratingbar.component.html"></iframe> -->
-    <!-- <div id="maleSymbol">
-        <i class="fa fa-male"></i>
-    </div> -->
+    <script src="workermap.component.js"></script>
+
+
+
 </body>
 
 </html>
