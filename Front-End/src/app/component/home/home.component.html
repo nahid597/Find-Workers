@@ -1,4 +1,4 @@
-<div style="width: 100%;">
+<div style="width: 100%; overflow: auto;">
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -32,7 +32,7 @@
 
 <div class="color p-3">
   <div class="text-center">
-    <a href="http://192.168.0.122:4487/home/home.component.html"><button class="font-weight-bold btn btn-outline-success my-2 my-sm-0">Go to the map</button></a>
+    <button (click)="navigateurl()" class="font-weight-bold btn btn-outline-success my-2 my-sm-0">Go to the map</button>
   </div> 
 </div>
 
@@ -122,7 +122,7 @@
           <div class="row pt-5 mt-3">
             <div class="col-lg-6 wow fadeIn mb-5 text-center text-lg-left">
               <div class="white-text">
-                <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">How can you use the application</h1>
+                <h1 class="h1-responsive text-center font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">User Manual</h1>
                 <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
                 <p class="wow fadeInLeft" data-wow-delay="0.3s">Lorem ipsum dolor sit amet, consectetur
                   adipisicing elit. Rem repellendus quasi fuga nesciunt dolorum nulla magnam veniam sapiente,
@@ -145,7 +145,7 @@
   </section>
 
 <hr/>
-<div class="container">
+<div class="container text-center">
   <p style="font-size: 3.4vw;">Our commitment</p><br/>
 </div>
 </div>

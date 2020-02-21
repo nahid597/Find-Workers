@@ -27,10 +27,10 @@ var workerSchema = new Schema({
         required: true
     },
 
-    Image: {
-        type: String,
-        required: true
-    },
+    // Image: {
+    //     type: String,
+    //     required: true
+    // },
 
     IsAdmin: {
         type: Boolean,
@@ -58,6 +58,17 @@ var workerSchema = new Schema({
         }
     },
 
+    UserCoord: {
+        lat: {
+            type: Number,
+            default: 24.363588,
+        },
+        lng: {
+            type: Number,
+            default: 88.624138,
+        }
+    },
+
     Date: { type: Date, default: Date.now },
 
     Rating: {
@@ -67,7 +78,7 @@ var workerSchema = new Schema({
         },
         count: {
             type: Number,
-            default: 0
+            default: 1
         }
     }
 });

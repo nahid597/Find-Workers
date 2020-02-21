@@ -72,7 +72,7 @@
                 <div class="card" style="max-width: 100px; max-height: 100px;">
                   <img class="image" style="max-width: 100px; max-height: 100px;"/>
                 </div>
-                <input id="image" [class.is-invalid]="username.Image.invalid && username.Image.touched" formControlName="Image" class="image align-center" type="file" (change)="changeListner($event)" />
+                <input name="Image" class="image align-center" type="file" (change)="changeListner($event)" />
               </div>
 
               <button type="submit" class="btonRegister">Register</button>

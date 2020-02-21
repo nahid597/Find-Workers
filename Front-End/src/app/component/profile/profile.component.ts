@@ -11,6 +11,7 @@ export class ProfileComponent implements OnInit {
 
   profile: any;
   private authListerSubs: Subscription;
+  private id;
 
   constructor(private authService: LoginService) { }
 
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit {
 
     setTimeout(() => {
       this.profile = this.authService.getUserId();
+      this.id = this.profile.userId._id;
     }, 200);
 
     this.authListerSubs = this.authService.getAuthStatus()

@@ -18,6 +18,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private put: any;
   private X: any;
   private Y: any;
+  private getUrl = 'http://192.168.0.110:4444/admin/workers?_id=';
+  private updateUrl = 'http://192.168.0.110:4444/admin/workers/update';
+  t = 24.23344;
+  p = 88.23434;
   private authListerSubs: Subscription;
 
   constructor(private authService: LoginService) {}
@@ -31,27 +35,46 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
 
     console.log(this.IsWorker);
-
+    // if (this.IsWorker) {
     setInterval(() => {
       if (navigator.geolocation) {
         // this.isTracking = true;
-        navigator.geolocation.getCurrentPosition((position) => {
-          console.log('position ', position);
-          if (this.IsWorker) {
-            this.ob = {
-              _id: this.userId.userId._id,
-              Coordinate: {
-                x: position.coords.latitude,
-                y: position.coords.longitude
-              }
-            };
-            this.authService.updateWorker(this.ob);
-          }
-        });
+        // navigator.geolocation.getCurrentPosition((position) => {
+        //   console.log('in geo');
+        //   console.log('position ', position);
+        //   if (this.IsWorker) {
+        //     this.ob = {
+        //       _id: this.userId.userId._id,
+        //       Coordinate: {
+        //         x: position.coords.latitude,
+        //         y: position.coords.longitude
+        //       }
+        //     };
+        //     console.log(this.ob);
+        //     this.authService.updateWorker(this.ob);
+        //   }
+        // });
+
+        this.t = this.t + 0.001;
+        this.p = this.p + 0.001;
+
+        this.ob = {
+          _id: this.userId.userId._id,
+            Coordinate: {
+              x: this.t,
+              y: this.p
+            }
+        };
+        if (this.IsWorker) {
+          console.log(this.ob);
+        }
+        this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
       } else {
+        console.log('error');
         alert('Geolocation is not supported by this browser.');
       }
     }, 5000);
+    // }
   }
 
   collback() {
@@ -78,7 +101,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       _id: this.userId.userId._id,
       Active_status: false
     };
-    this.authService.updateWorker(this.ob);
+    this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
     this.authService.logout();
   }
 
@@ -105,7 +128,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       };
       console.log('ob ', this.ob);
 
-      this.authService.updateWorker(this.ob);
+      this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
     }, 10);
 
   }

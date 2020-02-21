@@ -29,13 +29,13 @@ var userSchema = new Schema({
     },
 
     Coordinate: {
-        x: {
+        lat: {
             type: Number,
-            default: 0.00,
+            default: 24.363588,
         },
-        y: {
+        lng: {
             type: Number,
-            default: 0.00,
+            default: 88.624138,
         }
     },
 
