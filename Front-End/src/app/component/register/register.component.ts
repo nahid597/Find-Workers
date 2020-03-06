@@ -11,6 +11,10 @@ import { NgForm } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   contain;
+  image;
+  selectedFile: File = null;
+  fd: any;
+  ob: any;
 
   get username() {
     return {
@@ -19,7 +23,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       Password: this.registrationForm.get('Password'),
       confirmPassword: this.registrationForm.get('confirmPassword'),
       Category: this.registrationForm.get('Category'),
-      Image: this.registrationForm.get('Image'),
+      // Image: this.registrationForm.get('Image'),
     };
   }
 
@@ -31,7 +35,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     confirmPassword: ['', Validators.required],
     Phone: ['', Validators.required],
     Category: ['', Validators.required],
-    Image: ['', Validators.required]
+    // Image: ['', Validators.required]
   });
 
 
@@ -47,10 +51,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   save(formData) {
     console.log(formData.value);
-    if (formData.valid || formData.value.password === formData.value.confirmPassword) {
+    // formData.append('Image', this.image);
+    if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
       this.isLoadin = true;
-      this.authService.createWorker(formData.value);
-      console.log(formData.value);
+      this.ob = {
+        Name: formData.value.Name,
+        Phone: formData.value.Phone,
+        Password: formData.value.Password,
+        Category: formData.value.Category,
+        // Image: this.fd
+      };
+      this.authService.createWorker(this.ob);
+      console.log(this.ob);
       return;
     }
     console.log('invalid');
@@ -67,6 +79,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
     };
 
     reader.readAsDataURL(event.target.files[0]);
+    // if (event.target.files.length > 0) {
+    //   let file = event.target.files[0];
+    //   this.image = file;
+    // }
+  }
+
+  createFormData(event) {
+    this.selectedFile = <File> (event.target.files[0]);
+    this.fd.append('file', this.selectedFile, this.selectedFile.name);
   }
 
 

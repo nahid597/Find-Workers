@@ -13,10 +13,23 @@ export class LoginService {
 
   private durationTimer: any;
   private isAuthenticated = false;
+  private isWorker = false;
+  private isAadmin = false;
   private  token: string;
   private userId;
+  private id;
+  private idd: any;
+  private ob;
+  private _id: any;
+  private status = false;
+  private updateUrl = 'http://192.168.0.107:4444/admin/users?_id=';
+  private getUrl = 'http://192.168.0.107:4444/admin/users';
+  private userpath = 'http://192.168.0.107:4444/admin/users/login';
+  private workerpath = 'http://192.168.0.107:4444/admin/workers/login';
+  private workerregister = 'http://192.168.0.107:4444/admin/workers/signup';
+  private userregister = 'http://192.168.0.107:4444/admin/users/signup';
   private authStatus = new Subject<boolean>();
-  check = false;
+  check = true;
   obj: {};
 
     constructor(private http: HttpClient , private router: Router) {}
@@ -33,21 +46,66 @@ export class LoginService {
         return this.isAuthenticated;
     }
 
+    isAdmin() {
+        return this.isAadmin;
+    }
+
+    isStatus() {
+        return this.status;
+    }
+
+    isWorrker() {
+        return this.isWorker;
+    }
+
     getUserId() {
         return this.userId;
     }
 
-    createWorker(authData) {
-        this.http.post('http://127.0.0.1:4444/admin/workers/signup' , authData)
+    getCheck() {
+        return this.check;
+    }
+
+    getUser(id, url) {
+        return this.http.get(url + id);
+    }
+
+    updateWorker(authData, updateUrl, getUrl) {
+        console.log(authData);
+        console.log(authData);
+        this.http.put<any>(updateUrl , authData)
         .subscribe((response) => {
-            this.router.navigate(['/']);
+            console.log(response._id);
+            // console.log(response);
+            if (response._id) {
+                console.log(response._id);
+                this._id = {
+                    _id: response._id
+                };
+                console.log(this._id);
+                this.getUser(response._id, getUrl).subscribe(res => {
+                    this.userId = {
+                        userId: res[0]
+                    };
+                    console.log(this.userId);
+                });
+            }
         }, error => {
             this.authStatus.next(false);
         });
     }
 
+    createWorker(authData) {
+        this.register(this.workerregister, authData);
+    }
+
+
     createUser(authData) {
-        this.http.post('http://127.0.0.1:4444/admin/users/signup' , authData)
+        this.register(this.userregister, authData);
+    }
+
+    register(path: string, authData) {
+        this.http.post(path , authData)
         .subscribe((response) => {
             this.router.navigate(['/']);
         }, error => {
@@ -56,21 +114,22 @@ export class LoginService {
     }
 
     workerLogin(authData) {
-        this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/workers/login' , authData)
-        .subscribe(response => {
-            this.callbackFunction(response);
-        }, error => {
-            this.authStatus.next(false);
-        });
-        return this.check;
+        return this.login(this.workerpath, authData);
     }
 
     userLogin(authData) {
-        this.http.post<{token: string , expiresIn: number, userId: any}>('http://127.0.0.1:4444/admin/users/login' , authData)
+        return this.login(this.userpath, authData);
+    }
+
+    login(path: string, authData) {
+        this.http.post<{token: string , expiresIn: number, userId: any}>(path , authData)
         .subscribe(response => {
+            this.id = response.userId._id;
+            console.log(this.id);
             this.callbackFunction(response);
         }, error => {
             this.authStatus.next(false);
+            this.check = false;
         });
         return this.check;
     }
@@ -87,6 +146,10 @@ export class LoginService {
 
             this.isAuthenticated = true;
             this.userId = response;
+            this.isWorker = response.userId.IsWorker;
+            this.isAadmin = response.userId.IsAdmin;
+            this.status = response.userId.Active_status;
+            console.log(this.status);
             this.authStatus.next(true);
             const now = new Date();
             const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
@@ -94,6 +157,8 @@ export class LoginService {
             this.check = true;
             let returnUrl = localStorage.getItem('returnUrl');
             this.router.navigate([returnUrl]);
+        } else {
+            this.check = false;
         }
     }
 
@@ -108,9 +173,47 @@ export class LoginService {
       if (expiresIn > 0) {
           this.token = authInformation.token;
           this.isAuthenticated = true;
+          this.isWorker = authInformation.userId.userId.IsWorker;
+          this.isAadmin = authInformation.userId.userId.IsAdmin;
+          // this.status = authInformation.userId.userId.Active_status;
+          console.log(this.isWorker);
           this.userId = authInformation.userId;
+          console.log(this.userId);
           this.setAuthTimer(expiresIn / 1000);
           this.authStatus.next(true);
+
+          this.idd = {
+              _id: this.userId.userId._id
+          };
+
+          if (this.isWorker) {
+
+            this.http.post<{userId: any}>('http://192.168.0.107:4444/admin/workers/get', this.idd)
+                .subscribe(res => {
+                    this.status = res.userId.Active_status;
+                    console.log(this.status);
+                });
+          } else {
+            if (navigator.geolocation) {
+                // this.isTracking = true;
+                navigator.geolocation.getCurrentPosition((position) => {
+                    console.log('in geo');
+                    console.log('position ', position);
+                    this.ob = {
+                        _id: this.userId.userId._id,
+                        Coordinate: {
+                             lat: position.coords.latitude,
+                             lng: position.coords.longitude
+                        }
+                    };
+                    console.log(this.ob);
+                    this.updateWorker(this.ob, this.updateUrl, this.getUrl);
+                });
+              } else {
+                console.log('error');
+                alert('Geolocation is not supported by this browser.');
+              }
+          }
       }
     }
 
@@ -123,11 +226,13 @@ export class LoginService {
     logout() {
         this.token = null;
         this.isAuthenticated = false;
+        this.isWorker = false;
+        this.isAadmin = false;
         this.authStatus.next(false);
         clearTimeout(this.durationTimer);
         this.clearAuthDataInLocalStorage();
         this.userId = null;
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
     }
 
     private saveAuthDataInLocalStorage(token: string, expiretionDate: Date, userId: any) {

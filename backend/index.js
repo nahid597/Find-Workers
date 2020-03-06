@@ -10,6 +10,8 @@ var worker_socket = {};
 var fuser_socket = {};
 var cuser_socket = {};
 
+
+
 io.sockets.on('connection', function(socket) {
     user++;
 
@@ -72,4 +74,8 @@ io.sockets.on('connection', function(socket) {
         user--;
         console.log(user + ' user connected');
     });
+
+
 });
+
+require("./socket/socket.io")(io);

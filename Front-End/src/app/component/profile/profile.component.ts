@@ -1,20 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { LoginService } from '../../service/login.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, DoCheck {
 
-  profile;
+  profile: any;
+  private authListerSubs: Subscription;
+  private id;
 
-  constructor(private auth: LoginService) { }
+  constructor(private authService: LoginService) { }
 
   ngOnInit() {
-    this.profile = this.auth.getUserId();
-    console.log(this.profile.userId.Name);
+
+    // setTimeout(() => {
+    this.profile = this.authService.getUserId();
+    this.id = this.profile.userId._id;
+    // }, 200);
+
+    this.authListerSubs = this.authService.getAuthStatus()
+    .subscribe(isAuthenticated => {
+        // this.profile = this.authService.getUserId();
+        console.log(this.profile.userId.Name);
+    });
+
+  }
+
+  ngDoCheck() {
+    this.profile = this.authService.getUserId();
+    this.id = this.profile.userId._id;
   }
 
 }

@@ -31,12 +31,17 @@ import { WorkerLoginComponent } from './component/worker-login/worker-login.comp
 import { UserLoginComponent } from './component/user-login/user-login.component';
 import { UpdatepasswordworkerComponent } from './component/help/updatepasswordworker/updatepasswordworker.component';
 import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-update-worker/phone-number-update-worker.component';
+import { EditprofileComponent } from './component/editprofile/editprofile.component';
 
 
 
 const routes: Routes = [
   {
     path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'home',
     component: HomeComponent
   },
   {
@@ -170,6 +175,11 @@ const routes: Routes = [
   {
     path: 'category',
     component: CategoryComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'profile/:id',
+    component: EditprofileComponent,
     canActivate: [AuthGuardService]
   },
   {

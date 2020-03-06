@@ -77,6 +77,7 @@ import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-
     WorkerComplainComponent,
     WorkerPhoneUpdateComponent,
     WorkerSignInProblemComponent, 
+    WorkerSignInProblemComponent,
     CategoryComponent,
     FooterpageComponent,
     ProfileComponent,

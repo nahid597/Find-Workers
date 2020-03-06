@@ -67,6 +67,7 @@
   .backgroundimage{
     background-image: url('https://st3.depositphotos.com/1252160/17932/v/600/depositphotos_179323376-stock-video-female-car-owner-mechanic-testing.jpg');
     background-size: 100%;
+    background-repeat: no-repeat;
   }
 
 
