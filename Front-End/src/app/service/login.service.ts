@@ -19,14 +19,17 @@ export class LoginService {
   private userId;
   private id;
   private idd: any;
+  private ob;
   private _id: any;
   private status = false;
-  private userpath = 'http://127.0.0.1:4444/admin/users/login';
-  private workerpath = 'http://127.0.0.1:4444/admin/workers/login';
-  private workerregister = 'http://127.0.0.1:4444/admin/workers/signup';
-  private userregister = 'http://127.0.0.1:4444/admin/users/signup';
+  private updateUrl = 'http://192.168.0.107:4444/admin/users?_id=';
+  private getUrl = 'http://192.168.0.107:4444/admin/users';
+  private userpath = 'http://192.168.0.107:4444/admin/users/login';
+  private workerpath = 'http://192.168.0.107:4444/admin/workers/login';
+  private workerregister = 'http://192.168.0.107:4444/admin/workers/signup';
+  private userregister = 'http://192.168.0.107:4444/admin/users/signup';
   private authStatus = new Subject<boolean>();
-  check = false;
+  check = true;
   obj: {};
 
     constructor(private http: HttpClient , private router: Router) {}
@@ -59,20 +62,32 @@ export class LoginService {
         return this.userId;
     }
 
-    getUser(id) {
-        return this.http.post('http://127.0.0.1:4444/admin/workers/get', id);
+    getCheck() {
+        return this.check;
     }
 
-    updateWorker(authData) {
-        this.http.put<any>('http://127.0.0.1:4444/admin/workers/update' , authData)
+    getUser(id, url) {
+        return this.http.get(url + id);
+    }
+
+    updateWorker(authData, updateUrl, getUrl) {
+        console.log(authData);
+        console.log(authData);
+        this.http.put<any>(updateUrl , authData)
         .subscribe((response) => {
-            console.log(response);
-            if (response.Phone) {
+            console.log(response._id);
+            // console.log(response);
+            if (response._id) {
+                console.log(response._id);
                 this._id = {
-                    _id: this.id
+                    _id: response._id
                 };
-                this.getUser(this._id).subscribe(res => {
-                    this.userId = res;
+                console.log(this._id);
+                this.getUser(response._id, getUrl).subscribe(res => {
+                    this.userId = {
+                        userId: res[0]
+                    };
+                    console.log(this.userId);
                 });
             }
         }, error => {
@@ -114,6 +129,7 @@ export class LoginService {
             this.callbackFunction(response);
         }, error => {
             this.authStatus.next(false);
+            this.check = false;
         });
         return this.check;
     }
@@ -133,6 +149,7 @@ export class LoginService {
             this.isWorker = response.userId.IsWorker;
             this.isAadmin = response.userId.IsAdmin;
             this.status = response.userId.Active_status;
+            console.log(this.status);
             this.authStatus.next(true);
             const now = new Date();
             const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
@@ -140,6 +157,8 @@ export class LoginService {
             this.check = true;
             let returnUrl = localStorage.getItem('returnUrl');
             this.router.navigate([returnUrl]);
+        } else {
+            this.check = false;
         }
     }
 
@@ -169,11 +188,31 @@ export class LoginService {
 
           if (this.isWorker) {
 
-            this.http.post<{userId: any}>('http://127.0.0.1:4444/admin/workers/get', this.idd)
+            this.http.post<{userId: any}>('http://192.168.0.107:4444/admin/workers/get', this.idd)
                 .subscribe(res => {
                     this.status = res.userId.Active_status;
                     console.log(this.status);
                 });
+          } else {
+            if (navigator.geolocation) {
+                // this.isTracking = true;
+                navigator.geolocation.getCurrentPosition((position) => {
+                    console.log('in geo');
+                    console.log('position ', position);
+                    this.ob = {
+                        _id: this.userId.userId._id,
+                        Coordinate: {
+                             lat: position.coords.latitude,
+                             lng: position.coords.longitude
+                        }
+                    };
+                    console.log(this.ob);
+                    this.updateWorker(this.ob, this.updateUrl, this.getUrl);
+                });
+              } else {
+                console.log('error');
+                alert('Geolocation is not supported by this browser.');
+              }
           }
       }
     }
@@ -193,7 +232,7 @@ export class LoginService {
         clearTimeout(this.durationTimer);
         this.clearAuthDataInLocalStorage();
         this.userId = null;
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
     }
 
     private saveAuthDataInLocalStorage(token: string, expiretionDate: Date, userId: any) {

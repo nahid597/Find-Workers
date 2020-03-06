@@ -10,3 +10,8 @@ td{
     margin-left: 10%;
     margin-right: 10%;
 }
+
+ul li {
+    display: inline-block;
+
+  }

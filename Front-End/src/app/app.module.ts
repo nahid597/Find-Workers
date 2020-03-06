@@ -38,7 +38,7 @@ import { BecomeWorkerComponent } from './component/help/become-worker/become-wor
 import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
 import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
 import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
-=======
+
 import { CategoryService } from './service/category.service';
 import { CategoryComponent } from './component/category/category.component';
 import { FooterpageComponent } from './component/footerpage/footerpage.component';
@@ -75,7 +75,7 @@ import { WorkerLoginComponent } from './component/worker-login/worker-login.comp
     BecomeWorkerComponent,
     WorkerComplainComponent,
     WorkerPhoneUpdateComponent,
-    WorkerSignInProblemComponent 
+    WorkerSignInProblemComponent,
     CategoryComponent,
     FooterpageComponent,
     ProfileComponent,

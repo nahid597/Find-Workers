@@ -163,6 +163,7 @@ const routes: Routes = [
     path : 'help/worker/How I can get the Find-Worker app?',
     component : CustomerComponentVComponent
   },
+  {
     path: 'help',
     component: CustomerSectionComponent
   },

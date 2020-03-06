@@ -1,6 +1,6 @@
 //Find data from a database
 function findInf(model, query, callback) {
-    console.log(query);
+    //console.log(query);
     model.find(query)
         .exec(function(err, data) {
             console.log(data);

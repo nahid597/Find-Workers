@@ -5,16 +5,19 @@ const operation = require('../operation/operation');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, './upload/');
-    },
-    filename: function(req, file, cb){
-        cb(null, new Date().toISOString() + file.originalname);
-    }
-});
+const path = require('path');
 
-const upload = multer({storage: storage});
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './upload')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+const upload = multer({
+    storage: storage
+})
 
 router.get('', function(req, res) {
     operation.findInf(Worker, req.query, function(data,err) {
@@ -96,8 +99,8 @@ router.post('/login', (req, res , next) => {
 
 });
 
-router.post('/signup',upload.single('Image'), (req, res, next) => {
-    console.log(req.file);
+router.post('/signup',upload.single('file'), (req, res, next) => {
+    console.log(req.body.Image);
     bcryptjs.hash(req.body.Password, 10)
     .then(hash => {
        const user = new Worker({
@@ -107,6 +110,7 @@ router.post('/signup',upload.single('Image'), (req, res, next) => {
             Category: req.body.Category,
             Image: req.body.Image
         });
+        console.log(req.file);
         user.save()
         .then(result => {
             res.status(200).json({
@@ -140,7 +144,7 @@ router.delete('', function(req, res) {
 // });
 
 router.put('/update', function(req, res) {
-    console.log(req.body._id);
+    //console.log(req.body._id);
 
     Worker.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
         if (err)

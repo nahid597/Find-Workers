@@ -28,7 +28,7 @@ a:hover {
 li{
   display: inline-block; 
   zoom: 1;
-  margin: 15px;
+  margin: 5px;
 }
 
 .navfont{
@@ -127,6 +127,15 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.navbar-nav {
+  flex-flow: row column;
+}
+
+.navbar {
+    flex-flow: row nowrap;
+    display: inline-flex;
 }
 
 
