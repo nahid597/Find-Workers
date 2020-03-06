@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { Subscription } from 'rxjs';
 
@@ -7,8 +7,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
 
+  private show = false;
   private userAuthenticated = false;
   private isAdmin = false;
   private userId: any;
@@ -18,8 +19,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private put: any;
   private X: any;
   private Y: any;
-  private getUrl = 'http://192.168.0.110:4444/admin/workers?_id=';
-  private updateUrl = 'http://192.168.0.110:4444/admin/workers/update';
+  private getUrl = 'http://192.168.0.107:4444/admin/workers?_id=';
+  private updateUrl = 'http://192.168.0.107:4444/admin/workers/update';
   t = 24.23344;
   p = 88.23434;
   private authListerSubs: Subscription;
@@ -28,10 +29,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.collback();
+    // this.collback();
     this.authListerSubs = this.authService.getAuthStatus()
     .subscribe(isAuthenticated => {
-        this.collback();
+        // this.collback();
     });
 
     console.log(this.IsWorker);
@@ -39,36 +40,36 @@ export class NavbarComponent implements OnInit, OnDestroy {
     setInterval(() => {
       if (navigator.geolocation) {
         // this.isTracking = true;
-        // navigator.geolocation.getCurrentPosition((position) => {
-        //   console.log('in geo');
-        //   console.log('position ', position);
-        //   if (this.IsWorker) {
-        //     this.ob = {
-        //       _id: this.userId.userId._id,
-        //       Coordinate: {
-        //         x: position.coords.latitude,
-        //         y: position.coords.longitude
-        //       }
-        //     };
-        //     console.log(this.ob);
-        //     this.authService.updateWorker(this.ob);
-        //   }
-        // });
+        navigator.geolocation.getCurrentPosition((position) => {
+          console.log('in geo');
+          console.log('position ', position);
+          if (this.IsWorker) {
+            this.ob = {
+              _id: this.userId.userId._id,
+              Coordinate: {
+                x: position.coords.latitude,
+                y: position.coords.longitude
+              }
+            };
+            console.log(this.ob);
+            this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
+          }
+        });
 
-        this.t = this.t + 0.001;
-        this.p = this.p + 0.001;
+        // this.t = this.t + 0.001;
+        // this.p = this.p + 0.001;
 
-        this.ob = {
-          _id: this.userId.userId._id,
-            Coordinate: {
-              x: this.t,
-              y: this.p
-            }
-        };
-        if (this.IsWorker) {
-          console.log(this.ob);
-        }
-        this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
+        // this.ob = {
+        //   _id: this.userId.userId._id,
+        //     Coordinate: {
+        //       x: this.t,
+        //       y: this.p
+        //     }
+        // };
+        // if (this.IsWorker) {
+        //   console.log(this.ob);
+        // }
+        // this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
       } else {
         console.log('error');
         alert('Geolocation is not supported by this browser.');
@@ -77,22 +78,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // }
   }
 
-  collback() {
-    setTimeout(() => {
-      this.isStatus = this.authService.isStatus();
-    }, 200);
+  // collback() {
+  //   setTimeout(() => {
+  //     this.isStatus = this.authService.isStatus();
+  //   }, 500);
 
-    setTimeout(() => {
-      this.IsWorker = this.authService.isWorrker();
-    }, 200);
+  //   setTimeout(() => {
+  //     this.IsWorker = this.authService.isWorrker();
+  //   }, 200);
+  //   this.userAuthenticated = this.authService.isAuth();
+  //   this.isAdmin = this.authService.isAdmin();
+
+  //   this.userId = this.authService.getUserId();
+
+  //   console.log(this.isStatus);
+
+  //   console.log(this.userAuthenticated);
+  // }
+
+  ngDoCheck() {
+    this.isStatus = this.authService.isStatus();
+    this.IsWorker = this.authService.isWorrker();
     this.userAuthenticated = this.authService.isAuth();
     this.isAdmin = this.authService.isAdmin();
-
     this.userId = this.authService.getUserId();
-
-    console.log(this.isStatus);
-
-    console.log(this.userAuthenticated);
   }
 
   onLogout() {
@@ -117,20 +126,28 @@ export class NavbarComponent implements OnInit, OnDestroy {
     } else {
       alert('Geolocation is not supported by this browser.');
     }
-    setTimeout(() => {
-      this.ob = {
-        _id: this.userId.userId._id,
-        Active_status: event.target.checked,
-        Coordinate: {
-          x: this.X,
-          y: this.Y
-        }
-      };
-      console.log('ob ', this.ob);
+    // setTimeout(() => {
+    this.ob = {
+      _id: this.userId.userId._id,
+      Active_status: event.target.checked,
+      Coordinate: {
+        x: this.X,
+        y: this.Y
+      }
+    };
+    console.log('ob ', this.ob);
 
-      this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
-    }, 10);
+    this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
+    // }, 10);
 
+  }
+
+  showToggle() {
+    this.show = false;
+  }
+
+  showFlip() {
+    this.show = !this.show;
   }
 
   ngOnDestroy() {

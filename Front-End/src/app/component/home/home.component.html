@@ -32,7 +32,7 @@
 
 <div class="color p-3">
   <div class="text-center">
-    <button (click)="navigateurl()" class="font-weight-bold btn btn-outline-success my-2 my-sm-0">Go to the map</button>
+    <a (click)="navigateUrl()" style="color: green;" class="font-weight-bold btn btn-outline-success my-2 my-sm-0">Go to the map</a>
   </div> 
 </div>
 
@@ -40,7 +40,7 @@
   <div class="first">
     <div class="align-items-center d-flex justify-content-center">
         <div class="dropdown">
-          <a routerLink="/employee"><button class="dropbtn"><h4 class="h3-responsive">Worker Signup<i class="fa fa-arrow-right" style="margin-left: 20px;"></i></h4></button></a>
+          <a *ngIf="!user" routerLink="/employee"><button class="dropbtn"><h4 class="h3-responsive">Worker Signup<i class="fa fa-arrow-right" style="margin-left: 20px;"></i></h4></button></a>
         </div>
     </div>
   </div>
@@ -48,7 +48,7 @@
   <div class="second">
     <div class="align-items-center d-flex justify-content-center">
       <div class="dropdown">
-          <a routerLink="/employee"><button class="dropbtn"><h4 class="h3-responsive">User Signup<i class="fa fa-arrow-right" style="margin-left: 20px;"></i></h4></button></a>
+          <a *ngIf="!user" routerLink="/employee"><button class="dropbtn"><h4 class="h3-responsive">User Signup<i class="fa fa-arrow-right" style="margin-left: 20px;"></i></h4></button></a>
         </div>
     </div>
   </div>

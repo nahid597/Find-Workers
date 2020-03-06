@@ -10,13 +10,13 @@
             <a href="http://192.168.0.122:4487/workermap/workermap.component.html?_id={{id}}">Go to Map</a>
             <hr>
             <div>
-                <p><b>Name:</b>{{profile.userId.Name}}</p>
+                <h4><pre><b>Name:</b>  {{profile.userId.Name}}</pre></h4>
             </div>
             <div>
-                <p><b>Phone:</b>{{profile.userId.Phone}}</p>
+                <h4><pre><b>Phone:</b>  {{profile.userId.Phone}}</pre></h4>
             </div>
             <div>
-                <p><b>Category:</b>{{profile.userId.Category}}</p>
+                <h4><pre><b>Category:</b>  {{profile.userId.Category}}</pre></h4>
             </div>
             <div>
                 <a [routerLink]="['/profile/',profile.userId._id]"><button class="btn btn-success">Edit Profile</button></a>

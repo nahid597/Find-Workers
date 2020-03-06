@@ -36,7 +36,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
      this.authStatusSub = this.authService.getAuthStatus().subscribe(authStatus => {
          console.log('auht ', authStatus);
          this.isLoading = false;
-         this.check = this.authService.check;
+         // this.check = this.authService.check;
          console.log(this.authService.getUserId());
      });
  }

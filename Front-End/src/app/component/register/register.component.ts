@@ -12,6 +12,9 @@ import { NgForm } from '@angular/forms';
 export class RegisterComponent implements OnInit, OnDestroy {
   contain;
   image;
+  selectedFile: File = null;
+  fd: any;
+  ob: any;
 
   get username() {
     return {
@@ -51,8 +54,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
     // formData.append('Image', this.image);
     if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
       this.isLoadin = true;
-      this.authService.createWorker(formData.value);
-      console.log(formData.value);
+      this.ob = {
+        Name: formData.value.Name,
+        Phone: formData.value.Phone,
+        Password: formData.value.Password,
+        Category: formData.value.Category,
+        // Image: this.fd
+      };
+      this.authService.createWorker(this.ob);
+      console.log(this.ob);
       return;
     }
     console.log('invalid');
@@ -73,6 +83,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     //   let file = event.target.files[0];
     //   this.image = file;
     // }
+  }
+
+  createFormData(event) {
+    this.selectedFile = <File> (event.target.files[0]);
+    this.fd.append('file', this.selectedFile, this.selectedFile.name);
   }
 
 

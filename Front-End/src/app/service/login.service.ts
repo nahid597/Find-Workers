@@ -22,14 +22,14 @@ export class LoginService {
   private ob;
   private _id: any;
   private status = false;
-  private updateUrl = 'http://192.168.0.110:4444/admin/users?_id=';
-  private getUrl = 'http://192.168.0.110:4444/admin/users';
-  private userpath = 'http://192.168.0.110:4444/admin/users/login';
-  private workerpath = 'http://192.168.0.110:4444/admin/workers/login';
-  private workerregister = 'http://192.168.0.110:4444/admin/workers/signup';
-  private userregister = 'http://192.168.0.110:4444/admin/users/signup';
+  private updateUrl = 'http://192.168.0.107:4444/admin/users?_id=';
+  private getUrl = 'http://192.168.0.107:4444/admin/users';
+  private userpath = 'http://192.168.0.107:4444/admin/users/login';
+  private workerpath = 'http://192.168.0.107:4444/admin/workers/login';
+  private workerregister = 'http://192.168.0.107:4444/admin/workers/signup';
+  private userregister = 'http://192.168.0.107:4444/admin/users/signup';
   private authStatus = new Subject<boolean>();
-  check = false;
+  check = true;
   obj: {};
 
     constructor(private http: HttpClient , private router: Router) {}
@@ -60,6 +60,10 @@ export class LoginService {
 
     getUserId() {
         return this.userId;
+    }
+
+    getCheck() {
+        return this.check;
     }
 
     getUser(id, url) {
@@ -125,6 +129,7 @@ export class LoginService {
             this.callbackFunction(response);
         }, error => {
             this.authStatus.next(false);
+            this.check = false;
         });
         return this.check;
     }
@@ -144,6 +149,7 @@ export class LoginService {
             this.isWorker = response.userId.IsWorker;
             this.isAadmin = response.userId.IsAdmin;
             this.status = response.userId.Active_status;
+            console.log(this.status);
             this.authStatus.next(true);
             const now = new Date();
             const expirationDate = new Date( now.getTime() + expireInDuration * 1000);
@@ -151,6 +157,8 @@ export class LoginService {
             this.check = true;
             let returnUrl = localStorage.getItem('returnUrl');
             this.router.navigate([returnUrl]);
+        } else {
+            this.check = false;
         }
     }
 
@@ -180,7 +188,7 @@ export class LoginService {
 
           if (this.isWorker) {
 
-            this.http.post<{userId: any}>('http://127.0.0.1:4444/admin/workers/get', this.idd)
+            this.http.post<{userId: any}>('http://192.168.0.107:4444/admin/workers/get', this.idd)
                 .subscribe(res => {
                     this.status = res.userId.Active_status;
                     console.log(this.status);
@@ -224,7 +232,7 @@ export class LoginService {
         clearTimeout(this.durationTimer);
         this.clearAuthDataInLocalStorage();
         this.userId = null;
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
     }
 
     private saveAuthDataInLocalStorage(token: string, expiretionDate: Date, userId: any) {

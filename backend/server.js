@@ -8,7 +8,7 @@ const cors = require('cors');
 const app = express();
 const server = require('http').Server(app);
 
-var db = 'mongodb+srv://khayrul1234:khayrul1234@cluster0-q6u9x.mongodb.net/test?retryWrites=true';
+//var db = 'mongodb+srv://khayrul1234:khayrul1234@cluster0-q6u9x.mongodb.net/test?retryWrites=true';
 var db0 = 'mongodb+srv://Hasan:mongodb31_password@cluster0-n0s4m.mongodb.net/test?retryWrites=true&w=majority';
 
 mongoose.set('useNewUrlParser', true);
