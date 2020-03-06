@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-update-password',
-  templateUrl: './update-password.component.html',
-  styleUrls: ['./update-password.component.css']
+  selector: 'app-updatepasswordworker',
+  templateUrl: './updatepasswordworker.component.html',
+  styleUrls: ['./updatepasswordworker.component.css']
 })
-export class UpdatePasswordComponent implements OnInit {
+export class UpdatepasswordworkerComponent implements OnInit {
 
   constructor(private http : HttpClient,private router : Router) { }
 

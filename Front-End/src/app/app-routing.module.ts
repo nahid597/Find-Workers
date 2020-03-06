@@ -29,6 +29,8 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
 import { UserLoginComponent } from './component/user-login/user-login.component';
+import { UpdatepasswordworkerComponent } from './component/help/updatepasswordworker/updatepasswordworker.component';
+import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-update-worker/phone-number-update-worker.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
 
 
@@ -128,8 +130,12 @@ const routes: Routes = [
     component : CustomerSectionComponent
   },
   {
-    path : "phone_number_update",
+    path : "user/phone_number_update",
     component : PhoneNumberUpdateComponent
+  },
+  {
+    path : 'worker/phone_number_update',
+    component : PhoneNumberUpdateWorkerComponent
   },
   {
     path : 'help/forgot-password',
@@ -149,7 +155,7 @@ const routes: Routes = [
   },
   {
      path : 'help/worker/How to change account password?',
-     component : UpdatePasswordComponent
+     component : UpdatepasswordworkerComponent
   },
   {
     path : "help/worker/I can't sign into my account?",
@@ -163,8 +169,7 @@ const routes: Routes = [
     path : 'help/worker/How I can get the Find-Worker app?',
     component : CustomerComponentVComponent
   },
-  {
-    path: 'help',
+  { path: 'help',
     component: CustomerSectionComponent
   },
   {

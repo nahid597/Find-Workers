@@ -19,7 +19,7 @@ export class CustomercomponentIVComponent implements OnInit {
   save(formData)
   {
     
-     this.http.post('admin/update/complain',formData.value)
+     this.http.post('user/update/password',formData.value)
      .subscribe(data => {});
      this.router.navigateByUrl('/');
   }
