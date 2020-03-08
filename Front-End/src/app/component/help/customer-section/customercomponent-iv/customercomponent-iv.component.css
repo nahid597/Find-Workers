@@ -1,4 +1,12 @@
-
+.container
+{
+  padding-top: 6%;
+  padding-bottom: 4%;
+}
+.card-body
+{
+  background-color: azure;
+}
 .content 
 {
   font-size: larger;
@@ -107,9 +115,6 @@ a:hover {
       margin: 15px;
   }
 
-  .card{
-      border: none;
-  }
 
   .dropdown-content a:hover {background-color: #ddd;}
   

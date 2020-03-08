@@ -8,6 +8,17 @@
     
 }
 
+.card-body
+{
+  background-color: azure;
+}
+
+.container
+{
+  padding-top: 8%;
+  padding-bottom: 10%;
+}
+
 a:hover {
     text-decoration: none;
 }
@@ -105,10 +116,6 @@ a:hover {
       max-height: 250px;
       padding: 15px;
       margin: 15px;
-  }
-
-  .card{
-      border: none;
   }
 
   .dropdown-content a:hover {background-color: #ddd;}

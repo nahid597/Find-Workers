@@ -9,3 +9,12 @@ a {
     font-size: 20px;
     height: 120px;
 }
+.container
+{
+    padding-top: 5%;
+    padding-bottom: 4%;
+}
+.card-body
+{
+    background-color: azure;
+}

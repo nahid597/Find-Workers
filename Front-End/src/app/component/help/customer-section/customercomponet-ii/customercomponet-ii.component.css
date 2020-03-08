@@ -8,6 +8,16 @@
     
 }
 
+.container
+{
+  padding-top: 8%;
+  padding-bottom: 23%;
+}
+.card-body
+{
+  background-color: azure;
+}
+
 a:hover {
     text-decoration: none;
 }
@@ -107,9 +117,6 @@ a:hover {
       margin: 15px;
   }
 
-  .card{
-      border: none;
-  }
 
   .dropdown-content a:hover {background-color: #ddd;}
   

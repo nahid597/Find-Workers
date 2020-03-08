@@ -7,6 +7,15 @@
     font-family: Comic Sans MS
     
 }
+.card-body
+{
+  background-color: azure;
+}
+.container
+{
+  padding-top: 7%;
+  padding-bottom: 13%;
+}
 
 a:hover {
     text-decoration: none;
