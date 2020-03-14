@@ -1,12 +1,29 @@
 // defined arrow button function
 
+
+var user_id2 = document.location.search.replace(/^.*?\&user_id\=/, '');
+var user_id = user_id2.replace(/&_category\=[a-zA_Z0-9]+/, '');
+
+var worker_id = document.location.search.replace(/^.*?\_id\=/, '');
+
+var worker_id2 = worker_id.replace(/&user_id\=[a-zA-Z0-9]+/, '');
+
+var _id = worker_id2.replace(/&_category\=[a-zA_Z0-9]+/, '');
+var category = document.location.search.replace(/^.*?&_category\=/, '');
+
+console.log("category " + category);
+
 function arrowButton() {
-    location.href = "../map/map.component.html";
+    location.href = "http://127.0.0.1:4444/map/map.component.html?_id=" + user_id + '&_category=' + category;
 }
 
-var _id = document.location.search.replace(/^.*?\=/, '');
+// var _id = document.location.search.replace(/^.*?\=/, '');
+//var user_id = document.location.search.replace(/^.*&\=/, '');
+
+
 
 console.log("worker id :" + _id);
+console.log("user id :" + user_id);
 
 
 var HttpClient = function() {
@@ -25,7 +42,7 @@ var HttpClient = function() {
 
 var client = new HttpClient();
 
-this.client.get("http://192.168.0.110:4444/admin/workers?_id=" + _id, function(respone) {
+this.client.get("http://127.0.0.1:4444/admin/workers?_id=" + _id, function(respone) {
     var dbElement = JSON.parse(respone);
     console.log(dbElement);
 
