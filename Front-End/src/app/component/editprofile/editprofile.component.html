@@ -1,61 +1,61 @@
-<br><br><br>
-<form #f="ngForm" (ngSubmit)="updateProfile(f)"  [formGroup]="registrationForm" class="register-form">
-    <div>  
-    {{formdata.userId.Category}}
-        <div class="form-group">
-            <input value="{{formdata.userId.Name}}" type="text" formControlName="Name"  class="form-control align-center"/>
-            <small  [class.d-none]="username.Name.untouched || username.Name.valid" class="text-danger align-center">
-                Username is required
-            </small>
-        </div>  
-        <div class="form-group">
-            <input value="{{formdata.userId.Phone}}" type="text" formControlName="Phone"  class="form-control align-center"/>
-            <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger align-center">
-                Phone number is required
-            </small>
-        </div>          
+<div style="background: #92E3E3; padding-top: 15%;">
+<h3 class="text-center text-light">Upadate Your Profile</h3>
+<div style="padding-left: 15%; padding-right: 15%; padding-top: 5%; padding-bottom: 40%;">
+    
+    <form #f="ngForm" (ngSubmit)="updateProfile(f)"  [formGroup]="registrationForm" class="register-form">
+        <div class="text-light">  
+            <div class="form-group">
+                <label for="Name"><b>Username</b></label>
+                <input [(ngModel)]="formdata.userId.Name" type="text" formControlName="Name"  class="form-control align-center"/>
+                <small  [class.d-none]="username.Name.untouched || username.Name.valid" class="text-danger align-center">
+                    Username is required
+                </small>
+            </div>  
+            <div class="form-group">
+                <label for="Phone"><b>Phone</b></label>
+                <input [(ngModel)]="formdata.userId.Phone" type="text" formControlName="Phone"  class="form-control align-center"/>
+                <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger align-center">
+                    Phone number is required
+                </small>
+            </div>          
 
 
-        <div class="form-group">
-        {{formdata.userId.Category}}
-            <select id="category" formControlName="Category" class="form-control align-center">
-                <option value="{{formdata.userId.Category}}">{{formdata.userId.Category}}</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-                <option value="worker">Worker</option>
-            </select>
-            <small  [class.d-none]="username.Category.untouched || username.Category.valid" class="text-danger align-center">
-                Category is required
-            </small>
-        </div>
-
-        <div class="form-group">
-            <div class="card" style="max-width: 100px; max-height: 100px;">
-                <img class="image" style="max-width: 100px; max-height: 100px;"/>
+            <div class="form-group">
+                <label for="Category"><b>Category</b></label>
+                <select [(ngModel)]="formdata.userId.Category" id="category" formControlName="Category" class="form-control align-center">
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                    <option value="worker">Worker</option>
+                </select>
+                <small  [class.d-none]="username.Category.untouched || username.Category.valid" class="text-danger align-center">
+                    Category is required
+                </small>
             </div>
-            <input id="image" [class.is-invalid]="username.Image.invalid && username.Image.touched" formControlName="Image" class="image align-center" type="file" (change)="changeListner($event)" />
-        </div>
+            <br>
+            <div class="text-center">
+            <button type="submit" class="btn btn-success align-center">Update</button>
+            </div>
+        </div>  
 
-        <button type="submit" class="btn btn-success">Update Profile</button>
-    </div>  
-
-</form>
+    </form>
+</div>
+</div>

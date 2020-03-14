@@ -1,37 +1,46 @@
 
-<div class="register container">
+
+<div style="padding-left: 5%; padding-right: 5%; padding-top: 5%;">
+<div class="register">
   <div class="row">
     <div class="col-md-3 register-left">
-        <h3>Welcome<br/>To The<br/>MyAdvisor App</h3>
+        <h3 style="padding-top: 5%;">Welcome<br/>To <br/>Vservice</h3>
         <a routerLink="/login"><button >Login</button></a><br/>
     </div>
     <div class="col-md-9 register-right">
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div>
+        <div>
           <h3 class="register-heading">Apply as an User</h3>
           <form #f="ngForm" (ngSubmit)="saveUser(f)"  [formGroup]="registrationForm" class="row register-form">
             <div>   
               <div class="form-group">
-                <input type="text" [class.is-invalid]="username.Phone.invalid && username.Phone.touched" formControlName="Phone"  class="form-control align-center" placeholder="Your Phone *"/>
-                <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger align-center">
+                <input type="text" [class.is-invalid]="username.Name.invalid && username.Name.touched" formControlName="Name"  class="form-control text-center" placeholder="Your name *"/>
+                <small  [class.d-none]="username.Name.untouched || username.Name.valid" class="text-danger">
+                  Username is required
+                </small>
+              </div> 
+              <div class="form-group">
+                <input type="text" [class.is-invalid]="username.Phone.invalid && username.Phone.touched" formControlName="Phone"  class="form-control text-center" placeholder="Your Phone *"/>
+                <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger">
                   Phone number is required
                 </small>
               </div>          
               <div class="form-group">
-                <input type="password" [class.is-invalid]="username.Password.invalid && username.Password.touched" formControlName="Password" class="form-control align-center" placeholder="Password *"/>
-                <small  [class.d-none]="username.Password.untouched || username.Password.valid" class="text-danger align-center">
+                <input type="password" [class.is-invalid]="username.Password.invalid && username.Password.touched" formControlName="Password" class="form-control text-center" placeholder="Password *"/>
+                <small  [class.d-none]="username.Password.untouched || username.Password.valid" class="text-danger">
                   Password is required
                 </small>
               </div>
 
               <div class="form-group">
-                <input type="password" [class.is-invalid]="username.confirmPassword.invalid && username.confirmPassword.touched" formControlName="confirmPassword" class="form-control align-center"  placeholder="Confirm Password *"/>
-                <small  [class.d-none]="username.confirmPassword.untouched || username.confirmPassword.valid" class="text-danger align-center">
+                <input type="password" [class.is-invalid]="username.confirmPassword.invalid && username.confirmPassword.touched" formControlName="confirmPassword" class="form-control text-center"  placeholder="Confirm Password *"/>
+                <small  [class.d-none]="username.confirmPassword.untouched || username.confirmPassword.valid" class="text-danger">
                   Password do not match
                 </small>
               </div>
-
+              <div>
               <button type="submit" class="btonRegister">Register</button>
+              </div>
             </div>  
            
           </form>
@@ -41,4 +50,5 @@
       
     </div>
   </div>
+</div>
 </div>

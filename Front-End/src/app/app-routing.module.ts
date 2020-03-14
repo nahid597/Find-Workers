@@ -30,6 +30,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
 import { UserLoginComponent } from './component/user-login/user-login.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
+import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
 
 
 
@@ -170,6 +171,11 @@ const routes: Routes = [
   {
     path: 'category',
     component: CategoryComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'userprofile/:id',
+    component: EditUserProfileComponent,
     canActivate: [AuthGuardService]
   },
   {

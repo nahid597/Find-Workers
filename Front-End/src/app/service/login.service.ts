@@ -214,67 +214,67 @@ export class LoginService {
     // session based checking for automatic login
 
     autoAuthUser() {
-      const authInformation =  this.getAUthData();
-      if (!authInformation) {
-          return;
-      }
-      const now = new Date();
-      const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+        const authInformation =  this.getAUthData();
+        if (!authInformation) {
+            return;
+        }
+        const now = new Date();
+        const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
 
-      if (expiresIn > 0) {
-          this.token = authInformation.token;
-          this.isAuthenticated = true;
-          this.isWorker = authInformation.userId.userId.IsWorker;
-          this.isAadmin = authInformation.userId.userId.IsAdmin;
-          // this.status = authInformation.userId.userId.Active_status;
-          console.log(this.isWorker);
-          this.userId = authInformation.userId;
-          console.log(this.userId);
-          this.setAuthTimer(expiresIn / 1000);
-          this.authStatus.next(true);
+     // if (expiresIn > 0) {
+        this.token = authInformation.token;
+        this.isAuthenticated = true;
+        this.isWorker = authInformation.userId.userId.IsWorker;
+        this.isAadmin = authInformation.userId.userId.IsAdmin;
+        // this.status = authInformation.userId.userId.Active_status;
+        console.log(this.isWorker);
+        this.userId = authInformation.userId;
+        console.log(this.userId);
+        // this.setAuthTimer(expiresIn / 1000);
+        this.authStatus.next(true);
 
-          this.idd = {
-              _id: this.userId.userId._id
-          };
+        this.idd = {
+            _id: this.userId.userId._id
+        };
 
-          if (this.isWorker) {
+        if (this.isWorker) {
 
-            this.http.post<{userId: any}>('http://192.168.0.120:4444/admin/workers/get', this.idd)
-                .subscribe(res => {
-                    this.status = res.userId.Active_status;
-                    console.log(this.status);
-                });
-          } else {
-            if (navigator.geolocation) {
-                // this.isTracking = true;
-                navigator.geolocation.getCurrentPosition((position) => {
-                    console.log('in geo');
-                    console.log('position ', position);
-                    this.ob = {
-                        _id: this.userId.userId._id,
-                        Coordinate: {
-                             lat: position.coords.latitude,
-                             lng: position.coords.longitude
-                        }
-                    };
-                    console.log(this.ob);
-                    this.updateWorker(this.ob, this.updateUrl, this.getUrl);
-                });
-              } else {
-                console.log('error');
-                alert('Geolocation is not supported by this browser.');
-              }
-          }
-      }
+        this.http.post<{userId: any}>('http://192.168.0.120:4444/admin/workers/get', this.idd)
+            .subscribe(res => {
+                this.status = res.userId.Active_status;
+                console.log(this.status);
+            });
+        } else {
+        if (navigator.geolocation) {
+            // this.isTracking = true;
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log('in geo');
+                console.log('position ', position);
+                this.ob = {
+                    _id: this.userId.userId._id,
+                    Coordinate: {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                    }
+                };
+                console.log(this.ob);
+                this.updateWorker(this.ob, this.updateUrl, this.getUrl);
+            });
+            } else {
+            console.log('error');
+            alert('Geolocation is not supported by this browser.');
+            }
+        }
+      // }
     }
 
     // creating a session
 
-    private setAuthTimer(duration: number) {
-        this.durationTimer = setTimeout(() => {
-            this.logout();
-       }, duration * 1000);
-    }
+    // private setAuthTimer(duration: number) {
+    // //     this.durationTimer = setTimeout(() => {
+    // //         this.logout();
+    // //    }, duration * 1000);
+    // }
 
     // logout fuction
 

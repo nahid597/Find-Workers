@@ -47,6 +47,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { AuthInterceptorService } from './service/auth-interceptor.service';
 import { UserLoginComponent } from './component/user-login/user-login.component';
 import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
+import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +81,8 @@ import { WorkerLoginComponent } from './component/worker-login/worker-login.comp
     FooterpageComponent,
     ProfileComponent,
     UserLoginComponent,
-    WorkerLoginComponent
+    WorkerLoginComponent,
+    EditUserProfileComponent
   ],
   imports: [
     MatButtonModule,

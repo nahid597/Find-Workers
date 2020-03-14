@@ -15,7 +15,7 @@ ul li {
     display: inline-block;
 
   }
-  
+
 
   img {
     border-radius: 50%;
@@ -25,3 +25,8 @@ ul li {
     margin-left: auto;
     margin-right: auto;
   }
+
+.contest {
+    position: relative;
+    left: 20%;
+}

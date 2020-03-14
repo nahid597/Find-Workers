@@ -2,7 +2,7 @@
     background: -webkit-linear-gradient(left, #9996bd, #87bbc9);
     margin-bottom: 10%;
     margin-left: 10%;
-    margin-right: 10%;
+    margin-right: 0%;
 }
 .register-left{
     text-align: center;
@@ -23,8 +23,7 @@
 }
 .register-right{
     background: #f8f9fa;
-    border-top-left-radius: 10% 50%;
-    border-bottom-left-radius: 10% 50%;
+
 }
 .register-left img{
     margin-top: 15%;
@@ -81,7 +80,7 @@
     border-radius: 1.5rem;
     margin-top: 3vw;
     padding: 0.5vw;
-    margin-left: 17vw;
+    margin-left: 25%;
     background: #083fa5;
     color: #fff;
     font-weight: 600;
@@ -116,7 +115,7 @@
     border-bottom-left-radius: 1.5rem;
 }
 .register-heading{
-    text-align: center;
+    padding-left: 8%;
     margin-top: 4vw;
     margin-bottom: -15%;
     color: #495057;

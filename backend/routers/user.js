@@ -65,10 +65,13 @@ router.post('/login', (req, res , next) => {
 });
 
 router.post('/signup', (req, res, next) => {
+
+    console.log(req.body);
     
     bcryptjs.hash(req.body.Password, 10)
     .then(hash => {
        const user = new User({
+            Name: req.body.Name,
             Phone: req.body.Phone,
             Password: hash,
         });
@@ -100,10 +103,24 @@ router.delete('', function(req, res) {
 router.put('/update', function(req, res) {
     //console.log(req.body._id);
 
-    Worker.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
-        if (err)
+    User.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
+        if (err){
+            console.log(err);
             res.status(400).send(err);
-        else res.status(200).send(req.body);
+        }
+        else {
+            User.find({_id: req.body._id})
+            .exec(function(err, data) {
+                console.log(data);
+                if (err){
+                    console.log(err);
+                    res.status(400).send(err);
+                }
+                else{
+                    res.status(200).send(data);
+                }
+            });
+        }
     });
 });
 
