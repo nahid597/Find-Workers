@@ -7,6 +7,8 @@ var marker;
 var lng = 88.54;
 var lat = 24.56;
 
+var dbElementsCount = 0;
+
 const worker_id = document.location.search.replace(/^.*?\=/, '');
 console.log("worker id: " + worker_id);
 
@@ -68,38 +70,54 @@ var client = new HttpClient();
 
 var worker_Lat = 25.60;
 var worker_Lng = 89.14;
-var connected_user_Lat = 24.56;
-var connected_user_Lng = 88.62;
+var connected_user_Lat = 25.56;
+var connected_user_Lng = 89.62;
 
-var start = [connected_user_Lng, connected_user_Lat];
+var star = [];
 
 
 function getWorkerDataFromDatabase() {
 
     if (worker_id) {
-        client.get('http://192.168.0.110:4444/admin/workers?_id=' + worker_id, function(response) {
+        client.get('http://127.0.0.1:4444/admin/workers?_id=' + worker_id, function(response) {
             // do something with response
             var dbElement = JSON.parse(response);
-            console.log("nahid " + dbElement);
+            console.log(dbElement);
             var dbElementCount = dbElement.length;
 
-            for (var i = 0; i < dbElementCount; i++) {
-                worker_Lng = dbElement[i].Coordinate.y;
-                worker_Lat = dbElement[i].Coordinate.x;
+            console.log(dbElementCount);
+
+            if (dbElementCount > 0) {
+
+                // disply route button
+                var routeButton = document.getElementById("routeButton");
+                routeButton.innerHTML = '<button type="button" onClick= "goToRouteButton()" class = "btn btn-warning btn-small">Go to Route</button>';
+
+                for (var i = 0; i < dbElementCount; i++) {
+                    worker_Lng = dbElement[i].Coordinate.y;
+                    worker_Lat = dbElement[i].Coordinate.x;
 
 
 
-                // get connected user lat lng
-                connected_user_Lat = dbElement[i].UserCoord.lat;
-                connected_user_Lng = dbElement[i].UserCoord.lng;
+                    // get connected user lat lng
+                    connected_user_Lat = dbElement[i].userCoordinate.lat;
+                    connected_user_Lng = dbElement[i].userCoordinate.lng;
+                }
+
+                start = [connected_user_Lng, connected_user_Lat];
+
+                // console.log('nahid');
+                console.log("connect user lat" + connected_user_Lat);
+                workerMarker(worker_Lat, worker_Lng);
+                animateMarker(worker_id);
+
+                if (connected_user_Lat != 0 || connected_user_Lng != 0) {
+                    userMarker(connected_user_Lat, connected_user_Lng);
+                }
+
             }
 
-            // console.log('nahid');
-            console.log("worker" + worker_Lng);
-            workerMarker(worker_Lat, worker_Lng);
-            if (connected_user_Lat != 0 || connected_user_Lng != 0) {
-                userMarker(connected_user_Lat, connected_user_Lng);
-            }
+
 
             //console.log('connected user ' + connected_user_Lng);
 
@@ -270,12 +288,6 @@ function goToRouteButton() {
 
 }
 
-// disply route button
-
-var routeButton = document.getElementById("routeButton");
-
-routeButton.innerHTML = '<button type="button" onClick= "goToRouteButton()" class = "btn btn-warning btn-small">Go to Route</button>';
-
 
 function getRoute(end) {
     // make a directions request using cycling profile
@@ -356,8 +368,8 @@ function getRoute(end) {
         var tripInstructions = [];
         for (var i = 0; i < steps.length; i++) {
             tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
-            instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor((data.duration / 60) / 60) + ' hour ' + Math.floor((data.duration / 60) % 60) + ' min 🚴 </span>';
-            // '<button type="button" style = "margin:5px" class="btn btn-primary btn-sm" onClick = "finishedWork()"> Finished Work</button>';
+            instructions.innerHTML = '<span class="duration">Arrival Time: ' + Math.floor((data.duration / 60) / 60) + ' hour ' + Math.floor((data.duration / 60) % 60) + ' min 🚴 </span>' +
+                '<button type="button" style = "margin:5px" class="btn btn-primary btn-sm" onClick = "successfulWork()"> Successful Work</button>';
 
         }
 
@@ -384,5 +396,76 @@ function getRoute(end) {
     };
 
     req.send();
+
+}
+
+function successfulWork() {
+    marker.remove();
+    location.href = "http://127.0.0.1:4200/profile";
+}
+
+
+function animateMarker(id) {
+    var radius = 10;
+
+    // lng1 += 0.34,
+    //     lat1 += 0.43
+
+    // console.log("animate lng " + lng1);
+    // console.log("animate lat " + lat1);
+
+    // Update the data to a new position based on the animation timestamp. The
+    // divisor in the expression `timestamp / 1000` controls the animation speed.
+    // this.marker[id].setLngLat([
+    //     lng1,
+    //     lat1
+    // ]);
+
+    //console.log("animate id " + id);
+
+    // console.log("animate " + this.lng1);
+    // console.log(this.lng1);
+
+    // show data from database
+
+    if (id) {
+        this.client.get('http://127.0.0.1:4444/admin/workers?_id=' + id, function(response) {
+            // do something with response
+            var dbElement = JSON.parse(response);
+            //console.log(store[1].Coordinate.x);
+            var dbElementCount = dbElement.length;
+
+            var lng;
+            var lat;
+
+            for (var i = 0; i < dbElementCount; i++) {
+                lng = dbElement[i].Coordinate.y;
+                lat = dbElement[i].Coordinate.x;
+
+                console.log("animate lng " + lng);
+                console.log("animate lat " + lat);
+
+                this.marker.setLngLat([
+                    lng,
+                    lat
+                ]);
+            }
+
+        });
+
+    }
+
+
+    // Ensure it's added to the map. This is safe to call if it's already added.
+    // this.marker[id].addTo(map);
+
+    setTimeout(() => {
+        // Request the next frame of the animation.
+        requestAnimationFrame(function() {
+            if (typeof marker != 'undefined')
+                animateMarker(id);
+        });
+    }, 10 * 1000);
+
 
 }
