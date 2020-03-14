@@ -2,7 +2,7 @@
   <div class="row">
     <div *ngFor="let p of categoryWorker; let i = index">
       <div class="mt-4 col-sm-2">
-        <a href="#">
+        <a (click)="navigateUrl(p.title)">
           <div class="card" style="width: 9rem; height: 13rem">
             <img class="card-img-top imageclass" src="{{p.image}}">
             <div class="card-body text-center">

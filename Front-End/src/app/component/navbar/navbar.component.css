@@ -18,6 +18,10 @@ a:hover {
   z-index: 1;
 }
 
+a.activelink:active{
+  color: red;
+}
+
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
@@ -52,8 +56,12 @@ li{
   
 }
 
-a.active {
+a:active , a:target{
   color: red;
+}
+
+a:hover{
+  color: brown;
 }
 
 .navbar-toggler{

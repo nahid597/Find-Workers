@@ -69,10 +69,10 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     };
     console.log(this.ob);
     this.isLoadin = true;
-    this.authService.updateWorker(this.ob, 'http://192.168.0.107:4444/admin/workers/update', 'http://192.168.0.110:4444/admin/workers/get');
-    setTimeout(() => {
-     this.router.navigate(['/profile']);
-    }, 500);
+    this.authService.updateWorker(this.ob, 'http://192.168.0.120:4444/admin/workers/update', 'http://192.168.0.120:4444/admin/workers/get');
+    // setTimeout(() => {
+     
+    // }, 500);
     return;
     console.log('invalid');
   }

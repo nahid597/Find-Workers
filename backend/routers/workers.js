@@ -113,13 +113,13 @@ router.post('/signup',upload.single('file'), (req, res, next) => {
         console.log(req.file);
         user.save()
         .then(result => {
-            res.status(200).json({
-                message: 'user created',
+            res.status(200).send({
+                complete: true,
                 result: result
             });
         })
         .catch(err => {
-            res.status(201).json({
+            res.status(201).send({
                 error: err,
             });
         });
@@ -147,9 +147,23 @@ router.put('/update', function(req, res) {
     //console.log(req.body._id);
 
     Worker.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
-        if (err)
+        if (err){
+            console.log(err);
             res.status(400).send(err);
-        else res.status(200).send(req.body);
+        }
+        else {
+            Worker.find({_id: req.body._id})
+            .exec(function(err, data) {
+                console.log(data);
+                if (err){
+                    console.log(err);
+                    res.status(400).send(err);
+                }
+                else{
+                    res.status(200).send(data);
+                }
+            });
+        }
     });
 });
 

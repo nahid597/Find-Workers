@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
 
+  selectedIndex: number = null;
+  private active;
   private show = false;
   private userAuthenticated = false;
   private isAdmin = false;
@@ -19,8 +21,8 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
   private put: any;
   private X: any;
   private Y: any;
-  private getUrl = 'http://192.168.0.107:4444/admin/workers?_id=';
-  private updateUrl = 'http://192.168.0.107:4444/admin/workers/update';
+  private getUrl = 'http://192.168.0.120:4444/admin/workers?_id=';
+  private updateUrl = 'http://192.168.0.120:4444/admin/workers/update';
   t = 24.23344;
   p = 88.23434;
   private authListerSubs: Subscription;
@@ -137,14 +139,22 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
     };
     console.log('ob ', this.ob);
 
-    this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
+    this.authService.updateWorkerStatus(this.ob, this.updateUrl, this.getUrl);
     // }, 10);
 
   }
 
-  showToggle() {
-    this.show = false;
-  }
+  // showToggle() {
+  //   this.active = document.getElementsByClassName('active');
+  //   this.active.classList.add = 
+  // }
+
+  setIndex(index: number) {
+    this.selectedIndex = index;
+    console.log(this.selectedIndex);
+    this.active = document.getElementById('active');
+    this.active.classList.add('activelink');
+ }
 
   showFlip() {
     this.show = !this.show;
