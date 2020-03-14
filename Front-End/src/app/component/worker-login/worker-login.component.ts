@@ -38,6 +38,7 @@ export class WorkerLoginComponent implements OnInit, OnDestroy, DoCheck {
      });
  }
 
+
  ngDoCheck() {
   this.check = this.authService.getCheck();
  }

@@ -138,7 +138,6 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
       }
     };
     console.log('ob ', this.ob);
-
     this.authService.updateWorkerStatus(this.ob, this.updateUrl, this.getUrl);
     // }, 10);
 

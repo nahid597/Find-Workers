@@ -85,6 +85,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     // }
   }
 
+
   createFormData(event) {
     this.selectedFile = <File> (event.target.files[0]);
     this.fd.append('file', this.selectedFile, this.selectedFile.name);

@@ -48,6 +48,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     this.check = this.authService.userLogin(formData.value);
   }
 
+
   ngOnDestroy() {
       this.authStatusSub.unsubscribe();
   }

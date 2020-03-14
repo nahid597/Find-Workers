@@ -19,6 +19,7 @@ export class CategoryService {
     });
   }
 
+
   getCategory() {
     this.http.get('http://192.168.0.120:4444/admin/category/get')
     .subscribe(response => {

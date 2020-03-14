@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, DoCheck {
     // }
   }
 
+
   ngDoCheck() {
     this.user = this.auth.getUserId();
     console.log(this.user);
