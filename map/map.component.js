@@ -4,7 +4,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibmFoaWQ1OTciLCJhIjoiY2syMzQwZThqMHNnODNnbnIwZ
 var map;
 style = 'mapbox://styles/mapbox/streets-v10';
 
-var putUrl = 'http://192.168.0.110:4444/admin/workers/update';
+var putUrl = 'http://127.0.0.1:4444/admin/workers/update';
+
+const urlSendCategoty = window.location.search.replace(/^.*?\&_category\=/, '');
+console.log("selected url category " + urlSendCategoty);
 
 var p = 0;
 var popup = [];
@@ -13,6 +16,11 @@ var ratingBarCheck = 0;
 
 var lng = 88.54;
 var lat = 24.56;
+
+
+// active user information from database
+var user_Lat = 24.999;
+var user_Lng = 88.99;
 
 var start = [lng, lat];
 
@@ -46,7 +54,7 @@ var HttpClient = function() {
     };
 };
 
-// var data = httpGet('http://192.168.0.110:4444/admin/workers');
+// var data = httpGet('http://127.0.0.1:4444/admin/workers');
 // console.log(data);
 
 var dbElementsCount = 0;
@@ -54,35 +62,46 @@ var storeDbElements;
 
 var client = new HttpClient();
 
-// active user information from database
-var user_Lat = 24.999;
-var user_Lng = 88.99;
+function userDataFromDatabase() {
+    this.client.get('http://127.0.0.1:4444/admin/users?_id=' + user_id, function(response) {
+        // do something with response
+        var dbElement = JSON.parse(response);
+        //console.log(store[1].Coordinate.x);
+        var dbElementCount = dbElement.length;
 
-this.client.get('http://192.168.0.110:4444/admin/users?_id=' + user_id, function(response) {
-    // do something with response
-    var dbElement = JSON.parse(response);
-    //console.log(store[1].Coordinate.x);
-    var dbElementCount = dbElement.length;
+        console.log(dbElement);
 
-    var lng;
-    var lat;
+        var lng;
+        var lat;
 
-    for (var i = 0; i < dbElementCount; i++) {
-        user_Lng = dbElement[i].Coordinate.lng;
-        user_Lat = dbElement[i].Coordinate.lat;
+        for (var i = 0; i < dbElementCount; i++) {
+            user_Lng = dbElement[i].Coordinate.y;
+            user_Lat = dbElement[i].Coordinate.x;
 
-        console.log("user lng " + user_Lng);
-        console.log("user lat " + user_Lat);
-    }
+            console.log("user lng checdk " + user_Lng);
+            console.log("user lat  check " + user_Lat);
+        }
 
-});
+        // setTimeout(() => {
+        //     //this.userMarker();
+        // }, 5 * 1000);
+
+        this.userMarker();
+
+
+
+
+    });
+}
 
 
 this.initializeMap();
 
+userDataFromDatabase();
+
 function getWorkerFormDatabase() {
 
-    this.client.get('http://192.168.0.110:4444/admin/workers?Active_status=true', function(response) {
+    this.client.get('http://127.0.0.1:4444/admin/workers?Active_status=true&Category=' + urlSendCategoty, function(response) {
         // do something with response
         this.storeDbElements = JSON.parse(response);
         console.log(storeDbElements);
@@ -136,7 +155,8 @@ function showMarkersFromDatabase(numbers) {
 
         if (typeof marker[this.storeDbElements[i]._id] === 'undefined') {
             console.log("chekc id");
-            this.workerMarker(this.storeDbElements[i].Coordinate.y, this.storeDbElements[i].Coordinate.x, this.storeDbElements[i]._id, this.storeDbElements[i].Name, this.storeDbElements[i].Catagory, this.storeDbElements[i].Rating.rating, this.storeDbElements[i].Phone);
+            console.log("check lat of worker " + this.storeDbElements[i].Coordinate.y)
+            this.workerMarker(this.storeDbElements[i].Coordinate.y, this.storeDbElements[i].Coordinate.x, this.storeDbElements[i]._id, this.storeDbElements[i].Name, this.storeDbElements[i].Category, this.storeDbElements[i].Rating.rating, this.storeDbElements[i].Phone);
             this.animateMarker(this.storeDbElements[i]._id);
         }
 
@@ -183,7 +203,7 @@ function buildMap() {
 
     //this.createMarker();
     // this.markerAnimation();
-    this.userMarker();
+    // this.userMarker();
 
     /// Add map controls
     map.addControl(new mapboxgl.NavigationControl());
@@ -351,7 +371,7 @@ function submitStars() {
     //  console.log("rating: " + rating);
     console.log("store db " + this.storeDbElements[0].Name);
 
-    // var putUrl = 'http://192.168.0.110:4444/admin/workers/update';
+    // var putUrl = 'http://127.0.0.1:4444/admin/workers/update';
 
     console.log("number of db elment s sd " + this.storeIdOfRatingWorker);
 
@@ -405,7 +425,7 @@ function submitStars() {
     // reload current page
 
     // location.reload(true);
-    window.location.href = "http://192.168.0.122:4487/thankyou/thankyou.component.html?_id=" + user_id;
+    window.location.href = "http://127.0.0.1:4444/thankyou/thankyou.component.html?_id=" + user_id;
 }
 
 
@@ -492,8 +512,8 @@ function userMarker() {
         // navigator.geolocation.getCurrentPosition(position => {
         // lat = position.coords.latitude;
         // lng = position.coords.longitude;
-        // console.log("lat " + lat);
-        // console.log("lng " + lng);
+        console.log("lat user " + user_Lat);
+        console.log("lng user " + user_Lng);
 
         // call route function for ruting...
         getRoute(start);
@@ -539,7 +559,7 @@ function workerMarker(lng, lat, id, name, category, rating, phone) {
     //   lng = position.coords.longitude;
     //   lat = position.coords.latitude;
 
-    //console.log("w1: " + lng);
+    console.log("w1 asdf of worker: " + lng);
     //console.log("w2:" + lat);
 
     var el = document.createElement('div');
@@ -596,7 +616,7 @@ function animateMarker(id) {
     // show data from database
 
     if (id) {
-        this.client.get('http://192.168.0.110:4444/admin/workers?_id=' + id, function(response) {
+        this.client.get('http://127.0.0.1:4444/admin/workers?_id=' + id, function(response) {
             // do something with response
             var dbElement = JSON.parse(response);
             //console.log(store[1].Coordinate.x);
@@ -645,7 +665,7 @@ function animateMarker(id) {
 
 function generatedHtmlelemnets(id, name, category, rating, phone) {
 
-    //console.log(typeof (id));
+    console.log("category: " + category);
     // var LngLat = this.marker[id].getLngLat();
     // console.log(LngLat.lng);
     // console.log(LngLat.lat);
@@ -671,10 +691,11 @@ function generatedHtmlelemnets(id, name, category, rating, phone) {
 
     console.log("rating is " + rating);
     console.log("name is " + name);
+    console.log("user id is " + user_id);
 
     var html = "";
 
-    html += "<h5 style = 'color: green;'>" + "Name: " + '<a class= "nameLink"; href = "../workerprofile/workerprofile.component.html?_id=' + id + '">' + '<span class="tooltiptext">click for details</span>' + name + '</a>' + "</h5>";
+    html += "<h5 style = 'color: green;'>" + "Name: " + '<a target="blank" class= "nameLink"; href = "../workerprofile/workerprofile.component.html?_id=' + id + '&user_id=' + user_id + '">' + '<span class="tooltiptext">click for details</span>' + name + '</a>' + "</h5>";
     html += "<h6 style = 'color: green'>" + "Category: " + storeCategory + "</h6>";
     html += "<h6  style = 'color: red'>" + "<span class='fa fa-star checked' style = 'font-size:20px'></span>" + " : " + rating.toFixed(1) + " </h6>";
     html += "<h4>" + '<a class= "nameLink" href="tel:' + phone + '">' + '<span class="tooltiptext">' + phone + '</span>' + "call to worker" + '</a>' + "</h4>";
@@ -692,7 +713,7 @@ var conformWorkerCheck = 0;
 
 function confirmToWorker(id1) {
     // console.log(this.storeDbElements[id1].Rating.rating);
-    console.log(id1);
+    console.log("confirm id: " + id1);
     //console.log(typeof (id1));
 
     //console.log(this.dbElementsCount);
@@ -746,7 +767,7 @@ function confirmToWorker(id1) {
     // only show the conform worker other workers remvoe from map
 
     if (id1) {
-        this.client.get('http://192.168.0.110:4444/admin/workers?_id=' + id1, function(response) {
+        this.client.get('http://127.0.0.1:4444/admin/workers?_id=' + id1, function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             //console.log(store[1].Coordinate.x);
@@ -764,7 +785,11 @@ function confirmToWorker(id1) {
 
 
     var sendData = {
-        UserCoord: {
+        Coordinate: {
+            x: lt,
+            y: ln
+        },
+        userCoordinate: {
             lat: user_Lat,
             lng: user_Lng
         },
@@ -844,7 +869,7 @@ function singleSelectChangeText() {
     // }
 
     if (setValue === "all") {
-        this.client.get('http://192.168.0.110:4444/admin/workers?Active_status=true', function(response) {
+        this.client.get('http://127.0.0.1:4444/admin/workers?Active_status=true', function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             console.log(storeDbElements);
@@ -856,7 +881,8 @@ function singleSelectChangeText() {
 
         });
     } else {
-        this.client.get('http://192.168.0.110:4444/admin/workers?Active_status=true&Catagory=' + setValue, function(response) {
+        console.log("set value " + setValue)
+        this.client.get('http://127.0.0.1:4444/admin/workers?Active_status=true&Category=' + setValue, function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             console.log(storeDbElements);
