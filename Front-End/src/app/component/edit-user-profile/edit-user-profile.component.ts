@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, DoCheck } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -11,11 +11,13 @@ import { take } from 'rxjs/operators';
   templateUrl: './edit-user-profile.component.html',
   styleUrls: ['./edit-user-profile.component.css']
 })
-export class EditUserProfileComponent implements OnInit, OnDestroy {
+export class EditUserProfileComponent implements OnInit, OnDestroy, DoCheck {
 
   formdata: any;
   res;
   ob: any;
+  err = false;
+  str = '';
 
   get username() {
     return {
@@ -53,6 +55,13 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
         this.isLoadin = false;
         console.log(authStatus);
     });
+  }
+
+  ngDoCheck() {
+    this.err = this.authService.isErr();
+    if (this.err) {
+      this.str = 'Please put a valid number.';
+    }
   }
 
   updateProfile(formmData) {

@@ -8,7 +8,7 @@
   <div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li id="active" ng-class="nav-item active">
-        <a class="nav-link" routerLink="home">Home</a>
+        <a class="nav-link" href="home">Home</a>
       </li>
 
       <li class="nav-item dropdown">
@@ -57,7 +57,7 @@
       </div>
     </ul>
     <ul class="navbar-nav ml-auto" *ngIf="!userAuthenticated">
-      <li class="nav-item activelink"><a class="nav-link" routerLink="login"><i class="fa fa-user mr-2"></i>Login</a></li>
+      <li class="nav-item activelink"><a class="nav-link" href="login"><i class="fa fa-user mr-2"></i>Login</a></li>
       <li><a href="register"><button class="btn btn-outline-success" type="submit">Signup</button></a></li>
       <li class="nav-item activelink"><a class="nav-link" href="#"><i class="fa fa-globe mr-2"></i>En</a></li>
     </ul>

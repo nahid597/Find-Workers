@@ -149,7 +149,9 @@ router.put('/update', function(req, res) {
     Worker.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
         if (err){
             console.log(err);
-            res.status(400).send(err);
+            res.status(400).send({
+                error: 'error'
+            });
         }
         else {
             Worker.find({_id: req.body._id})

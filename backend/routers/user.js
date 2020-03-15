@@ -77,13 +77,13 @@ router.post('/signup', (req, res, next) => {
         });
         user.save()
         .then(result => {
-            res.status(200).json({
-                message: 'user created',
+            res.status(200).send({
+                complete: true,
                 result: result
             });
         })
         .catch(err => {
-            res.status(201).json({
+            res.status(201).send({
                 error: err,
             });
         });
