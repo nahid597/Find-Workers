@@ -9,6 +9,11 @@ var putUrl = 'http://127.0.0.1:4444/admin/workers/update';
 const urlSendCategoty = window.location.search.replace(/^.*?\&_category\=/, '');
 console.log("selected url category " + urlSendCategoty);
 
+
+// active user information from database
+const user_id1 = document.location.search.replace(/^.*?\=/, '');
+const user_id = user_id1.replace(/\&_category\=[a-zA-Z0-9]+/, '');
+
 var p = 0;
 var popup = [];
 var marker = [];
@@ -28,8 +33,6 @@ var success = 0;
 
 
 
-// active user information from database
-const user_id = document.location.search.replace(/^.*?\=/, '');
 
 console.log('user id ' + user_id);
 
@@ -37,6 +40,47 @@ console.log('user id ' + user_id);
 // if we want to show arrival time without domain
 //getRoute(start);
 
+//update data in database
+
+function updateDataInDatabaseAfterTenSecond() {
+
+    navigator.geolocation.getCurrentPosition(response => {
+
+        var workerlat = response.coords.latitude;
+        var workerlng = response.coords.longitude;
+
+        console.log("update data " + workerlat);
+        console.log("update data " + workerlng);
+        var sendData = {
+            Coordinate: {
+                x: workerlat,
+                y: workerlng
+            },
+            _id: user_id
+        };
+
+        var jsonSendData = JSON.stringify(sendData);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", putUrl, true);
+        xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
+        xhr.onload = function() {
+            var users = JSON.parse(xhr.responseText);
+            if (xhr.readyState == 4 && xhr.status == "200") {
+                console.table(users);
+            } else {
+                console.error(users);
+            }
+        };
+        xhr.send(jsonSendData);
+    });
+
+
+}
+
+setInterval(() => {
+    updateDataInDatabaseAfterTenSecond();
+}, 10 * 1000);
 
 // read data from database
 
@@ -73,6 +117,8 @@ function userDataFromDatabase() {
 
         var lng;
         var lat;
+
+        console.log("db elemt for user " + dbElementCount);
 
         for (var i = 0; i < dbElementCount; i++) {
             user_Lng = dbElement[i].Coordinate.y;
@@ -425,7 +471,7 @@ function submitStars() {
     // reload current page
 
     // location.reload(true);
-    window.location.href = "http://127.0.0.1:4444/thankyou/thankyou.component.html?_id=" + user_id;
+    window.location.href = "http://127.0.0.1:4444/thankyou/thankyou.component.html?_id=" + user_id + '&_category=' + urlSendCategoty;
 }
 
 
