@@ -38,6 +38,7 @@ import { BecomeWorkerComponent } from './component/help/become-worker/become-wor
 import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
 import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
 import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
+
 import { CategoryService } from './service/category.service';
 import { CategoryComponent } from './component/category/category.component';
 import { FooterpageComponent } from './component/footerpage/footerpage.component';
@@ -46,12 +47,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { AuthInterceptorService } from './service/auth-interceptor.service';
 import { UserLoginComponent } from './component/user-login/user-login.component';
 import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
-<<<<<<< rakib123
 import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
-=======
-import { UpdatepasswordworkerComponent } from './component/help/updatepasswordworker/updatepasswordworker.component';
-import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-update-worker/phone-number-update-worker.component';
->>>>>>> master
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,15 +77,12 @@ import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-
     WorkerComplainComponent,
     WorkerPhoneUpdateComponent,
     WorkerSignInProblemComponent,
-    WorkerSignInProblemComponent,
     CategoryComponent,
     FooterpageComponent,
     ProfileComponent,
     UserLoginComponent,
     WorkerLoginComponent,
     EditUserProfileComponent
-    UpdatepasswordworkerComponent,
-    PhoneNumberUpdateWorkerComponent
   ],
   imports: [
     MatButtonModule,
