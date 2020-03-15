@@ -31,6 +31,8 @@ export class LoginService {
   private userregister = 'http://192.168.0.120:4444/admin/users/signup';
   private authStatus = new Subject<boolean>();
   private expireInDuration;
+  private error = false;
+  private err = false;
   check = true;
   obj: {};
 
@@ -38,6 +40,14 @@ export class LoginService {
 
     isComplete() {
         return this.complete;
+    }
+
+    isError() {
+        return this.error;
+    }
+
+    isErr() {
+        return this.err;
     }
 
     getToken() {
@@ -97,11 +107,14 @@ export class LoginService {
                     _id: response._id
                 };
 
+                this.err = false;
+
                 localStorage.setItem('userId', JSON.stringify(this.userId));
                 console.log(this._id);
             }
         }, error => {
             this.authStatus.next(false);
+            this.err = true;
         });
     }
 
@@ -143,10 +156,13 @@ export class LoginService {
     // register function common for both user and worker
 
     register(path: string, authData) {
-        this.http.post(path , authData)
+        this.http.post<{complete, result, error}>(path , authData)
         .subscribe((response) => {
-            console.log(response);
-            if (response) {
+            console.log(response.error);
+            if (response.error) {
+                this.error = true;
+            } else {
+                console.log(response);
                 this.complete = true;
                 this.router.navigate(['/']);
                 alert('Successfully registered...');

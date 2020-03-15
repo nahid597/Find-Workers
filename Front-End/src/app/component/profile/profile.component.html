@@ -32,11 +32,11 @@
 </div>
 
 
-<div *ngIf="!profile.userId.IsWorker" class="border-box text-center">
+<div *ngIf="!profile.userId.IsWorker" class="border-box">
     <div style="padding-top: 5%; padding-bottom: 10%; padding-left: 10%; padding-right: 10%;">
         <div class="m-2" style="padding: 5%;background: #F0E68C;">
             <h4 class="text-center">Professional details</h4>
-            <div>
+            <div class="text-center">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRr2hSx5nyxgBo3jvxahHr9PAEZ7e-e_YfBE9L4DsZX6fzxpJWS" alt="Avatar">
                 <br/>
                 <h5>User</h5>
@@ -60,7 +60,7 @@
             <div class="contest">
                 <h5><pre>Category: User</pre></h5>
             </div>
-            <div>
+            <div class="contest">
                 <a [routerLink]="['/userprofile/',profile.userId._id]"><button class="btn btn-success">Edit Profile</button></a>
             </div>
         </div>

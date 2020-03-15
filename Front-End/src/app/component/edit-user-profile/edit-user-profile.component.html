@@ -3,6 +3,7 @@
 <div style="padding-left: 15%; padding-right: 15%; padding-top: 5%; padding-bottom: 40%;">
     
     <form #f="ngForm" (ngSubmit)="updateProfile(f)"  [formGroup]="registrationForm" class="register-form">
+        <p style="padding-left: 15%;" class="text-danger">{{str}}</p>
         <div class="text-light">  
             <div class="form-group">
                 <label for="Name"><b>Name</b></label>

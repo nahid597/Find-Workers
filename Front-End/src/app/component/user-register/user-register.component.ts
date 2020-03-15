@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,10 @@ import { NgForm } from '@angular/forms';
   templateUrl: './user-register.component.html',
   styleUrls: ['./user-register.component.css']
 })
-export class UserRegisterComponent implements OnInit, OnDestroy {
+export class UserRegisterComponent implements OnInit, OnDestroy, DoCheck {
+
+  error = false;
+  str = '';
 
   get username() {
     return {
@@ -39,14 +42,26 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       });
   }
 
+  ngDoCheck() {
+    this.error = this.authService.isError();
+    if (this.error) {
+      this.str = 'Phone number already exists';
+      console.log(this.str);
+    }
+  }
+
   saveUser(formData: NgForm) {
-    if (formData.valid || formData.value.password === formData.value.confirmPassword) {
+
+    if (formData.valid && formData.value.Password !== formData.value.confirmPassword) {
+      this.str = 'Password do not match';
+    } else if (!formData.value.Name || !formData.value.Password || !formData.value.Phone || !formData.value.confirmPassword) {
+      this.str = 'Please fill all required (*) field';
+    } else if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
       this.isLoadin = true;
       this.authService.createUser(formData.value);
       console.log(formData.value);
       return;
     }
-    return;
   }
 
 

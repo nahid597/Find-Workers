@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, DoCheck } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { Subscription } from 'rxjs';
@@ -9,12 +9,14 @@ import { NgForm } from '@angular/forms';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
   contain;
   image;
   selectedFile: File = null;
   fd: any;
   ob: any;
+  str = '';
+  error = false;
 
   get username() {
     return {
@@ -49,23 +51,34 @@ export class RegisterComponent implements OnInit, OnDestroy {
       });
   }
 
+  ngDoCheck() {
+    this.error = this.authService.isError();
+    if (this.error) {
+      this.str = 'Phone number already exists';
+      console.log(this.str);
+    }
+  }
+
   save(formData) {
     console.log(formData.value);
     // formData.append('Image', this.image);
-    if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
-      this.isLoadin = true;
-      this.ob = {
-        Name: formData.value.Name,
-        Phone: formData.value.Phone,
-        Password: formData.value.Password,
-        Category: formData.value.Category,
-        // Image: this.fd
-      };
-      this.authService.createWorker(this.ob);
-      console.log(this.ob);
-      return;
+    if (formData.valid && formData.value.Password !== formData.value.confirmPassword) {
+      this.str = 'Password do not match';
+    } else if (!formData.value.Name || !formData.value.Password || !formData.value.confirmPassword || !formData.value.Category
+       || !formData.value.Phone) {
+      this.str = 'Please fill all required (*) field';
+    } else if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
+        this.isLoadin = true;
+        this.ob = {
+          Name: formData.value.Name,
+          Phone: formData.value.Phone,
+          Password: formData.value.Password,
+          Category: formData.value.Category,
+          // Image: this.fd
+        };
+        this.authService.createWorker(this.ob);
+        return;
     }
-    console.log('invalid');
   }
 
 

@@ -13,6 +13,7 @@
           <h3 class="register-heading">Apply as an User</h3>
           <form #f="ngForm" (ngSubmit)="saveUser(f)"  [formGroup]="registrationForm" class="row register-form">
             <div>   
+            <small style="padding-left: 8%;" class="text-danger">{{str}}</small>
               <div class="form-group">
                 <input type="text" [class.is-invalid]="username.Name.invalid && username.Name.touched" formControlName="Name"  class="form-control text-center" placeholder="Your name *"/>
                 <small  [class.d-none]="username.Name.untouched || username.Name.valid" class="text-danger">
