@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     this.profile = this.authService.getUserId();
+    console.log(this.profile);
     this.id = this.profile.userId._id;
   }
 

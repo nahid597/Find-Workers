@@ -41,12 +41,17 @@ export class UserLoginComponent implements OnInit, OnDestroy {
      });
  }
 
+ ngDoCheck() {
+  this.check = this.authService.getCheck();
+ }
+
   userLogin(formData) {
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
     this.isLoading = true;
-    this.check = this.authService.userLogin(formData.value);
+    this.authService.userLogin(formData.value);
   }
+
 
   ngOnDestroy() {
       this.authStatusSub.unsubscribe();

@@ -6,6 +6,11 @@ const Schema = mongoose.Schema;
 
 var userSchema = new Schema({
 
+    Name: {
+        type: String,
+        required: true,
+    },
+
     Phone: {
         type: String,
         required: true,

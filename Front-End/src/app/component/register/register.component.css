@@ -23,8 +23,7 @@
 }
 .register-right{
     background: #f8f9fa;
-    border-top-left-radius: 10% 50%;
-    border-bottom-left-radius: 10% 50%;
+
 }
 .register-left img{
     margin-top: 15%;
@@ -81,7 +80,7 @@
     border-radius: 1.5rem;
     margin-top: 3vw;
     padding: 0.5vw;
-    margin-left: 17vw;
+    margin-left: 25%;
     background: #083fa5;
     color: #fff;
     font-weight: 600;
@@ -102,8 +101,6 @@
     height: 34px;
     font-weight: 600;
     color: #fff;
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
 }
 .register .nav-tabs .nav-link:hover{
     border: none;
@@ -116,7 +113,7 @@
     border-bottom-left-radius: 1.5rem;
 }
 .register-heading{
-    text-align: center;
+    padding-left: 8%;
     margin-top: 4vw;
     margin-bottom: -15%;
     color: #495057;
@@ -148,3 +145,4 @@
 select {
     text-align-last:center; 
 }
+

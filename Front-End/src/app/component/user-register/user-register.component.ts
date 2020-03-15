@@ -13,6 +13,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
 
   get username() {
     return {
+      Name: this.registrationForm.get('Name'),
       Phone: this.registrationForm.get('Phone'),
       Password: this.registrationForm.get('Password'),
       confirmPassword: this.registrationForm.get('confirmPassword')
@@ -22,6 +23,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder, private authService: LoginService) {}
 
   registrationForm = this.fb.group({
+    Name: ['', Validators.required],
     Password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
     Phone: ['', Validators.required]

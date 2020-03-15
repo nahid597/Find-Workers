@@ -7,11 +7,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-editprofile',
-  templateUrl: './editprofile.component.html',
-  styleUrls: ['./editprofile.component.css']
+  selector: 'app-edit-user-profile',
+  templateUrl: './edit-user-profile.component.html',
+  styleUrls: ['./edit-user-profile.component.css']
 })
-export class EditprofileComponent implements OnInit, OnDestroy {
+export class EditUserProfileComponent implements OnInit, OnDestroy {
 
   formdata: any;
   res;
@@ -36,11 +36,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
   registrationForm = this.fb.group({
     Name: ['', Validators.required],
-    Password: ['', Validators.required],
-    confirmPassword: ['', Validators.required],
-    Phone: ['', Validators.required],
-    Category: ['', Validators.required],
-    Image: ['', Validators.required]
+    Phone: ['', Validators.required]
   });
 
 
@@ -63,13 +59,11 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     console.log(formmData.value);
     this.ob = {
       _id: this.formdata.userId._id,
-      Name: formmData.value.Name,
-      Phone: formmData.value.Phone,
-      Category: formmData.value.Category
+      Phone: formmData.value.Phone
     };
     console.log(this.ob);
     this.isLoadin = true;
-    this.authService.updateWorker(this.ob, 'http://192.168.0.120:4444/admin/workers/update', 'http://192.168.0.120:4444/admin/workers/get');
+    this.authService.updateWorker(this.ob, 'http://192.168.0.120:4444/admin/users/update', 'http://192.168.0.120:4444/admin/users/get');
     // setTimeout(() => {
 
     // }, 500);
@@ -94,4 +88,5 @@ export class EditprofileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
+
 }

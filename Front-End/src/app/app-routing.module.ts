@@ -32,6 +32,7 @@ import { UserLoginComponent } from './component/user-login/user-login.component'
 import { UpdatepasswordworkerComponent } from './component/help/updatepasswordworker/updatepasswordworker.component';
 import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-update-worker/phone-number-update-worker.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
+import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
 
 
 
@@ -175,6 +176,11 @@ const routes: Routes = [
   {
     path: 'category',
     component: CategoryComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'userprofile/:id',
+    component: EditUserProfileComponent,
     canActivate: [AuthGuardService]
   },
   {

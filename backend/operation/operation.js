@@ -12,6 +12,7 @@ function findInf(model, query, callback) {
         });
 }
 
+
 //Insert into a database
 function insertData(model, callback) {
     model.save(function(err) {

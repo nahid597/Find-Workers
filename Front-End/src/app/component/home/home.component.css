@@ -95,6 +95,11 @@ a:hover {
       border: none;
   }
 
+  .buttoncolor{
+    background-color: #ffc107;
+    width: 80px;
+  }
+
   .dropdown-content a:hover {background-color: #ddd;}
   
   .dropdown:hover .dropdown-content {display: block;}
@@ -125,7 +130,10 @@ a:hover {
     grid-template-columns: 1fr 1fr 1fr; /* fraction*/
   }
 
-
+td a{
+  color: blue;
+  cursor: pointer;
+}
 
 
 

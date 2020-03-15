@@ -1,0 +1,29 @@
+<div style="background: #92E3E3; padding-top: 15%;">
+<h3 class="text-center text-light">Upadate Your Profile</h3>
+<div style="padding-left: 15%; padding-right: 15%; padding-top: 5%; padding-bottom: 40%;">
+    
+    <form #f="ngForm" (ngSubmit)="updateProfile(f)"  [formGroup]="registrationForm" class="register-form">
+        <div class="text-light">  
+            <div class="form-group">
+                <label for="Name"><b>Name</b></label>
+                <input [(ngModel)]="formdata.userId.Name" type="text" formControlName="Name"  class="form-control align-center"/>
+                <small  [class.d-none]="username.Name.untouched || username.Name.valid" class="text-danger align-center">
+                    Username is required
+                </small>
+            </div> 
+            <div class="form-group">
+                <label for="Phone"><b>Phone</b></label>
+                <input [(ngModel)]="formdata.userId.Phone" type="text" formControlName="Phone"  class="form-control align-center"/>
+                <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger align-center">
+                    Phone number is required
+                </small>
+            </div>          
+            <br>
+            <div class="text-center">
+            <button type="submit" class="btn btn-success align-center">Update</button>
+            </div>
+        </div>  
+
+    </form>
+</div>
+</div>
