@@ -92,6 +92,7 @@ export class LoginService {
     register(path: string, authData) {
         this.http.post(path , authData)
         .subscribe((response) => {
+            alert('Registration complete');
             this.router.navigate(['/']);
         }, error => {
             this.authStatus.next(false);

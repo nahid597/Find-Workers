@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user.model');
+const User = require('../models/user');
 const operation = require('../operation/operation');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -97,12 +97,13 @@ router.delete('', function(req, res) {
     });
 });
 
-router.put('', function(req, res) {
-    operation.updateData(User, { _id: req.body._id }, req.body, function(err) {
-        if (err != true)
-            res.status(500).json(err);
-        else
-            res.status(200).json('Successfull');
+router.put('/update', function(req, res) {
+    //console.log(req.body._id);
+
+    Worker.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
+        if (err)
+            res.status(400).send(err);
+        else res.status(200).send(req.body);
     });
 });
 

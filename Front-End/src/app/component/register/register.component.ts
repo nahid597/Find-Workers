@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   save(formData) {
-    console.log(formData.value);
+    //console.log(formData);
     if (formData.valid || formData.value.password === formData.value.confirmPassword) {
       this.isLoadin = true;
       this.authService.createWorker(formData.value);

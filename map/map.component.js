@@ -75,8 +75,44 @@ function updateDataInDatabaseAfterTenSecond() {
         xhr.send(jsonSendData);
     });
 
+}
+
+function userLocationUpdate() {
+
+    navigator.geolocation.getCurrentPosition(response => {
+
+        var userlat = response.coords.latitude;
+        var userlng = response.coords.longitude;
+
+        console.log("update user data " + userlat);
+        console.log("update user data " + userlng);
+        var sendData = {
+            Coordinate: {
+                x: userlat,
+                y: userlng
+            },
+            _id: user_id
+        };
+
+        var jsonSendData = JSON.stringify(sendData);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", 'http://127.0.0.1:4444/admin/users/update', true);
+        xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
+        xhr.onload = function() {
+            var users = JSON.parse(xhr.responseText);
+            if (xhr.readyState == 4 && xhr.status == "200") {
+                console.table(users);
+            } else {
+                console.error(users);
+            }
+        };
+        xhr.send(jsonSendData);
+    });
 
 }
+
+userLocationUpdate();
 
 setInterval(() => {
     updateDataInDatabaseAfterTenSecond();
@@ -266,6 +302,8 @@ function getRoute(end) {
     // here we need data from user database
 
     var start = [user_Lng, user_Lat];
+    console.log('route' , user_Lat);
+    console.log('route' , user_Lng);
 
     // console.log("start data" + start);
     var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
@@ -555,11 +593,13 @@ function userMarker() {
     map.on('load', function() {
 
         // getRoute(start);
-        // navigator.geolocation.getCurrentPosition(position => {
-        // lat = position.coords.latitude;
-        // lng = position.coords.longitude;
+        navigator.geolocation.getCurrentPosition(position => {
+         lat = position.coords.latitude;
+         lng = position.coords.longitude;
         console.log("lat user " + user_Lat);
         console.log("lng user " + user_Lng);
+
+        var start = [lng, lat];
 
         // call route function for ruting...
         getRoute(start);
@@ -577,7 +617,7 @@ function userMarker() {
                         "type": "Feature",
                         "geometry": {
                             "type": "Point",
-                            "coordinates": [user_Lng, user_Lat]
+                            "coordinates": [lng, lat]
                         }
                     }]
                 }
@@ -587,7 +627,7 @@ function userMarker() {
             }
         });
 
-        // });
+         });
     });
 
 

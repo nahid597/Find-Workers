@@ -4,11 +4,7 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
-var workerSchema = new Schema({
-    Name: {
-        type: String,
-        required: true
-    },
+var userSchema = new Schema({
 
     Phone: {
         type: String,
@@ -22,16 +18,6 @@ var workerSchema = new Schema({
         required: true
     },
 
-    Category: {
-        type: String,
-        required: true
-    },
-
-    Image: {
-        type: String,
-        required: true
-    },
-
     IsAdmin: {
         type: Boolean,
         default: false
@@ -39,39 +25,23 @@ var workerSchema = new Schema({
 
     IsWorker: {
         type: Boolean,
-        default: true
-    },
-
-    Active_status: {
-        type: Boolean,
         default: false
     },
 
     Coordinate: {
         x: {
             type: Number,
-            default: 0.00,
+            default: 24.363588,
         },
         y: {
             type: Number,
-            default: 0.00,
+            default: 88.624138,
         }
     },
 
     Date: { type: Date, default: Date.now },
-
-    Rating: {
-        rating: {
-            type: Number,
-            default: 0
-        },
-        count: {
-            type: Number,
-            default: 0
-        }
-    }
 });
 
-workerSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('Worker', workerSchema);
+module.exports = mongoose.model('User', userSchema);

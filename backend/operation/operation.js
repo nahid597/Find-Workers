@@ -3,8 +3,8 @@ function findInf(model, query, callback) {
     console.log(query);
     model.find(query)
         .exec(function(err, data) {
-            console.log(data);
-            if (err){
+            //console.log(data);
+            if (err) {
                 console.log(err);
                 return callback(err);
             }

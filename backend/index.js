@@ -23,7 +23,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('connect_me', function(data) {
-        console.log(data);
+        //console.log(data);
         if (data.worker_id != null) {
             socket.id = data.user_id;
             cuser_socket[socket.id] = socket;
@@ -63,7 +63,7 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
-    console.log(user + ' user connected');
+    //console.log(user + ' user connected');
     socket.on('disconnect', function() {
         if (worker_socket[socket.id] != undefined)
             delete worker_socket[socket.id];
@@ -72,7 +72,7 @@ io.sockets.on('connection', function(socket) {
         if (cuser_socket[socket.id] != undefined)
             delete cuser_socket[socket.id];
         user--;
-        console.log(user + ' user connected');
+        //console.log(user + ' user connected');
     });
 
 

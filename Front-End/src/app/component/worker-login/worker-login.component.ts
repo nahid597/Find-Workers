@@ -34,7 +34,7 @@ export class WorkerLoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
      this.authStatusSub = this.authService.getAuthStatus().subscribe(authStatus => {
-         console.log('auht ', authStatus);
+        // console.log('auht ', authStatus);
          this.isLoading = false;
          this.check = this.authService.check;
          console.log(this.authService.getUserId());
@@ -42,7 +42,7 @@ export class WorkerLoginComponent implements OnInit, OnDestroy {
  }
 
   login(formData) {
-    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/profile';
     localStorage.setItem('returnUrl', returnUrl);
     this.isLoading = true;
     this.check = this.authService.workerLogin(formData.value);

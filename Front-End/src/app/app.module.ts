@@ -21,32 +21,32 @@ import { SignupComponent } from './component/signup/signup.component';
 import { EarnComponent } from './component/earn/earn.component';
 import { ServicesComponent } from './component/services/services.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
-import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
-import { WorkerSectionComponent } from './component/help/worker-section/worker-section.component';
-import { CusComponentIComponent } from './component/help/customer-section/cus-component-i/cus-component-i.component';
-import { CustomercomponetIIComponent } from './component/help/customer-section/customercomponet-ii/customercomponet-ii.component';
-import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
-import { CustomercomponentIVComponent } from './component/help/customer-section/customercomponent-iv/customercomponent-iv.component';
-import { PhoneNumberUpdateComponent } from './component/help/customer-section/phone-number-update/phone-number-update.component';
-import { CustomerComponentVComponent } from './component/help/customer-component-v/customer-component-v.component';
-import { UpdatePasswordComponent } from './component/help/update-password/update-password.component';
-import { CustomerComponentVIComponent } from './component/help/customer-component-vi/customer-component-vi.component';
-import { CustomerCompontVIIComponent } from './component/help/customer-compont-vii/customer-compont-vii.component';
-import { CustomerComponentVIIIComponent } from './component/help/customer-component-viii/customer-component-viii.component';
-import { ForgotPasswordComponent } from './component/help/forgot-password/forgot-password.component';
-import { BecomeWorkerComponent } from './component/help/become-worker/become-worker.component';
-import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
-import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
-import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
-=======
+// import { CustomerSectionComponent } from './component/help/customer-section/customer-section.component';
+// import { WorkerSectionComponent } from './component/help/worker-section/worker-section.component';
+// import { CusComponentIComponent } from './component/help/customer-section/cus-component-i/cus-component-i.component';
+// import { CustomercomponetIIComponent } from './component/help/customer-section/customercomponet-ii/customercomponet-ii.component';
+// import { CustomercomponentIIIComponent } from './component/help/customer-section/customercomponent-iii/customercomponent-iii.component';
+// import { CustomercomponentIVComponent } from './component/help/customer-section/customercomponent-iv/customercomponent-iv.component';
+// import { PhoneNumberUpdateComponent } from './component/help/customer-section/phone-number-update/phone-number-update.component';
+// import { CustomerComponentVComponent } from './component/help/customer-component-v/customer-component-v.component';
+// import { UpdatePasswordComponent } from './component/help/update-password/update-password.component';
+// import { CustomerComponentVIComponent } from './component/help/customer-component-vi/customer-component-vi.component';
+// import { CustomerCompontVIIComponent } from './component/help/customer-compont-vii/customer-compont-vii.component';
+// import { CustomerComponentVIIIComponent } from './component/help/customer-component-viii/customer-component-viii.component';
+// import { ForgotPasswordComponent } from './component/help/forgot-password/forgot-password.component';
+// import { BecomeWorkerComponent } from './component/help/become-worker/become-worker.component';
+// import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
+// import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
+// import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
+// //=======
 import { CategoryService } from './service/category.service';
 import { CategoryComponent } from './component/category/category.component';
 import { FooterpageComponent } from './component/footerpage/footerpage.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { AuthGuardService } from './service/auth-guard.service';
-import { AuthInterceptorService } from './service/auth-interceptor.service';
-import { UserLoginComponent } from './component/user-login/user-login.component';
-import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
+ import { AuthInterceptorService } from './service/auth-interceptor.service';
+ import { UserLoginComponent } from './component/user-login/user-login.component';
+ import { WorkerLoginComponent } from './component/worker-login/worker-login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,23 +59,23 @@ import { WorkerLoginComponent } from './component/worker-login/worker-login.comp
     EarnComponent,
     ServicesComponent,
     EditprofileComponent,
-    CustomerSectionComponent,
-    WorkerSectionComponent,
-    CusComponentIComponent,
-    CustomercomponetIIComponent,
-    CustomercomponentIIIComponent,
-    CustomercomponentIVComponent,
-    PhoneNumberUpdateComponent,
-    CustomerComponentVComponent,
-    UpdatePasswordComponent,
-    CustomerComponentVIComponent,
-    CustomerCompontVIIComponent,
-    CustomerComponentVIIIComponent,
-    ForgotPasswordComponent,
-    BecomeWorkerComponent,
-    WorkerComplainComponent,
-    WorkerPhoneUpdateComponent,
-    WorkerSignInProblemComponent 
+    // CustomerSectionComponent,
+    // WorkerSectionComponent,
+    // CusComponentIComponent,
+    // CustomercomponetIIComponent,
+    // CustomercomponentIIIComponent,
+    // CustomercomponentIVComponent,
+    // PhoneNumberUpdateComponent,
+    // CustomerComponentVComponent,
+    // UpdatePasswordComponent,
+    // CustomerComponentVIComponent,
+    // CustomerCompontVIIComponent,
+    // CustomerComponentVIIIComponent,
+    // ForgotPasswordComponent,
+    // BecomeWorkerComponent,
+    // WorkerComplainComponent,
+    // WorkerPhoneUpdateComponent,
+    // WorkerSignInProblemComponent, 
     CategoryComponent,
     FooterpageComponent,
     ProfileComponent,
@@ -93,7 +93,7 @@ import { WorkerLoginComponent } from './component/worker-login/worker-login.comp
     HttpClientModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS , useClass: AuthInterceptorService, multi: true},
-     LoginService, CategoryService, AuthGuardService],
+     LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
