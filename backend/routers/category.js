@@ -27,6 +27,7 @@ router.post('/post', (req, res, next) => {
 
 
  router.get('/get', function(req, res) {
+     console.log('req.query');
 
     Category.find(req.query)
         .exec(function(err, data) {
@@ -36,6 +37,7 @@ router.post('/post', (req, res, next) => {
             }
             else res.status(200).send(data);
         });
+        console.log('bala');
 });
  
 

@@ -21,7 +21,8 @@ export class ServicesComponent implements OnInit, DoCheck {
   constructor(private router: Router, private auth: LoginService, private category: CategoryService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('http://192.168.0.120:4444/admin/category/get')
+    console.log('category not working');
+    this.http.get(this.auth.getServerRoute() + '/admin/category/get')
     .subscribe(response => {
       console.log(response);
       this.categoryWorker = response;
@@ -46,7 +47,7 @@ export class ServicesComponent implements OnInit, DoCheck {
     if (!this.user) {
       this.router.navigate(['/login']);
     } else {
-      this.href = 'http://127.0.0.1:4444/admin/workers?Active_status=true&Category=' + data;
+      this.href = 'http://192.168.43.70:4444/admin/workers?Active_status=true&Category=' + data;
       location.href = this.href;
     }
   }

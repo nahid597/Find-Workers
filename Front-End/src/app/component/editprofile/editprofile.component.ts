@@ -16,6 +16,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
   formdata: any;
   res;
   ob: any;
+  serverRoute;
 
   get username() {
     return {
@@ -50,6 +51,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.serverRoute = this.authService.getServerRoute();
+
 
     this.formdata = this.authService.getUserId();
     // console.log(this.formdata.userId);
@@ -69,7 +72,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     };
     console.log(this.ob);
     this.isLoadin = true;
-    this.authService.updateWorker(this.ob, 'http://192.168.0.120:4444/admin/workers/update', 'http://192.168.0.120:4444/admin/workers/get');
+    this.authService.updateWorker(this.ob, this.serverRoute + '/admin/workers/update', this.serverRoute + '/admin/workers/get');
     // setTimeout(() => {
 
     // }, 500);

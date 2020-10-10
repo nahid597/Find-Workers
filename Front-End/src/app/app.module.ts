@@ -38,6 +38,7 @@ import { BecomeWorkerComponent } from './component/help/become-worker/become-wor
 import { WorkerComplainComponent } from './component/help/worker-complain/worker-complain.component';
 import { WorkerPhoneUpdateComponent } from './component/help/worker-phone-update/worker-phone-update.component';
 import { WorkerSignInProblemComponent } from './component/help/worker-sign-in-problem/worker-sign-in-problem.component';
+import { BarRatingModule } from 'ngx-bar-rating';
 
 import { CategoryService } from './service/category.service';
 import { CategoryComponent } from './component/category/category.component';
@@ -50,6 +51,8 @@ import { WorkerLoginComponent } from './component/worker-login/worker-login.comp
 import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
 import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-update-worker/phone-number-update-worker.component';
 import { UpdatepasswordworkerComponent } from './component/help/updatepasswordworker/updatepasswordworker.component';
+import { ValidatorComponent } from './component/validator/validator.component';
+import { ValidatorService } from './service/validator.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +89,8 @@ import { UpdatepasswordworkerComponent } from './component/help/updatepasswordwo
     WorkerLoginComponent,
     EditUserProfileComponent,
     PhoneNumberUpdateWorkerComponent,
-    UpdatepasswordworkerComponent
+    UpdatepasswordworkerComponent,
+    ValidatorComponent
   ],
   imports: [
     MatButtonModule,
@@ -96,10 +100,11 @@ import { UpdatepasswordworkerComponent } from './component/help/updatepasswordwo
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BarRatingModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS , useClass: AuthInterceptorService, multi: true},
-     LoginService, CategoryService, AuthGuardService],
+     LoginService, CategoryService, AuthGuardService, ValidatorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -50,11 +50,11 @@ var workerSchema = new Schema({
     Coordinate: {
         x: {
             type: Number,
-            default: 0.00,
+            default: 22.589990,
         },
         y: {
             type: Number,
-            default: 0.00,
+            default: 88.39876,
         }
     },
 

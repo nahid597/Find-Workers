@@ -18,6 +18,7 @@ export class EditUserProfileComponent implements OnInit, OnDestroy, DoCheck {
   ob: any;
   err = false;
   str = '';
+  serverRoute;
 
   get username() {
     return {
@@ -48,7 +49,7 @@ export class EditUserProfileComponent implements OnInit, OnDestroy, DoCheck {
 
   ngOnInit() {
 
-
+    this.serverRoute = this.authService.getServerRoute();
     this.formdata = this.authService.getUserId();
     // console.log(this.formdata.userId);
     this.authStatusSub = this.authService.getAuthStatus().subscribe(authStatus => {
@@ -72,7 +73,7 @@ export class EditUserProfileComponent implements OnInit, OnDestroy, DoCheck {
     };
     console.log(this.ob);
     this.isLoadin = true;
-    this.authService.updateWorker(this.ob, 'http://192.168.0.120:4444/admin/users/update', 'http://192.168.0.120:4444/admin/users/get');
+    this.authService.updateWorker(this.ob, this.serverRoute + '/admin/users/update', this.serverRoute + '/admin/users/get');
     // setTimeout(() => {
 
     // }, 500);

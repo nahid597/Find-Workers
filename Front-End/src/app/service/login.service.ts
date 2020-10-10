@@ -23,12 +23,13 @@ export class LoginService {
   private ob;
   private _id: any;
   private status = false;
-  private updateUrl = 'http://192.168.0.120:4444/admin/users?_id=';
-  private getUrl = 'http://192.168.0.120:4444/admin/users';
-  private userpath = 'http://192.168.0.120:4444/admin/users/login';
-  private workerpath = 'http://192.168.0.120:4444/admin/workers/login';
-  private workerregister = 'http://192.168.0.120:4444/admin/workers/signup';
-  private userregister = 'http://192.168.0.120:4444/admin/users/signup';
+  private serverRout = 'http://192.168.43.70:4444';
+  private updateUrl = this.serverRout + '/admin/users?_id=';
+  private getUrl = this.serverRout + '/admin/users';
+  private userpath = this.serverRout + '/admin/users/login';
+  private workerpath = this.serverRout + '/admin/workers/login';
+  private workerregister = this.serverRout + '/admin/workers/signup';
+  private userregister = this.serverRout + '/admin/users/signup';
   private authStatus = new Subject<boolean>();
   private expireInDuration;
   private error = false;
@@ -37,6 +38,10 @@ export class LoginService {
   obj: {};
 
     constructor(private http: HttpClient , private router: Router) {}
+
+    getServerRoute() {
+        return this.serverRout;
+    }
 
     isComplete() {
         return this.complete;
@@ -88,6 +93,34 @@ export class LoginService {
 
     // for update worker data
 
+    updateWorkerPosition(authData, updateUrl, getUrl) {
+        console.log(authData);
+        console.log(authData);
+        this.http.put<any>(updateUrl , authData)
+        .subscribe((response) => {
+            console.log(response);
+            console.log(response[0]);
+            if (response[0]._id) {
+                console.log(response[0]._id);
+                this.userId = {
+                    userId: response[0]
+                };
+                console.log(this.userId);
+                this._id = {
+                    _id: response._id
+                };
+
+                this.err = false;
+
+                localStorage.setItem('userId', JSON.stringify(this.userId));
+                console.log(this._id);
+            }
+        }, error => {
+            this.authStatus.next(false);
+            this.err = true;
+        });
+    }
+
     updateWorker(authData, updateUrl, getUrl) {
         console.log(authData);
         console.log(authData);
@@ -131,6 +164,9 @@ export class LoginService {
                 this.userId = {
                     userId: response[0]
                 };
+                this.status = this.userId.userId.Active_status;
+                this.userId.userId.Active_status = this.status;
+                localStorage.setItem('userId', JSON.stringify(this.userId));
                 console.log(this.userId);
                 this._id = {
                     _id: response._id
@@ -156,8 +192,10 @@ export class LoginService {
     // register function common for both user and worker
 
     register(path: string, authData) {
+        console.log(path);
         this.http.post<{complete, result, error}>(path , authData)
         .subscribe((response) => {
+            console.log('hhhpath');
             console.log(response.error);
             if (response.error) {
                 this.error = true;
@@ -213,7 +251,7 @@ export class LoginService {
             this.isWorker = response.userId.IsWorker;
             this.isAadmin = response.userId.IsAdmin;
             this.status = response.userId.Active_status;
-            console.log(this.status);
+            console.log(this.isAadmin);
             this.authStatus.next(true);
             const now = new Date();
             const expirationDate = new Date( now.getTime() + this.expireInDuration * 1000);
@@ -242,6 +280,8 @@ export class LoginService {
         this.isAuthenticated = true;
         this.isWorker = authInformation.userId.userId.IsWorker;
         this.isAadmin = authInformation.userId.userId.IsAdmin;
+        this.status = authInformation.userId.userId.Active_status;
+        console.log(this.status);
         // this.status = authInformation.userId.userId.Active_status;
         console.log(this.isWorker);
         this.userId = authInformation.userId;
@@ -255,9 +295,10 @@ export class LoginService {
 
         if (this.isWorker) {
 
-        this.http.post<{userId: any}>('http://192.168.0.120:4444/admin/workers/get', this.idd)
+        this.http.post<{userId: any}>(this.serverRout + '/admin/workers/get', this.idd)
             .subscribe(res => {
                 this.status = res.userId.Active_status;
+
                 console.log(this.status);
             });
         } else {

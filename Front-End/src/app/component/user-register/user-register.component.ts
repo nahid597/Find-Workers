@@ -27,9 +27,9 @@ export class UserRegisterComponent implements OnInit, OnDestroy, DoCheck {
 
   registrationForm = this.fb.group({
     Name: ['', Validators.required],
-    Password: ['', Validators.required],
+    Password: ['', Validators.compose([ Validators.required, Validators.minLength(8)])],
     confirmPassword: ['', Validators.required],
-    Phone: ['', Validators.required]
+    Phone: ['', Validators.compose([Validators.required, Validators.pattern('^((\\+88-?)|0)?[0-9]{11}$')])]
   });
 
   isLoadin = false;
@@ -51,6 +51,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   saveUser(formData: NgForm) {
+    console.log('new user');
 
     if (formData.valid && formData.value.Password !== formData.value.confirmPassword) {
       this.str = 'Password do not match';

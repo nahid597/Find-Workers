@@ -4,10 +4,15 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibmFoaWQ1OTciLCJhIjoiY2syMzQwZThqMHNnODNnbnIwZ
 var map;
 style = 'mapbox://styles/mapbox/streets-v10';
 
-var putUrl = 'http://127.0.0.1:4444/admin/workers/update';
+var putUrl = 'http://localhost:4444/admin/workers/update';
 
 const urlSendCategoty = window.location.search.replace(/^.*?\&_category\=/, '');
 console.log("selected url category " + urlSendCategoty);
+
+
+// active user information from database
+const user_id1 = document.location.search.replace(/^.*?\=/, '');
+const user_id = user_id1.replace(/\&_category\=[a-zA-Z0-9]+/, '');
 
 var p = 0;
 var popup = [];
@@ -28,8 +33,6 @@ var success = 0;
 
 
 
-// active user information from database
-const user_id = document.location.search.replace(/^.*?\=/, '');
 
 console.log('user id ' + user_id);
 
@@ -37,6 +40,83 @@ console.log('user id ' + user_id);
 // if we want to show arrival time without domain
 //getRoute(start);
 
+//update data in database
+
+function updateDataInDatabaseAfterTenSecond() {
+
+    navigator.geolocation.getCurrentPosition(response => {
+
+        var workerlat = response.coords.latitude;
+        var workerlng = response.coords.longitude;
+
+        console.log("update data " + workerlat);
+        console.log("update data " + workerlng);
+        var sendData = {
+            Coordinate: {
+                x: workerlat,
+                y: workerlng
+            },
+            _id: user_id
+        };
+
+        var jsonSendData = JSON.stringify(sendData);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", putUrl, true);
+        xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
+        xhr.onload = function() {
+            var users = JSON.parse(xhr.responseText);
+            if (xhr.readyState == 4 && xhr.status == "200") {
+                console.table(users);
+            } else {
+                console.error(users);
+            }
+        };
+        xhr.send(jsonSendData);
+    });
+
+}
+
+function userLocationUpdate() {
+
+    navigator.geolocation.getCurrentPosition(response => {
+
+        var userlat = response.coords.latitude;
+        var userlng = response.coords.longitude;
+
+        console.log("update user data " + userlat);
+        console.log("update user data " + userlng);
+        var sendData = {
+            Coordinate: {
+                x: userlat,
+                y: userlng
+            },
+            _id: user_id
+        };
+
+        var jsonSendData = JSON.stringify(sendData);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", 'http://localhost:4444/admin/users/update', true);
+        xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
+        xhr.onload = function() {
+            var users = JSON.parse(xhr.responseText);
+            if (xhr.readyState == 4 && xhr.status == "200") {
+                console.table(users);
+            } else {
+                console.error(users);
+            }
+        };
+        xhr.send(jsonSendData);
+    });
+
+}
+
+//userLocationUpdate();
+
+setInterval(() => {
+    updateDataInDatabaseAfterTenSecond();
+}, 10 * 1000);
 
 // read data from database
 
@@ -54,7 +134,7 @@ var HttpClient = function() {
     };
 };
 
-// var data = httpGet('http://127.0.0.1:4444/admin/workers');
+// var data = httpGet('http://localhost:4444/admin/workers');
 // console.log(data);
 
 var dbElementsCount = 0;
@@ -63,7 +143,7 @@ var storeDbElements;
 var client = new HttpClient();
 
 function userDataFromDatabase() {
-    this.client.get('http://127.0.0.1:4444/admin/users?_id=' + user_id, function(response) {
+    this.client.get('http://localhost:4444/admin/users?_id=' + user_id, function(response) {
         // do something with response
         var dbElement = JSON.parse(response);
         //console.log(store[1].Coordinate.x);
@@ -74,11 +154,13 @@ function userDataFromDatabase() {
         var lng;
         var lat;
 
-        for (var i = 0; i < dbElementCount; i++) {
-            user_Lng = dbElement[i].Coordinate.y;
-            user_Lat = dbElement[i].Coordinate.x;
+        console.log("db elemt for user " + dbElementCount);
 
-            console.log("user lng checdk " + user_Lng);
+        for (var i = 0; i < dbElementCount; i++) {
+            user_Lng = dbElement[i].Coordinate.lng;
+            user_Lat = dbElement[i].Coordinate.lat;
+
+            console.log("user lng checdk frin database " + user_Lng);
             console.log("user lat  check " + user_Lat);
         }
 
@@ -101,7 +183,7 @@ userDataFromDatabase();
 
 function getWorkerFormDatabase() {
 
-    this.client.get('http://127.0.0.1:4444/admin/workers?Active_status=true&Category=' + urlSendCategoty, function(response) {
+    this.client.get('http://localhost:4444/admin/workers?Active_status=true&Category=' + urlSendCategoty, function(response) {
         // do something with response
         this.storeDbElements = JSON.parse(response);
         console.log(storeDbElements);
@@ -220,6 +302,8 @@ function getRoute(end) {
     // here we need data from user database
 
     var start = [user_Lng, user_Lat];
+    console.log('route' , user_Lat);
+    console.log('route' , user_Lng);
 
     // console.log("start data" + start);
     var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
@@ -371,7 +455,7 @@ function submitStars() {
     //  console.log("rating: " + rating);
     console.log("store db " + this.storeDbElements[0].Name);
 
-    // var putUrl = 'http://127.0.0.1:4444/admin/workers/update';
+    // var putUrl = 'http://localhost:4444/admin/workers/update';
 
     console.log("number of db elment s sd " + this.storeIdOfRatingWorker);
 
@@ -425,7 +509,7 @@ function submitStars() {
     // reload current page
 
     // location.reload(true);
-    window.location.href = "http://127.0.0.1:4444/thankyou/thankyou.component.html?_id=" + user_id;
+    window.location.href = "http://localhost:4444/thankyou/thankyou.component.html?_id=" + user_id + '&_category=' + urlSendCategoty;
 }
 
 
@@ -509,11 +593,13 @@ function userMarker() {
     map.on('load', function() {
 
         // getRoute(start);
-        // navigator.geolocation.getCurrentPosition(position => {
-        // lat = position.coords.latitude;
-        // lng = position.coords.longitude;
+        navigator.geolocation.getCurrentPosition(position => {
+         lat = position.coords.latitude;
+         lng = position.coords.longitude;
         console.log("lat user " + user_Lat);
         console.log("lng user " + user_Lng);
+
+        var start = [lng, lat];
 
         // call route function for ruting...
         getRoute(start);
@@ -531,7 +617,7 @@ function userMarker() {
                         "type": "Feature",
                         "geometry": {
                             "type": "Point",
-                            "coordinates": [user_Lng, user_Lat]
+                            "coordinates": [lng, lat]
                         }
                     }]
                 }
@@ -541,7 +627,7 @@ function userMarker() {
             }
         });
 
-        // });
+         });
     });
 
 
@@ -616,7 +702,7 @@ function animateMarker(id) {
     // show data from database
 
     if (id) {
-        this.client.get('http://127.0.0.1:4444/admin/workers?_id=' + id, function(response) {
+        this.client.get('http://localhost:4444/admin/workers?_id=' + id, function(response) {
             // do something with response
             var dbElement = JSON.parse(response);
             //console.log(store[1].Coordinate.x);
@@ -678,14 +764,26 @@ function generatedHtmlelemnets(id, name, category, rating, phone) {
 
     var storeCategory = "";
 
-    if (category === '0')
-        storeCategory = "কারেন্টের মিস্ত্রি";
-    else if (category === '1')
-        storeCategory = "গাড়ির মিস্ত্রি";
+    if (category === '1')
+        storeCategory = "ডাক্তার";
     else if (category === '2')
-        storeCategory = "গ্যাসের চুলার মিস্ত্রি";
+        storeCategory = "ইলেক্ট্রিশিয়ান";
     else if (category === '3')
-        storeCategory = "পানির লাইনের মিস্ত্রিরি";
+        storeCategory = "বাইক মেকানিক";
+    else if (category === '4')
+        storeCategory = "গাড়ি/কার মেকানিক";
+        else if (category === '5')
+        storeCategory = "কলের মিস্ত্রী";
+        else if (category === '6')
+        storeCategory = "রাধুনী/বাবুর্চী";
+        else if (category === '7')
+        storeCategory = "টিভি/ফ্রিজ/এসি মেকানিক";
+        else if (category === '8')
+        storeCategory = "স্টিল/আলমারির মিস্ত্রী";
+        else if (category === '9')
+        storeCategory = "কাঠমিস্ত্রী";
+        else if (category === '10')
+        storeCategory = "রাজমিস্ত্রী";
 
     //console.log(stroeDbRatingPerPerson[id]);
 
@@ -767,7 +865,7 @@ function confirmToWorker(id1) {
     // only show the conform worker other workers remvoe from map
 
     if (id1) {
-        this.client.get('http://127.0.0.1:4444/admin/workers?_id=' + id1, function(response) {
+        this.client.get('http://localhost:4444/admin/workers?_id=' + id1, function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             //console.log(store[1].Coordinate.x);
@@ -869,7 +967,7 @@ function singleSelectChangeText() {
     // }
 
     if (setValue === "all") {
-        this.client.get('http://127.0.0.1:4444/admin/workers?Active_status=true', function(response) {
+        this.client.get('http://localhost:4444/admin/workers?Active_status=true', function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             console.log(storeDbElements);
@@ -882,7 +980,7 @@ function singleSelectChangeText() {
         });
     } else {
         console.log("set value " + setValue)
-        this.client.get('http://127.0.0.1:4444/admin/workers?Active_status=true&Category=' + setValue, function(response) {
+        this.client.get('http://localhost:4444/admin/workers?Active_status=true&Category=' + setValue, function(response) {
             // do something with response
             this.storeDbElements = JSON.parse(response);
             console.log(storeDbElements);

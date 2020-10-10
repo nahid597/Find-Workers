@@ -101,7 +101,7 @@ router.delete('', function(req, res) {
 });
 
 router.put('/update', function(req, res) {
-    //console.log(req.body._id);
+    console.log(req.body);
 
     User.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function(err) {
         if (err){
@@ -111,12 +111,13 @@ router.put('/update', function(req, res) {
         else {
             User.find({_id: req.body._id})
             .exec(function(err, data) {
-                console.log(data);
+                console.log('data '+ data);
                 if (err){
                     console.log(err);
                     res.status(400).send(err);
                 }
                 else{
+                    console.log('success');
                     res.status(200).send(data);
                 }
             });
