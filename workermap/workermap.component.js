@@ -73,6 +73,7 @@ function updateDataInDatabaseAfterTenSecond() {
 
         var jsonSendData = JSON.stringify(sendData);
 
+        
         var xhr = new XMLHttpRequest();
         xhr.open("PUT", putUrl, true);
         xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
