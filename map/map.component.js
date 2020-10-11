@@ -74,45 +74,7 @@ function updateDataInDatabaseAfterTenSecond() {
         };
         xhr.send(jsonSendData);
     });
-
 }
-
-function userLocationUpdate() {
-
-    navigator.geolocation.getCurrentPosition(response => {
-
-        var userlat = response.coords.latitude;
-        var userlng = response.coords.longitude;
-
-        console.log("update user data " + userlat);
-        console.log("update user data " + userlng);
-        var sendData = {
-            Coordinate: {
-                x: userlat,
-                y: userlng
-            },
-            _id: user_id
-        };
-
-        var jsonSendData = JSON.stringify(sendData);
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("PUT", 'http://localhost:4444/admin/users/update', true);
-        xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
-        xhr.onload = function() {
-            var users = JSON.parse(xhr.responseText);
-            if (xhr.readyState == 4 && xhr.status == "200") {
-                console.table(users);
-            } else {
-                console.error(users);
-            }
-        };
-        xhr.send(jsonSendData);
-    });
-
-}
-
-//userLocationUpdate();
 
 setInterval(() => {
     updateDataInDatabaseAfterTenSecond();
@@ -509,7 +471,7 @@ function submitStars() {
     // reload current page
 
     // location.reload(true);
-    window.location.href = "http://localhost:4444/thankyou/thankyou.component.html?_id=" + user_id + '&_category=' + urlSendCategoty;
+    window.location.href = "http://127.0.0.1:4444/thankyou/thankyou.component.html?_id=" + user_id + '&_category=' + urlSendCategoty;
 }
 
 
