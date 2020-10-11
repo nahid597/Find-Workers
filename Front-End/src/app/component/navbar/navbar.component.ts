@@ -21,8 +21,10 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
   private put: any;
   private X: any;
   private Y: any;
-  private getUrl = 'http://192.168.0.120:4444/admin/workers?_id=';
-  private updateUrl = 'http://192.168.0.120:4444/admin/workers/update';
+  private getUrl;
+  private updateUrl;
+  private getUrlUser;
+  private updateUrlUser;
   t = 24.23344;
   p = 88.23434;
   private authListerSubs: Subscription;
@@ -30,6 +32,10 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
   constructor(private authService: LoginService) {}
 
   ngOnInit() {
+    this.getUrl = this.authService.getServerRoute() + '/admin/workers?_id=';
+    this.updateUrl = this.authService.getServerRoute() + '/admin/workers/update';
+    this.getUrlUser = this.authService.getServerRoute() + '/admin/users?_id=';
+    this.updateUrlUser = this.authService.getServerRoute() + '/admin/users/update';
 
     // this.collback();
     this.authListerSubs = this.authService.getAuthStatus()
@@ -40,7 +46,9 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
     console.log(this.IsWorker);
     // if (this.IsWorker) {
     setInterval(() => {
+
       if (navigator.geolocation) {
+        console.log('why cant');
         // this.isTracking = true;
         navigator.geolocation.getCurrentPosition((position) => {
           console.log('in geo');
@@ -54,7 +62,18 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
               }
             };
             console.log(this.ob);
-            this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
+            this.authService.updateWorkerPosition(this.ob, this.updateUrl, this.getUrl);
+          } else if (!this.IsWorker) {
+            console.log('dfdfd');
+            this.ob = {
+              _id: this.userId.userId._id,
+              Coordinate: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              }
+            };
+            console.log(this.ob);
+            this.authService.updateWorkerPosition(this.ob, this.updateUrlUser, this.getUrlUser);
           }
         });
 
@@ -104,6 +123,7 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
     this.userAuthenticated = this.authService.isAuth();
     this.isAdmin = this.authService.isAdmin();
     this.userId = this.authService.getUserId();
+    console.log(this.isAdmin);
   }
 
   onLogout() {
@@ -145,7 +165,7 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
 
   // showToggle() {
   //   this.active = document.getElementsByClassName('active');
-  //   this.active.classList.add = 
+  //   this.active.classList.add =
   // }
 
   setIndex(index: number) {

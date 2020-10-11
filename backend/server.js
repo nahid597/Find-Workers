@@ -7,6 +7,7 @@ const cors = require('cors');
 
 const app = express();
 const server = require('http').Server(app);
+//var db0 = "mongodb://localhost:27017/findworkers";
 
 //var db = 'mongodb+srv://khayrul1234:khayrul1234@cluster0-q6u9x.mongodb.net/test?retryWrites=true';
 var db0 = 'mongodb+srv://Hasan:mongodb31_password@cluster0-n0s4m.mongodb.net/test?retryWrites=true&w=majority';
@@ -29,7 +30,7 @@ app.use(bodyParser.urlencoded({
 
 app.use('', route);
 
-app.use(express.static(path.join(__dirname, './routers/uploads')));
+app.use(express.static(path.join(__dirname, '../')));
 
 app.get('/',function(req,res){
     res.sendFile(path.join(__dirname , '../FrontEnd/navbar/navbar.component.html'));

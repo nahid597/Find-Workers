@@ -4,7 +4,7 @@
 <div class="register">
   <div class="row">
     <div class="col-md-3 register-left">
-        <h3 style="padding-top: 5%;">Welcome<br/>To <br/>Vservice</h3>
+        <h3 style="padding-top: 5%;">Welcome<br/>To <br/>BdAid</h3>
         <a routerLink="/login"><button >Login</button></a><br/>
     </div>
     <div class="col-md-9 register-right">
@@ -24,13 +24,14 @@
               <div class="form-group">
                 <input type="text" [class.is-invalid]="username.Phone.invalid && username.Phone.touched" formControlName="Phone"  class="form-control text-center" placeholder="Your Phone *"/>
                 <small  [class.d-none]="username.Phone.untouched || username.Phone.valid" class="text-danger">
-                  Phone number is required
+                  Valid Phone number is required
                 </small>
+                
               </div>          
               <div class="form-group">
                 <input type="password" [class.is-invalid]="username.Password.invalid && username.Password.touched" formControlName="Password" class="form-control text-center" placeholder="Password *"/>
                 <small  [class.d-none]="username.Password.untouched || username.Password.valid" class="text-danger">
-                  Password is required
+                  Password is required and must be at least 8 character long
                 </small>
               </div>
 
@@ -43,28 +44,17 @@
               <div class="form-group">
                 <select id="category" [class.is-invalid]="username.Category.invalid && username.Category.touched" formControlName="Category" class="form-control">
                   <option value="">Category</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
-                  <option value="worker">Worker</option>
+                  <option value="1">ডাক্তার</option>
+                  <option value="2">ইলেক্ট্রিশিয়ান</option>
+                  <option value="3">বাইক মেকানিক</option>
+                  <option value="4">গাড়ি/কার মেকানিক</option>
+                  <option value="5">কলের মিস্ত্রী</option>
+                  <option value="6">রাধুনী/বাবুর্চী</option>
+                  <option value="7">টিভি/ফ্রিজ/এসি মেকানিক</option>
+                  <option value="8">স্টিল/আলমারির মিস্ত্রী</option>
+                  <option value="9">কাঠমিস্ত্রী</option>
+                  <option value="10">রাজমিস্ত্রী</option>
+                  
                 </select>
                 <small  [class.d-none]="username.Category.untouched || username.Category.valid" class="text-danger align-center">
                   Category is required

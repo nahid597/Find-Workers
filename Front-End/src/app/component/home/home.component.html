@@ -4,19 +4,19 @@
     <div class="carousel-item active">
       <img class="d-inline-block w-100" style="max-height: 250px;" [src]="images[0]" alt="First slide">
       <div class="two">
-        <div class="container">ddfdfd</div>
+        <div class="container"><pre> </pre></div>
       </div>
     </div>
     <div class="carousel-item">
       <img class="d-inline-block w-100 mh-25" style="max-height: 250px;" [src]="images[1]" alt="Second slide">
       <div class="two">
-        <div class="container">ddfdfd</div>
+        <div class="container"><pre> </pre></div>
       </div>
     </div>
     <div class="carousel-item">
       <img class="one d-inline-block w-100 mh-25" style="max-height: 250px;" [src]="images[2]" alt="Third slide">
       <div class="two">
-        <div class="container">ddfdfd</div>
+        <div class="container"><pre> </pre></div>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@
 
 <div class="color p-3">
   <div class="text-center">
-    <a (click)="navigateUrl()" style="color: green;" class="font-weight-bold btn btn-outline-success my-2 my-sm-0">Go to the map</a>
+    <h5>Biggest online platform</h5>
   </div> 
 </div>
 
@@ -54,6 +54,65 @@
   </div>
 </div>
 
+<div *ngIf="!worker" style="padding-left: 10%; padding-right: 10%; padding-top: 5%;">
+  <h2 class="h2-responsive text-center font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">আমাদের সেবাসমূহ</h2>
+  <br><br>
+  <table style="padding-top: 10%; background-color: #F7F9F9;" class="table text-primary">
+  <thead>
+    <tr>
+      <th style="padding-left: 10%;" class="text-left text-success" scope="col"><h4>সেবা</h4></th>
+      <th style="padding-left: 10%; padding-right: 11.5%;" class="text-right text-success" scope="col"><h4>খুজুন</h4></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">ডাক্তার</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(1)"><small>খুজুন</small></button></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">ইলেক্ট্রিশিয়ান</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(2)"><small>খুজুন</small></button></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">বাইক মেকানিক</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(3)"><small>খুজুন</small></button></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">গাড়ি/কার মেকানিক</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(4)"><small>খুজুন</small></button></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">কলের মিস্ত্রী</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(5)"><small>খুজুন</small></button></td>
+    </tr>
+    
+    <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">রাধুনী/বাবুর্চী</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(6)"><small>খুজুন</small></button></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">টিভি/ফ্রিজ/এসি মেকানিক</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(7)"><small>খুজুন</small></button></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">স্টিল/আলমারির মিস্ত্রী</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(8)"><small>খুজুন</small></button></td>
+    </tr>
+     <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">কাঠমিস্ত্রী</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(9)"><small>খুজুন</small></button></td>
+    </tr>
+     <tr>
+      <td style="padding-left: 10%; padding-right: 5%;">রাজমিস্ত্রী</td>
+      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(10)"><small>খুজুন</small></button></td>
+    </tr>
+  </tbody>
+</table>
+  <div class="text-right">
+    <a href="services"><u>Next-></u></a>
+  </div>
+</div>
+
 <div class="card-group">
   <div class="card">
     <div class="card-body align-items-center d-flex justify-content-center">
@@ -64,12 +123,12 @@
     <div class="card-body align-items-center d-flex justify-content-center" >
       <div class="col">
         <div class="row">
-          <h2 class="h4-responsive align-items-center justify-content-center font-weight-bold" data-wow-delay="0.3s">
-            Get work Get paid
-          </h2>
+          <h3 class="h4-responsive align-items-center justify-content-center font-weight-bold" data-wow-delay="0.3s">
+            কাজ করুন, আয় করুন
+          </h3>
         </div>
         <div class="row">
-          <p><small>enter into the largest network and show your activity </small></p>
+          <p class="align-items-center justify-content-center"><small>বিশাল নেটওয়ার্কে প্রবেশ করুন এবং দক্ষতা দেখিয়ে আয় করুন </small></p>
         </div>
       </div>
     </div>
@@ -111,50 +170,7 @@
   </div>
 </div>
 
-<hr/>
-<div style="padding-left: 10%; padding-right: 10%;">
-  <h1 class="h1-responsive text-center font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">Our Services</h1>
-  <br><br>
-  <table style="padding-top: 10%; background-color: #F7F9F9;" class="table text-primary">
-  <thead>
-    <tr>
-      <th style="padding-left: 10%;" class="text-left" scope="col"><h4>Service</h4></th>
-      <th style="padding-left: 10%; padding-right: 10%;" class="text-right" scope="col"><h4>Find</h4></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding-left: 10%; padding-right: 5%;">Doctor</td>
-      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(1)"><small>go to map</small></button></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 10%; padding-right: 5%;">Car Mechanic</td>
-      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(1)"><small>go to map</small></button></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 10%; padding-right: 5%;">cycle Mechanic</td>
-      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(1)"><small>go to map</small></button></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 10%; padding-right: 5%;">Motor Byke Mechanic</td>
-      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(1)"><small>go to map</small></button></td>
-    </tr>
-    
-    <tr>
-      <td style="padding-left: 10%; padding-right: 5%;">Chef</td>
-      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(1)"><small>go to map</small></button></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 10%; padding-right: 5%;">Electrician</td>
-      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(0)"><small>go to map</small></button></td>
-    </tr>
-    <tr>
-      <td style="padding-left: 10%; padding-right: 5%;">Doctor</td>
-      <td style="padding-left: 10%; padding-right: 10%;" class="text-right"><button class="buttoncolor" (click)="navigateUrlByCategory(1)"><small>go to map</small></button></td>
-    </tr>
-  </tbody>
-</table>
-</div>
+
 
   <!--Intro Section-->
   <section class="view intro-video p-4">
@@ -167,20 +183,18 @@
           <div class="row pt-5 mt-3">
             <div class="col-lg-6 wow fadeIn mb-5 text-center text-lg-left">
               <div class="white-text">
-                <h1 class="h1-responsive text-center font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">User Manual</h1>
+                <h2 class="h2-responsive text-center font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">ইউজার নির্দেশিকা</h2>
                 <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
-                <p class="wow fadeInLeft" data-wow-delay="0.3s">Lorem ipsum dolor sit amet, consectetur
-                  adipisicing elit. Rem repellendus quasi fuga nesciunt dolorum nulla magnam veniam sapiente,
-                  fugiat! Commodi sequi non animi ea dolor molestiae, quisquam iste, maiores. Nulla.</p>
+                <p class="wow fadeInLeft" data-wow-delay="0.3s">FindWorkers একটি অনলাইন বেইস প্লাটফরম। এখানে যেকোনো ধরনের কাজের লোক আপনি সহজেই খুজে পাবেন।
+                আরও বিস্তারিত জানতে ভিডিওটি দেখুন --------> </p>
                 <br>
-                <a class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s">Just do it!</a>
+              
               </div>
             </div>
 
             <div class="col-lg-6 wow fadeIn">
               <div class="embed-responsive embed-responsive-16by9 wow fadeInRight">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/IQyauRAxvjI"
-                  allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/2jXdzfsdLCQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </div>
             </div>
           </div>

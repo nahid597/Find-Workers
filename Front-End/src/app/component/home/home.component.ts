@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit, DoCheck {
   userr;
   user;
   href;
+  worker = false;
   private isComplete = false;
   private authListerSubs: Subscription;
 
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     this.user = this.auth.getUserId();
+    this.worker = this.auth.isWorrker();
     console.log(this.user);
     this.isComplete = this.auth.isComplete();
   }
@@ -53,9 +55,9 @@ export class HomeComponent implements OnInit, DoCheck {
 
   navigateUrlByCategory(data) {
     if (!this.user) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/userlogin']);
     } else {
-      this.href = 'http://127.0.0.1:4444/map/map.component.html?_id=' + this.user.userId._id + '&Category=' + data;
+      this.href = 'http://localhost:4444/map/map.component.html?_id=' + this.user.userId._id + '&_category=' + data;
       location.href = this.href;
     }
   }
