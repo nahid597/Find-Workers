@@ -5,9 +5,7 @@
             <div class="text-center">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRr2hSx5nyxgBo3jvxahHr9PAEZ7e-e_YfBE9L4DsZX6fzxpJWS" alt="Avatar">
                 <br/>
-                <div>
-                    <bar-rating style="align: center;" rate="rate" [max]="5"></bar-rating>
-                </div>
+                <bar-rating [titles]="['Bad', 'Mediocre' , 'Good', 'Awesome']"  [(rate)]="rate" [max]="5"></bar-rating>
                 <h5>{{profile.userId.Category}}</h5>
                 <h5><pre>Rating:    {{profile.userId.Rating.rating}}/5</pre></h5>
                 <h5><pre>Total:       {{profile.userId.Rating.count}}</pre></h5>

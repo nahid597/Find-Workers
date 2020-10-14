@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit, DoCheck {
   profile: any;
   private authListerSubs: Subscription;
   private id;
-  rate = 0;
+  rate = 3;
   status;
 
   constructor(private authService: LoginService) { }

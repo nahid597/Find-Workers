@@ -55,7 +55,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
 
     this.formdata = this.authService.getUserId();
-    // console.log(this.formdata.userId);
+    console.log(this.formdata.userId.Category);
     this.authStatusSub = this.authService.getAuthStatus().subscribe(authStatus => {
         this.isLoadin = false;
         console.log(authStatus);
@@ -64,11 +64,12 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
   updateProfile(formmData) {
     console.log(formmData.value);
+    const cat = formmData.value.Category ? formmData.value.Category : this.formdata.userId.Category;
     this.ob = {
       _id: this.formdata.userId._id,
       Name: formmData.value.Name,
       Phone: formmData.value.Phone,
-      Category: formmData.value.Category
+      Category: cat
     };
     console.log(this.ob);
     this.isLoadin = true;

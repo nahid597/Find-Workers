@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg text-center fixed-top bg-light">
-  <div class="container">
+<nav>
+  <!--div class="container">
   <a class="navbar-brand navfont h4-responsive activelink" href="/">FindWorkers</a>
   <button class="navbar-toggler navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -62,5 +62,33 @@
       <li class="nav-item activelink"><a class="nav-link" href="#"><i class="fa fa-globe mr-2"></i>En</a></li>
     </ul>
   </div>
+  </div-->
+
+  <div class="topnav" id="myTopnav">
+    <div class="container">
+    <a style="margin-top: 7px;" class="active ml-auto navfont" routerLink="/"  (click)="myFunction()">BDAid</a>
+    <label style="margin-left: 190px; top: 15px;" class="center" *ngIf="userAuthenticated && IsWorker && !isStatus" class="switch ">
+      <input type="checkbox" (change)="toggleEditable($event)">
+      <span class="slider round"></span>
+    </label>
+    <label style="margin-left: 190px; top: 15px;" class="center" *ngIf="userAuthenticated && IsWorker && isStatus" class="switch ">
+      <input type="checkbox" (change)="toggleEditable($event)" checked>
+      <span class="slider round"></span>
+    </label>
+    <a style="margin-top: 7px;" class="ml-4" routerLink="earn" (click)="myFunction()">আয় করুন</a>
+    <a style="margin-top: 7px;" class="ml-4" routerLink="services" (click)="myFunction()">সেবাসমূহ</a>
+    <a *ngIf="isAdmin" style="margin-top: 7px;" class="ml-4" routerLink="category" (click)="myFunction()">অন্যান্য</a>
+    <a style="margin-top: 7px;" class="ml-4" routerLink = "help/customer" (click)="myFunction()">Customer</a>
+    <a style="margin-top: 7px;" class="ml-4" routerLink = "help/worker" (click)="myFunction()">Worker</a>
+    <a style="margin-top: 7px;" *ngIf="userAuthenticated" (click)="myFunction()" routerLink="profile">প্রোফাইল</a>
+    <a style="margin-top: 7px;" *ngIf="userAuthenticated" href="/"  (click)="onLogout()">Logout</a>
+    <a style="margin-top: 7px;" *ngIf="!userAuthenticated" class="ml-auto" (click)="myFunction()" routerLink="login"><i class="fa fa-user mr-2"></i>Login</a>
+    <a *ngIf="!userAuthenticated" (click)="myFunction()" routerLink="register"><button class="btn btn-outline-success" type="submit">Signup</button></a>
+    
+
+    <a style="margin-top: 7px;" href="javascript:void(0)" class="icon" (click)="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+    </div>
   </div>
 </nav>

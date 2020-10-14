@@ -127,6 +127,7 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   onLogout() {
+    this.myFunction();
     console.log('logout');
     this.ob = {
       _id: this.userId.userId._id,
@@ -177,6 +178,15 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
 
   showFlip() {
     this.show = !this.show;
+  }
+
+  myFunction() {
+    const x = document.getElementById('myTopnav');
+    if (x.className === 'topnav') {
+      x.className += ' responsive';
+    } else {
+      x.className = 'topnav';
+    }
   }
 
   ngOnDestroy() {
