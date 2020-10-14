@@ -66,12 +66,12 @@
 
   <div class="topnav" id="myTopnav">
     <div class="container">
-    <a style="margin-top: 7px;" class="active ml-auto navfont" routerLink="/"  (click)="myFunction()">BDAid</a>
-    <label style="margin-left: 190px; top: 15px;" class="center" *ngIf="userAuthenticated && IsWorker && !isStatus" class="switch ">
+    <a style="margin: 5px;" class="active ml-auto navfont" routerLink="/"  (click)="myFunction()">BDAid</a>
+    <label style="margin: 10px;" class="center" *ngIf="userAuthenticated && IsWorker && !isStatus" class="switch ">
       <input type="checkbox" (change)="toggleEditable($event)">
       <span class="slider round"></span>
     </label>
-    <label style="margin-left: 190px; top: 15px;" class="center" *ngIf="userAuthenticated && IsWorker && isStatus" class="switch ">
+    <label style="margin: 10px;" class="center" *ngIf="userAuthenticated && IsWorker && isStatus" class="switch ">
       <input type="checkbox" (change)="toggleEditable($event)" checked>
       <span class="slider round"></span>
     </label>

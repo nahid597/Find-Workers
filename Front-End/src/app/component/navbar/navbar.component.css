@@ -257,8 +257,9 @@ input:checked + .slider:before {
 }
 
 .topnav a.active {
-  background-color: #4CAF50;
+  background-color: #1092a3;
   color: white;
+  font-size: 12px;
 }
 
 .topnav .icon {

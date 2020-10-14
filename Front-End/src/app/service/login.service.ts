@@ -23,7 +23,7 @@ export class LoginService {
   private ob;
   private _id: any;
   private status = false;
-  private serverRout = 'http://192.168.43.70:4444';
+  private serverRout = 'http://127.0.0.1:4444';
   private updateUrl = this.serverRout + '/admin/users?_id=';
   private getUrl = this.serverRout + '/admin/users';
   private userpath = this.serverRout + '/admin/users/login';
