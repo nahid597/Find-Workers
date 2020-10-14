@@ -298,6 +298,7 @@ export class LoginService {
         this.http.post<{userId: any}>(this.serverRout + '/admin/workers/get', this.idd)
             .subscribe(res => {
                 this.status = res.userId.Active_status;
+                this.userId = res;
 
                 console.log(this.status);
             });
