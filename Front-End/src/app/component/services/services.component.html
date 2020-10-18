@@ -1,17 +1,16 @@
-<div class="container" style="padding-top: 5%; padding-bottom: 10%;">
-  <div class="row">
-    <div *ngFor="let p of categoryWorker; let i = index">
-      <div class="mt-4 col-sm-2">
+<div class="container card-deck" style="padding-top: 5%; padding-bottom: 10%;">
+    <div class="row" *ngFor="let p of categoryWorker; let i = index">
+    <div class="col-md-12 col-sm-3 col-lg-12">
         <a (click)="navigateUrl(p.title)">
-          <div class="card" style="width: 9rem; height: 13rem">
+          <div class="card">
+          <div class="card-block">
             <img class="card-img-top imageclass" src="{{p.image}}">
             <div class="card-body text-center">
               <h6 style="margin-top: auto;" class="align-self-end card-title">{{p.title}}</h6>
             </div>
           </div>
+          </div>
         </a>
-      </div>
-      <div *ngIf="(i + 1) % 5 === 0" class="w-70"></div>
     </div>
-  </div>
+    </div>
 </div>

@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { PhoneValidationService } from '../../service/phone-validation.service';
 
 @Component({
   selector: 'app-user-register',
@@ -23,7 +24,9 @@ export class UserRegisterComponent implements OnInit, OnDestroy, DoCheck {
     };
   }
 
-  constructor(private fb: FormBuilder, private authService: LoginService) {}
+  constructor(private fb: FormBuilder,
+              private authService: LoginService,
+              private validate: PhoneValidationService) {}
 
   registrationForm = this.fb.group({
     Name: ['', Validators.required],
@@ -59,7 +62,11 @@ export class UserRegisterComponent implements OnInit, OnDestroy, DoCheck {
       this.str = 'Please fill all required (*) field';
     } else if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
       this.isLoadin = true;
-      this.authService.createUser(formData.value);
+      const ob = {
+        Phone: '+88' + formData.value.Phone,
+      };
+      this.validate.validationFunction(ob, formData.value, false);
+      // this.authService.createUser(formData.value);
       console.log(formData.value);
       return;
     }

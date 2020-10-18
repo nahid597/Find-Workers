@@ -1,0 +1,12 @@
+<div class="text-center" style="padding: 10%; padding-bottom: 60%; padding-left: 20%; padding-right: 20%;">
+    <div  class="jumbotron">
+        <h6>Put 6 digit code to verify your number</h6><br>
+
+        <p *ngIf="str" class="text-danger">{{str}}</p>
+
+        <input #f type="text" value=""/><br><br>
+        <small>can't receive?  '</small><button (click)="resendCode()">resend</button><br><br>
+        <button class="btn btn-primary" (click)="matchCode(f)">Submit</button>
+    </div>
+
+</div>

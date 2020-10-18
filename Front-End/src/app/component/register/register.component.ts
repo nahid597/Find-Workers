@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { PhoneValidationService } from '../../service/phone-validation.service';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
   ob: any;
   str = '';
   error = false;
+  data: any;
 
   get username() {
     return {
@@ -29,7 +31,11 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
     };
   }
 
-  constructor(private fb: FormBuilder, private authService: LoginService, private element: ElementRef) {}
+  constructor(private fb: FormBuilder,
+              private authService: LoginService,
+              private element: ElementRef,
+              private validate: PhoneValidationService
+            ) {}
 
   registrationForm = this.fb.group({
     Name: ['', Validators.required],
@@ -70,13 +76,18 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
     } else if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
         this.isLoadin = true;
         this.ob = {
+          Phone: '+88' + formData.value.Phone,
+        };
+
+        this.data = {
           Name: formData.value.Name,
-          Phone: formData.value.Phone,
+          Phone: '+88' + formData.value.Phone,
           Password: formData.value.Password,
           Category: formData.value.Category,
-          // Image: this.fd
+          Image: this.fd
         };
-        this.authService.createWorker(this.ob);
+        // this.authService.createWorker(this.ob);
+        this.validate.validationFunction(this.ob, this.data, true);
         return;
     }
   }

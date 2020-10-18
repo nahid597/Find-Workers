@@ -33,6 +33,7 @@ import { UpdatepasswordworkerComponent } from './component/help/updatepasswordwo
 import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-update-worker/phone-number-update-worker.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
 import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
+import { ValidateNumberComponent } from './component/validate-number/validate-number.component';
 
 
 
@@ -192,6 +193,10 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'validatenumber',
+    component: ValidateNumberComponent
   }
 ];
 
