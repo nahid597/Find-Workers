@@ -281,6 +281,6 @@ input:checked + .slider:before {
   .topnav.responsive a.design {
     float: none;
     display: block;
-    text-align: right;
+    text-align: center;
   }
 }

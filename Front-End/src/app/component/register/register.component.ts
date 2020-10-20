@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
 
         this.data = {
           Name: formData.value.Name,
-          Phone: '+88' + formData.value.Phone,
+          Phone:  formData.value.Phone,
           Password: formData.value.Password,
           Category: formData.value.Category,
           Image: this.fd

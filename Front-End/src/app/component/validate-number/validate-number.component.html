@@ -4,7 +4,7 @@
 
         <p *ngIf="str" class="text-danger">{{str}}</p>
 
-        <input #f type="text" value=""/><br><br>
+        <input #f type="text" [(ngModel)]="searchValue"/><br><br>
         <small>can't receive?  '</small><button (click)="resendCode()">resend</button><br><br>
         <button class="btn btn-primary" (click)="matchCode(f)">Submit</button>
     </div>

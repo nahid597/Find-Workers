@@ -75,15 +75,15 @@
       <input type="checkbox" (change)="toggleEditable($event)" checked>
       <span class="slider round"></span>
     </label>
-    <a style="margin-top: 7px" class="ml-2 design" routerLink="/"  (click)="myFunction()">হোম</a>
-    <a style="margin-top: 7px" class="ml-2 design" routerLink="earn" (click)="myFunction()">আয় করুন</a>
-    <a style="margin-top: 7px" class="ml-2 design" routerLink="services" (click)="myFunction()">সেবাসমূহ</a>
-    <a *ngIf="isAdmin" style="margin-top: 7px" class="ml-2 design" routerLink="category" (click)="myFunction()">অন্যান্য</a>
-    <a style="margin-top: 7px" class="ml-2 design" routerLink = "help/customer" (click)="myFunction()">Customer</a>
-    <a style="margin-top: 7px" class="ml-2 design" routerLink = "help/worker" (click)="myFunction()">Worker</a>
-    <a style="margin-top: 7px" class="ml-2 design" *ngIf="userAuthenticated" (click)="myFunction()" routerLink="profile">প্রোফাইল</a>
-    <a style="margin-top: 7px" class="ml-2 design" *ngIf="userAuthenticated" href="/"  (click)="onLogout()">Logout</a>
-    <a style="margin-top: 7px" *ngIf="!userAuthenticated" class="ml-2 design" (click)="myFunction()" routerLink="login"><i class="fa fa-user mr-2"></i>Login</a>
+    <a style="margin-top: 7px; margin-left: 10px;" class="ml-2 design" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  (click)="myFunction()">হোম</a>
+    <a style="margin-top: 7px; margin-left: 10px;" class="ml-2 design" routerLink="earn" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="myFunction()">আয় করুন</a>
+    <a style="margin-top: 7px; margin-left: 10px;" class="ml-2 design" routerLink="services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="myFunction()">সেবাসমূহ</a>
+    <a *ngIf="isAdmin" style="margin-top: 7px; margin-left: 10px;" class="ml-2 design" routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="myFunction()">অন্যান্য</a>
+    <a style="margin-top: 7px; margin-left: 10px;" class="ml-2 design" routerLink = "help/customer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="myFunction()">Customer</a>
+    <a style="margin-top: 7px; margin-left: 10px;" class="ml-2 design" routerLink = "help/worker" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="myFunction()">Worker</a>
+    <a style="margin-top: 7px; margin-left: 10px;" class="ml-2 design" *ngIf="userAuthenticated" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="myFunction()" routerLink="profile">প্রোফাইল</a>
+    <a style="margin-top: 7px; margin-left: 10px;" class="ml-2 design" *ngIf="userAuthenticated" href="/"  (click)="onLogout()">Logout</a>
+    <a style="margin-top: 7px; margin-left: 10px;" *ngIf="!userAuthenticated" class="ml-2 design" (click)="myFunction()" routerLink="login"><i class="fa fa-user mr-2"></i>Login</a>
     <a *ngIf="!userAuthenticated" (click)="myFunction()" class="ml-2 design" routerLink="register"><button class="btn btn-outline-success" type="submit">Signup</button></a>
     
 

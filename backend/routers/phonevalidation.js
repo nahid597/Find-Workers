@@ -15,7 +15,7 @@ router.post('/phone', function(req,res, next){
     .create({
         body: randomNumberMessage,
         from: twilioNumber,
-        to: req.body.Phone
+        to:  req.body.Phone
     })
     .then(message => res.send(message));
     console.log(req.body.Phone);

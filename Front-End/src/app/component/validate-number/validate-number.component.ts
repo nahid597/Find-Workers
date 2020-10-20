@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, ElementRef, ViewChild } from '@angular/core';
 import { PhoneValidationService } from '../../service/phone-validation.service';
 import { LoginService } from '../../service/login.service';
 
@@ -13,6 +13,7 @@ export class ValidateNumberComponent implements OnInit, DoCheck {
   mainData: any;
   str = '';
   check: any;
+  searchValue = '';
 
   constructor(private validate: PhoneValidationService, private register: LoginService) { }
 
@@ -42,9 +43,10 @@ export class ValidateNumberComponent implements OnInit, DoCheck {
 
   resendCode() {
     this.str = '';
-    console.log(this.mainData.Phone);
+    this.searchValue = '';
+    console.log('this.mainData.Phone');
     const ob = {
-      Phone: this.mainData.Phone
+      Phone: '+88' + this.mainData.Phone
     };
     this.validate.validationFunction(ob, this.mainData, this.check);
   }
