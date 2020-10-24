@@ -50,6 +50,10 @@ export class WorkerLoginComponent implements OnInit, OnDestroy, DoCheck {
     this.authService.workerLogin(formData.value);
   }
 
+  setUserIdentity() {
+    this.authService.setUserIdentity(true);
+  }
+
   ngOnDestroy() {
       this.authStatusSub.unsubscribe();
   }

@@ -73,7 +73,7 @@ export class EditUserProfileComponent implements OnInit, OnDestroy, DoCheck {
     };
     console.log(this.ob);
     this.isLoadin = true;
-    this.authService.updateWorker(this.ob, this.serverRoute + '/admin/users/update', this.serverRoute + '/admin/users/get');
+    this.authService.updateWorker(this.ob, this.serverRoute + '/admin/users/update');
     // setTimeout(() => {
 
     // }, 500);

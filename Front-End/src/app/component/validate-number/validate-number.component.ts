@@ -1,6 +1,7 @@
 import { Component, OnInit, DoCheck, ElementRef, ViewChild } from '@angular/core';
 import { PhoneValidationService } from '../../service/phone-validation.service';
 import { LoginService } from '../../service/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-validate-number',
@@ -14,19 +15,24 @@ export class ValidateNumberComponent implements OnInit, DoCheck {
   str = '';
   check: any;
   searchValue = '';
+  checkForgetPassword: any;
 
-  constructor(private validate: PhoneValidationService, private register: LoginService) { }
+  constructor(private validate: PhoneValidationService,
+              private register: LoginService,
+              private router: Router) { }
 
   ngOnInit() {
     this.code = this.validate.getCode();
     this.mainData = this.validate.getMainData();
     this.check = this.validate.getCheck();
+    this.checkForgetPassword = this.validate.getForgetPasswordBoolianValue();
   }
 
   ngDoCheck() {
     this.code = this.validate.getCode();
     this.mainData = this.validate.getMainData();
     this.check = this.validate.getCheck();
+    this.checkForgetPassword = this.validate.getForgetPasswordBoolianValue();
     console.log(this.mainData);
   }
 
@@ -34,10 +40,14 @@ export class ValidateNumberComponent implements OnInit, DoCheck {
     console.log(f.value);
     if (this.code === f.value) {
       console.log('code is correct');
-      this.check ? this.register.createWorker(this.mainData) : this.register.createUser(this.mainData);
+      if (this.checkForgetPassword) {
+        this.router.navigate(['/choosepassword']);
+      } else {
+        this.check ? this.register.createWorker(this.mainData) : this.register.createUser(this.mainData);
+      }
     } else {
-      console.log('code is incorrect');
-      this.str = 'incorrect code';
+        console.log('code is incorrect');
+        this.str = 'incorrect code';
     }
   }
 
@@ -48,7 +58,7 @@ export class ValidateNumberComponent implements OnInit, DoCheck {
     const ob = {
       Phone: '+88' + this.mainData.Phone
     };
-    this.validate.validationFunction(ob, this.mainData, this.check);
+    this.validate.validationFunction(ob, this.mainData, this.checkForgetPassword, this.check);
   }
 
 }

@@ -73,7 +73,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     };
     console.log(this.ob);
     this.isLoadin = true;
-    this.authService.updateWorker(this.ob, this.serverRoute + '/admin/workers/update', this.serverRoute + '/admin/workers/get');
+    this.authService.updateWorker(this.ob, this.serverRoute + '/admin/workers/update');
     // setTimeout(() => {
 
     // }, 500);

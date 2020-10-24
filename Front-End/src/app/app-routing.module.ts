@@ -34,6 +34,8 @@ import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
 import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
 import { ValidateNumberComponent } from './component/validate-number/validate-number.component';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { ChoosePasswordComponent } from './component/choose-password/choose-password.component';
 
 
 
@@ -41,6 +43,14 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'changepassword',
+    component: ChangePasswordComponent
+  },
+  {
+    path: 'choosepassword',
+    component: ChoosePasswordComponent
   },
   {
     path: 'home',
@@ -71,7 +81,7 @@ const routes: Routes = [
     component: UserRegisterComponent
   },
   {
-    path: 'earn',
+    path: 'earn taka',
     component: EarnComponent
   },
   {

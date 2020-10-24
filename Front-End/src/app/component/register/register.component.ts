@@ -4,6 +4,8 @@ import { LoginService } from '../../service/login.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { PhoneValidationService } from '../../service/phone-validation.service';
+import { HttpClient } from '@angular/common/http';
+import { RouteService } from '../../service/route.service';
 
 @Component({
   selector: 'app-register',
@@ -34,7 +36,9 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
   constructor(private fb: FormBuilder,
               private authService: LoginService,
               private element: ElementRef,
-              private validate: PhoneValidationService
+              private validate: PhoneValidationService,
+              private http: HttpClient,
+              private route: RouteService
             ) {}
 
   registrationForm = this.fb.group({
@@ -87,7 +91,13 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
           Image: this.fd
         };
         // this.authService.createWorker(this.ob);
-        this.validate.validationFunction(this.ob, this.data, true);
+        this.http.post(this.route.serverRout + '/admin/workers/checkphone', formData.value)
+        .subscribe(response => {
+          console.log(response);
+          (response) ? this.str = 'Phone number already exists' :
+          this.validate.validationFunction(this.ob, this.data, false, true);
+        });
+
         return;
     }
   }

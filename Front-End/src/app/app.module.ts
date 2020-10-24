@@ -55,6 +55,8 @@ import { ValidatorComponent } from './component/validator/validator.component';
 import { ValidatorService } from './service/validator.service';
 import { PhoneValidationService } from './service/phone-validation.service';
 import { ValidateNumberComponent } from './component/validate-number/validate-number.component';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { ChoosePasswordComponent } from './component/choose-password/choose-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +95,9 @@ import { ValidateNumberComponent } from './component/validate-number/validate-nu
     PhoneNumberUpdateWorkerComponent,
     UpdatepasswordworkerComponent,
     ValidatorComponent,
-    ValidateNumberComponent
+    ValidateNumberComponent,
+    ChangePasswordComponent,
+    ChoosePasswordComponent
   ],
   imports: [
     MatButtonModule,

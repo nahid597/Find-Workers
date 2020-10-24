@@ -99,6 +99,20 @@ router.post('/login', (req, res , next) => {
 
 });
 
+router.post('/checkphone', (req,res,next) => {
+    console.log(req.body.Phone);
+    Worker.findOne({Phone: req.body.Phone})
+    .then(worker => {
+        console.log(worker);
+        worker? res.send(true) : res.send(false);
+    })
+    .catch(err => {
+        return res.status(404).json({
+            message: 'Failed!'
+        });
+    });
+});
+
 router.post('/signup',upload.single('file'), (req, res, next) => {
     console.log(req.body.Image);
     bcryptjs.hash(req.body.Password, 10)
@@ -169,16 +183,16 @@ router.put('/update', function(req, res) {
     });
 });
 
-router.put('/password/update',function(req,res){
+// router.put('/password/update',function(req,res){
     
-    operation.updateData(Worker,{Phone : req.body.Phone_number},{Password : req.body.Newpass},function(err)
-    {
-        if(err != true)
-         res.status(500).json(err);
-         else 
-         res.status(200).json('password update successfully');
-    });
-});
+//     operation.updateData(Worker,{Phone : req.body.Phone_number},{Password : req.body.Newpass},function(err)
+//     {
+//         if(err != true)
+//          res.status(500).json(err);
+//          else 
+//          res.status(200).json('password update successfully');
+//     });
+// });
 
 router.put('/phone-number/update',function(req,res){
    
@@ -186,6 +200,24 @@ router.put('/phone-number/update',function(req,res){
         if(err != true)
         res.status(500).json(err);
         else res.status(200).json('phone number update successfully!!!');
+    });
+});
+
+router.put('/password/update', function(req,res){
+    bcryptjs.hash(req.body.Password, 10)
+    .then(hash => {
+        req.body.Password = hash;
+        Worker.findOneAndUpdate({ Phone: req.body.Phone }, req.body, { upsert: true }, function(err) {
+            if (err){
+                console.log(err);
+                res.status(400).send({
+                    error: false
+                });
+            }
+            else {
+                res.status(200).send({error: true});
+            }
+        });
     });
 });
 

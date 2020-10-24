@@ -11,7 +11,9 @@ export class PhoneValidationService {
   private getUrl = this.serverRout + '/validate/phone';
   code;
   mainData: any;
-  check: any;
+  userStatus: any;
+  checkForgetPassword = false;
+  phoneNumber: any;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -24,10 +26,22 @@ export class PhoneValidationService {
   }
 
   getCheck() {
-    return this.check;
+    return this.userStatus;
   }
 
-  validationFunction(data, mainData, check) {
+  getForgetPasswordBoolianValue() {
+    return this.checkForgetPassword;
+  }
+
+  setPhone(phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  getPhone() {
+    return this.phoneNumber;
+  }
+
+  validationFunction(data, mainData, forgetStatus, userStatus) {
     console.log(data);
     this.http.post<any>(this.getUrl, data)
     .subscribe((response) => {
@@ -36,7 +50,8 @@ export class PhoneValidationService {
       this.code = array[7];
       console.log(array[7]);
       this.mainData = mainData;
-      this.check = check;
+      this.userStatus = userStatus;
+      this.checkForgetPassword = forgetStatus;
       this.router.navigate(['/validatenumber']);
     });
   }

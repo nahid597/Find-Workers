@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { AuthData } from '../component/auth-data.model';
+import { RouteService } from './route.service';
 
 
 @Injectable({
@@ -23,21 +24,30 @@ export class LoginService {
   private ob;
   private _id: any;
   private status = false;
-  private serverRout = 'http://192.168.43.70:4444';
-  private updateUrl = this.serverRout + '/admin/users?_id=';
-  private getUrl = this.serverRout + '/admin/users';
-  private userpath = this.serverRout + '/admin/users/login';
-  private workerpath = this.serverRout + '/admin/workers/login';
-  private workerregister = this.serverRout + '/admin/workers/signup';
-  private userregister = this.serverRout + '/admin/users/signup';
+  private serverRout;
+  private updateUrl;
+  private getUrl;
+  private userpath;
+  private workerpath;
+  private workerregister;
+  private userregister;
   private authStatus = new Subject<boolean>();
   private expireInDuration;
   private error = false;
   private err = false;
   check = true;
+  identity: any;
   obj: {};
 
-    constructor(private http: HttpClient , private router: Router) {}
+    constructor(private http: HttpClient , private router: Router, route: RouteService) {
+        this.serverRout = route.serverRout;
+        this.updateUrl = route.updateUrl;
+        this.getUrl = route.getUrl;
+        this.userpath = route.userpath;
+        this.workerpath = route.workerpath;
+        this.workerregister = route.workerregister;
+        this.userregister = route.userregister;
+    }
 
     getServerRoute() {
         return this.serverRout;
@@ -87,13 +97,25 @@ export class LoginService {
         return this.check;
     }
 
+    setCheck(value) {
+        this.check = value;
+    }
+
     getUser(id, url) {
         return this.http.get(url + id);
     }
 
+    setUserIdentity(identity) {
+        this.identity = identity;
+    }
+
+    getUserIdentity() {
+        return this.identity;
+    }
+
     // for update worker data
 
-    updateWorkerPosition(authData, updateUrl, getUrl) {
+    updateWorkerPosition(authData, updateUrl) {
         console.log(authData);
         console.log(authData);
         this.http.put<any>(updateUrl , authData)
@@ -121,7 +143,7 @@ export class LoginService {
         });
     }
 
-    updateWorker(authData, updateUrl, getUrl) {
+    updateWorker(authData, updateUrl) {
         console.log(authData);
         console.log(authData);
         this.http.put<any>(updateUrl , authData)
@@ -152,7 +174,7 @@ export class LoginService {
     }
 
 
-    updateWorkerStatus(authData, updateUrl, getUrl) {
+    updateWorkerStatus(authData, updateUrl) {
         console.log(authData);
         console.log(authData);
         this.http.put<any>(updateUrl , authData)
@@ -316,7 +338,7 @@ export class LoginService {
                     }
                 };
                 console.log(this.ob);
-                this.updateWorker(this.ob, this.updateUrl, this.getUrl);
+                this.updateWorker(this.ob, this.updateUrl);
             });
             } else {
             console.log('error');
