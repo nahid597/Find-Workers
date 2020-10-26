@@ -47,7 +47,7 @@ export class ServicesComponent implements OnInit, DoCheck {
     if (!this.user) {
       this.router.navigate(['/login']);
     } else {
-      this.href = 'http://192.168.43.70:4444/admin/workers?Active_status=true&Category=' + data;
+      this.href = 'http://127.0.0.1:4444/admin/workers?Active_status=true&Category=' + data;
       location.href = this.href;
     }
   }

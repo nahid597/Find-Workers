@@ -1,17 +1,17 @@
 <div *ngIf="profile.userId.IsWorker" class="border-box ">
     <div style="padding-top: 5%; padding-bottom: 10%; padding-left: 10%; padding-right: 10%;">
         <div class="m-2" style="padding: 5%;background: #F0E68C;">
-            <h4 class="text-center text-danger">Professional details</h4>
-            <div class="text-center text-info">
+            <h4 class="text-center">Professional details</h4>
+            <div class="text-center">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRr2hSx5nyxgBo3jvxahHr9PAEZ7e-e_YfBE9L4DsZX6fzxpJWS" alt="Avatar">
                 <br/>
                 <ngb-rating [rate]="ratepoint" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
-                <h5 class="text-info">{{workerCategory}}</h5>
-                <h5 class="text-info"><pre class="text-info">Rating:    {{profile.userId.Rating.rating}}/5</pre></h5>
-                <h5><pre class="text-info">Total:       {{profile.userId.Rating.count}}</pre></h5>
-                <h5 *ngIf="status"><pre class="text-info">Status: <small class="text-success">Active</small></pre></h5>
-                <h5 *ngIf="!status"><pre class="text-info">Status: <small class="text-danger">Inactive</small></pre></h5>
-                <a class="btn btn-success" href="http://192.168.0.122:4487/workermap/workermap.component.html?_id={{id}}">Go to Map</a>
+                <h5>{{workerCategory}}</h5>
+                <h5><pre>Rating:    {{profile.userId.Rating.rating}}/5</pre></h5>
+                <h5><pre>Total:       {{profile.userId.Rating.count}}</pre></h5>
+                <h5 *ngIf="status"><pre>Status: <small class="text-success">Active</small></pre></h5>
+                <h5 *ngIf="!status"><pre>Status: <small class="text-danger">Inactive</small></pre></h5>
+                <a class="btn btn-success" href="http://127.0.0.1:4444/workermap/workermap.component.html?_id={{id}}">Go to Map</a>
             </div>
             <br>
 
@@ -21,12 +21,20 @@
             <hr>
         </div>
         <div class="m-2" style="padding: 5%; background-color: #E6BE8A;">
-            <h4 class="text-center text-danger">About Me</h4>
+            <h4 class="text-center">About Me</h4>
+
+
             <hr>
-            <div class="text-center">
-                <h5><pre class="text-info">Name: {{profile.userId.Name}}</pre></h5>
-                <h5><pre class="text-info">Phone: {{profile.userId.Phone}}</pre></h5>
-                <h5><pre class="text-info">Category: {{workerCategory}}</pre></h5>
+            <div class="contest">
+                <h5><pre>Name    : {{profile.userId.Name}}</pre></h5>
+            </div>
+            <div class="contest">
+                <h5><pre>Phone   : {{profile.userId.Phone}}</pre></h5>
+            </div>
+            <div class="contest">
+                <h5><pre>Category: {{workerCategory}}</pre></h5>
+            </div>
+            <div class="contest">
                 <a [routerLink]="['/profile/',profile.userId._id]"><button class="btn btn-success">Edit Profile</button></a>
             </div>
         </div>
@@ -37,26 +45,30 @@
 <div *ngIf="!profile.userId.IsWorker" class="border-box">
     <div style="padding-top: 5%; padding-bottom: 10%; padding-left: 10%; padding-right: 10%;">
         <div class="m-2" style="padding: 5%;background: #F0E68C;">
-            <h4 class="text-center text-danger">Professional details</h4>
+            <h4 class="text-center">Professional details</h4>
             <div class="text-center">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRr2hSx5nyxgBo3jvxahHr9PAEZ7e-e_YfBE9L4DsZX6fzxpJWS" alt="Avatar">
                 <br/>
-                <h5 class="text-info">User</h5>
-                <p class="text-info">Total service: 7</p>
-                <a class="btn btn-primary" href="http://192.168.0.122:4487/workermap/workermap.component.html?_id={{id}}">Go to Map</a>
+                <h5>User</h5>
+                <p>Total service: 7</p>
+                <a class="btn btn-primary" href="http://127.0.0.1:4444/workermap/workermap.component.html?_id={{id}}">Go to Map</a>
             </div>
             <hr>
             <img src="{{profile.userId.Image}}">
         </div>
         <div class="m-2" style="padding: 5%; background-color: #E6BE8A;">
-            <h4 class="text-center text-danger">About Me</h4>
+            <h4 class="text-center">About Me</h4>
 
 
             <hr>
-            <div class="text-info">
-                <h5><pre class="text-info">Name    : {{profile.userId.Name}}</pre></h5>
-                <h5><pre class="text-info">Phone   : {{profile.userId.Phone}}</pre></h5>
-                <h5><pre class="text-info">Category: User</pre></h5>
+            <div class="contest">
+                <h5><pre>Name    : {{profile.userId.Name}}</pre></h5>
+            </div>
+            <div class="contest">
+                <h5><pre>Phone   : {{profile.userId.Phone}}</pre></h5>
+            </div>
+            <div class="contest">
+                <h5><pre>Category: User</pre></h5>
             </div>
             <div class="contest">
                 <a [routerLink]="['/userprofile/',profile.userId._id]"><button class="btn btn-success">Edit Profile</button></a>

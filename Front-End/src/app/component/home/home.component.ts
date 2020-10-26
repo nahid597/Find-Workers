@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, DoCheck {
     if (!this.user) {
       this.router.navigate(['/login']);
     } else {
-      this.href = 'http://192.168.0.122:4487/map/map.component.html?_id=' + this.user.userId._id;
+      this.href = 'http://127.0.0.1:4444/map/map.component.html?_id=' + this.user.userId._id;
       location.href = this.href;
     }
   }
