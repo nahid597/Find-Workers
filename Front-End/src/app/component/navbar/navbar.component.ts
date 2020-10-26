@@ -62,7 +62,7 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
               }
             };
             console.log(this.ob);
-            this.authService.updateWorkerPosition(this.ob, this.updateUrl, this.getUrl);
+            this.authService.updateWorkerPosition(this.ob, this.updateUrl);
           } else if (!this.IsWorker) {
             console.log('dfdfd');
             this.ob = {
@@ -73,7 +73,7 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
               }
             };
             console.log(this.ob);
-            this.authService.updateWorkerPosition(this.ob, this.updateUrlUser, this.getUrlUser);
+            this.authService.updateWorkerPosition(this.ob, this.updateUrlUser);
           }
         });
 
@@ -133,7 +133,7 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
       _id: this.userId.userId._id,
       Active_status: false
     };
-    this.authService.updateWorker(this.ob, this.updateUrl, this.getUrl);
+    this.authService.updateWorker(this.ob, this.updateUrl);
     this.authService.logout();
   }
 
@@ -159,7 +159,7 @@ export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
       }
     };
     console.log('ob ', this.ob);
-    this.authService.updateWorkerStatus(this.ob, this.updateUrl, this.getUrl);
+    this.authService.updateWorkerStatus(this.ob, this.updateUrl);
     // }, 10);
 
   }

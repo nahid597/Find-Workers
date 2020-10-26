@@ -3,6 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { PhoneValidationService } from '../../service/phone-validation.service';
+import { HttpClient } from '@angular/common/http';
+import { RouteService } from '../../service/route.service';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +20,7 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
   ob: any;
   str = '';
   error = false;
+  data: any;
 
   get username() {
     return {
@@ -29,7 +33,13 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
     };
   }
 
-  constructor(private fb: FormBuilder, private authService: LoginService, private element: ElementRef) {}
+  constructor(private fb: FormBuilder,
+              private authService: LoginService,
+              private element: ElementRef,
+              private validate: PhoneValidationService,
+              private http: HttpClient,
+              private route: RouteService
+            ) {}
 
   registrationForm = this.fb.group({
     Name: ['', Validators.required],
@@ -70,13 +80,24 @@ export class RegisterComponent implements OnInit, OnDestroy, DoCheck {
     } else if (formData.valid && formData.value.Password === formData.value.confirmPassword) {
         this.isLoadin = true;
         this.ob = {
+          Phone: '+88' + formData.value.Phone,
+        };
+
+        this.data = {
           Name: formData.value.Name,
-          Phone: formData.value.Phone,
+          Phone:  formData.value.Phone,
           Password: formData.value.Password,
           Category: formData.value.Category,
-          // Image: this.fd
+          Image: this.fd
         };
-        this.authService.createWorker(this.ob);
+        // this.authService.createWorker(this.ob);
+        this.http.post(this.route.serverRout + '/admin/workers/checkphone', formData.value)
+        .subscribe(response => {
+          console.log(response);
+          (response) ? this.str = 'Phone number already exists' :
+          this.validate.validationFunction(this.ob, this.data, false, true);
+        });
+
         return;
     }
   }

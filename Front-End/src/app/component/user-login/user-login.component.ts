@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { NgForm } from '@angular/forms';
@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css']
 })
-export class UserLoginComponent implements OnInit, OnDestroy {
+export class UserLoginComponent implements OnInit, DoCheck, OnDestroy {
 
   passwordCheck: any;
   check = true;
@@ -46,10 +46,14 @@ export class UserLoginComponent implements OnInit, OnDestroy {
  }
 
   userLogin(formData) {
-    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
     this.isLoading = true;
     this.authService.userLogin(formData.value);
+  }
+
+  setUserIdentity() {
+    this.authService.setUserIdentity(false);
   }
 
 

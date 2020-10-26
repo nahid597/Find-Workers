@@ -21,11 +21,15 @@ router.get('', function(req, res) {
 router.post('/login', (req, res , next) => {
 
     let fetchData;
+
+    console.log(req.body);
    
     User.findOne({Phone: req.body.Phone})
     .then(user => {
+        console.log(user);
         if(!user)
         {
+            console.log('not found');
             return res.status(404).json({
                 message: 'Auth failed!'
             });
@@ -36,6 +40,7 @@ router.post('/login', (req, res , next) => {
        return bcryptjs.compare(req.body.Password, fetchData.Password);
     })
     .then(result => {
+        console.log(result);
         if(!result)
         {
             return res.status(404).json({
@@ -125,16 +130,16 @@ router.put('/update', function(req, res) {
     });
 });
 
-router.put('/password/update',function(req,res){
+// router.put('/password/update',function(req,res){
     
-    operation.updateData(User,{Phone : req.body.Phone_number},{Password : req.body.Newpass},function(err)
-    {
-        if(err != true)
-         res.status(500).json(err);
-         else 
-         res.status(200).json('password update successfully');
-    });
-});
+//     operation.updateData(User,{Phone : req.body.Phone_number},{Password : req.body.Newpass},function(err)
+//     {
+//         if(err != true)
+//          res.status(500).json(err);
+//          else 
+//          res.status(200).json('password update successfully');
+//     });
+// });
 
 router.put('/phone-number/update',function(req,res){
    
@@ -145,5 +150,48 @@ router.put('/phone-number/update',function(req,res){
     });
 });
 
+router.post('/checkphone', function(req,res,next){
+    console.log(req.body);
+    User.findOne({Phone: req.body.Phone})
+        .then(user => {
+            user? res.send(true) : res.send(false);
+        })
+        .catch(err => {
+            return res.status(404).json({
+                message: 'phone validation error'
+            });
+        });
+});
+
+// router.post('/existance', (req,res,next) => {
+//     User.findOne({Phone: req.body.Phone})
+//     .then(user => {
+//         user? res.send(true) : res.send(false);
+//     })
+//     .catch(err => {
+//         return res.status(404).json({
+//             message: 'Failed!'
+//         });
+//     });
+// });
+
+router.put('/password/update', function(req,res){
+    bcryptjs.hash(req.body.Password, 10)
+    .then(hash => {
+        req.body.Password = hash;
+        User.findOneAndUpdate({ Phone: req.body.Phone }, req.body, { upsert: true }, function(err) {
+            if (err){
+                console.log(err);
+                res.status(400).send({
+                    error: false
+                });
+            }
+            else {
+                res.status(200).send({error: true});
+            }
+        });
+    });
+    
+});
 
 module.exports = router;

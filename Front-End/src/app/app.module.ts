@@ -53,6 +53,10 @@ import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-
 import { UpdatepasswordworkerComponent } from './component/help/updatepasswordworker/updatepasswordworker.component';
 import { ValidatorComponent } from './component/validator/validator.component';
 import { ValidatorService } from './service/validator.service';
+import { PhoneValidationService } from './service/phone-validation.service';
+import { ValidateNumberComponent } from './component/validate-number/validate-number.component';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { ChoosePasswordComponent } from './component/choose-password/choose-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +94,10 @@ import { ValidatorService } from './service/validator.service';
     EditUserProfileComponent,
     PhoneNumberUpdateWorkerComponent,
     UpdatepasswordworkerComponent,
-    ValidatorComponent
+    ValidatorComponent,
+    ValidateNumberComponent,
+    ChangePasswordComponent,
+    ChoosePasswordComponent
   ],
   imports: [
     MatButtonModule,
@@ -104,7 +111,7 @@ import { ValidatorService } from './service/validator.service';
     BarRatingModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS , useClass: AuthInterceptorService, multi: true},
-     LoginService, CategoryService, AuthGuardService, ValidatorService],
+     LoginService, CategoryService, AuthGuardService, ValidatorService, PhoneValidationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

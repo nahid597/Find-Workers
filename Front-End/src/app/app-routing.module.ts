@@ -33,6 +33,9 @@ import { UpdatepasswordworkerComponent } from './component/help/updatepasswordwo
 import { PhoneNumberUpdateWorkerComponent } from './component/help/phone-number-update-worker/phone-number-update-worker.component';
 import { EditprofileComponent } from './component/editprofile/editprofile.component';
 import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
+import { ValidateNumberComponent } from './component/validate-number/validate-number.component';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { ChoosePasswordComponent } from './component/choose-password/choose-password.component';
 
 
 
@@ -40,6 +43,14 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'changepassword',
+    component: ChangePasswordComponent
+  },
+  {
+    path: 'choosepassword',
+    component: ChoosePasswordComponent
   },
   {
     path: 'home',
@@ -70,7 +81,7 @@ const routes: Routes = [
     component: UserRegisterComponent
   },
   {
-    path: 'earn',
+    path: 'earn taka',
     component: EarnComponent
   },
   {
@@ -192,6 +203,10 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'validatenumber',
+    component: ValidateNumberComponent
   }
 ];
 
